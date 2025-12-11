@@ -60,6 +60,66 @@
         © 2025 LAILA.ONE — Private creative intelligence for visual storytellers.
     </footer>
 
-    <script src="app.js"></script>
+    <!-- ===================== PREVIEW SCRIPT ===================== -->
+    <script>
+        const fileInput = document.getElementById("fileInput");
+        const preview = document.getElementById("previewHolder");
+
+        fileInput.addEventListener("change", function () {
+            preview.innerHTML = "";
+            const file = this.files[0];
+            if (!file) return;
+
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(file);
+            img.className = "preview-img";
+
+            preview.appendChild(img);
+        });
+    </script>
+
+    <!-- ===================== BACKEND CONNECTION ===================== -->
+    <script>
+        async function uploadImageAndGetDescription(file) {
+            const formData = new FormData();
+            formData.append("image", file);
+
+            const backendURL =
+                "https://d10e6243-c58b-49f1-be59-b43234a564af-00-18g0n3rc9lyb.sisko.replit.dev/generate-description";
+
+            try {
+                const response = await fetch(backendURL, {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+                return data.description || "Error: No description returned.";
+
+            } catch (err) {
+                console.error(err);
+                return "Failed to reach Laila AI backend.";
+            }
+        }
+
+        // === Generate Prompt Button ===
+        document.getElementById("btnPrompt").addEventListener("click", async () => {
+            const fileInput = document.getElementById("fileInput");
+            const output = document.getElementById("promptOutput");
+
+            if (!fileInput.files.length) {
+                output.value = "Please upload an image first.";
+                return;
+            }
+
+            output.value = "Generating prompt… please wait.";
+
+            const file = fileInput.files[0];
+            const description = await uploadImageAndGetDescription(file);
+
+            output.value = description;
+        });
+    </script>
+
 </body>
 </html>
