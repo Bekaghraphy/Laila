@@ -13,24 +13,30 @@ body {
     overflow-x: hidden;
 }
 
-/* ANIMATED DARK GRADIENT (هادئ جداً) */
+/* ANIMATED VIOLET GRADIENT – SOFT & LUX */
 .animated-bg {
     position: fixed;
-    width: 250%;
-    height: 250%;
-    background: radial-gradient(circle at 30% 30%, #0b0b17, #0e0e1f, #000);
-    background-size: 300% 300%;
-    animation: moveBg 18s infinite ease-in-out;
-    filter: blur(160px);
-    opacity: 0.35;
+    width: 260%;
+    height: 260%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(140, 70, 255, 0.20),
+        rgba(90, 30, 180, 0.18),
+        rgba(40, 0, 90, 0.25),
+        #050014
+    );
+    animation: violetMove 18s infinite ease-in-out;
+    filter: blur(150px);
+    opacity: 0.38; /* لمعان بسيط جداً */
     z-index: -1;
 }
 
-@keyframes moveBg {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(-15%, -12%); }
-    100% { transform: translate(0, 0); }
+@keyframes violetMove {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-12%, -10%) scale(1.05); }
+    100% { transform: translate(0, 0) scale(1); }
 }
+
 
 /* LANGUAGE TOGGLE */
 .lang-toggle {
