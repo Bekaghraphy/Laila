@@ -14,7 +14,7 @@ const promptOutput = document.getElementById("promptOutput");
 const langSwitch = document.getElementById("langSwitch");
 
 let currentLang = "en";
-const backendURL = "https://d10e6243-c58b-49f1-be59-b43234a564af-00-18g0n3rc9lyb.sisko.replit.dev";
+const backendURL = "https://d10e6243-c63b-49f1-be59-b43234a56af4-00-18q80rsc3iyxb.sisko.replit.dev/";
 
 
 // =======================
