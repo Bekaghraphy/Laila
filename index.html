@@ -1,352 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LAILA AI | Creative Intelligence Engine</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LAILA.ONE | Creative Intelligence Engine</title>
 
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
-  <style>
-    :root {
-      --bg: #050509;
-      --bg-soft: #0b0b12;
-      --bg-elevated: #10101a;
-      --border-subtle: rgba(255, 255, 255, 0.06);
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
-      --accent-1: #a855f7;
-      --accent-2: #22d3ee;
-      --danger: #f97373;
-      --success: #4ade80;
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.65);
-      --shadow-glow: 0 0 40px rgba(168, 85, 247, 0.4);
-      --transition-fast: 160ms ease-out;
-      --transition-med: 220ms ease-out;
-    }
+<style>
+  /* ========== ROOT COLORS ========== */
+  :root {
+    --bg: #050509;
+    --text-main: #f9fafb;
+    --text-muted: #9ca3af;
+    --accent-1: #a855f7;
+    --accent-2: #22d3ee;
+    --border-subtle: rgba(255,255,255,0.06);
+    --radius-xl: 24px;
+    --radius-lg: 18px;
+    --shadow-soft: 0 24px 80px rgba(0,0,0,0.65);
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  html,body {
+    margin:0; padding:0; width:100%; height:100%;
+    font-family: "Montserrat",sans-serif;
+    background: radial-gradient(circle at top left, #111827 0%, #020617 42%, #000 80%);
+    color: var(--text-main);
+  }
 
-    body {
-      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #111827 0, #020617 42%, #000 80%);
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-    }
+  main { padding:24px 20px; }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+  /* ========== ORBS ========== */
+  .orb {
+    position: fixed; filter:blur(60px); opacity:0.75; pointer-events:none; z-index:-1;
+  }
+  .orb--purple { width:340px;height:340px;
+    background:radial-gradient(circle,rgba(168,85,247,0.8),transparent 70%);
+    top:-80px; right:-60px;
+  }
+  .orb--cyan { width:320px;height:320px;
+    background:radial-gradient(circle,rgba(56,189,248,0.8),transparent 70%);
+    bottom:-100px; left:-40px;
+  }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
+  /* ========== NAVBAR ========== */
+  .nav { display:flex;justify-content:space-between;align-items:center; }
+  .nav-left { display:flex; gap:14px; align-items:center; }
+  .logo-mark { width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 20% 20%,#e5e7eb,#020617);display:flex;align-items:center;justify-content:center; }
+  .logo-mark span { font-weight:700; font-size:15px; color:#020617; }
+  .logo-text .logo-title { font-size:17px;font-weight:600;letter-spacing:0.16em; text-transform:uppercase;}
+  .logo-text .logo-sub { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.18em;}
 
-    .page {
-      min-height: 100vh;
-      padding: 24px 20px 40px;
-      position: relative;
-      overflow: hidden;
-    }
+  .nav-links a { font-size:13px; color:var(--text-muted); text-transform:uppercase; margin-right:16px; text-decoration:none; }
+  .btn-outline {
+    padding:10px 16px; border-radius:999px;
+    border:1px solid rgba(148,163,184,0.6);
+    background:rgba(15,23,42,0.9);color:var(--text-main);
+    cursor:pointer; font-size:12px; text-transform:uppercase; letter-spacing:0.18em;
+  }
 
-    @media (min-width: 960px) {
-      .page {
-        padding: 28px 60px 64px;
-      }
-    }
+  /* ========== TITLE ========== */
+  .main-title { font-size:36px;text-align:center; margin-top:32px; }
+  .main-title span {
+    background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
+    -webkit-background-clip:text; color:transparent;
+  }
 
-    /* Glow orbs background */
-    .orb {
-      position: fixed;
-      filter: blur(60px);
-      opacity: 0.75;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .orb--purple {
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.8), transparent 70%);
-      top: -80px;
-      right: -60px;
-    }
-    .orb--cyan {
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.8), transparent 70%);
-      bottom: -100px;
-      left: -40px;
-    }
+  /* ========== PLAYGROUND ========== */
+  .playground {
+    margin-top:32px; padding:20px;
+    border-radius:var(--radius-xl);
+    background:linear-gradient(145deg,rgba(15,23,42,0.98),#020617);
+    border:1px solid var(--border-subtle);
+    box-shadow:var(--shadow-soft);
+    max-width:1100px; margin-left:auto; margin-right:auto;
+  }
+  .playground-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+  .playground-label { font-size:10px;color:var(--text-muted); text-transform:uppercase; }
+  .playground-title { font-size:14px; font-weight:600; text-transform:uppercase; }
+  .pill-mini { font-size:10px;padding:4px 8px;border-radius:999px;border:1px solid rgba(148,163,184,0.4);color:var(--text-muted); text-transform:uppercase; }
 
-    /* NAVBAR */
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 36px;
-    }
+  textarea { width:100%; min-height:120px; border-radius:14px; border:1px solid rgba(31,41,55,0.9); background:rgba(15,23,42,0.95); color:var(--text-main);
+    padding:10px; font-size:13px; outline:none;
+  }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+  .btn-compact { font-size:11px;padding:7px 12px;border-radius:999px;border:1px solid rgba(148,163,184,0.6); background:rgba(15,23,42,0.95);color:var(--text-main);cursor:pointer; margin-right:6px; }
+  .btn-compact-primary { background:linear-gradient(120deg,var(--accent-2),var(--accent-1)); border:none; color:#020617; }
 
-    .logo-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 20% 20%, #e5e7eb, #020617);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.2), var(--shadow-glow);
-      position: relative;
-      overflow: hidden;
-    }
+  .output-panel { margin-top:20px; border-radius:var(--radius-lg); border:1px solid rgba(148,163,184,0.4); background:rgba(15,23,42,0.9); padding:12px; }
+  .output-header { display:flex; justify-content:space-between; align-items:center; }
+  .status-pill { font-size:10px; padding:4px 8px;border-radius:999px;border:1px solid rgba(148,163,184,0.5); display:flex; gap:6px; }
+  .status-dot { width:8px;height:8px;border-radius:50%;background:rgba(56,189,248,0.9); }
 
-    .logo-mark span {
-      position: relative;
-      font-weight: 700;
-      font-size: 15px;
-      letter-spacing: 0.16em;
-      color: #020617;
-    }
+  /* ========== FOOTER ========== */
+  footer { text-align:center; padding-top:16px; border-top:1px solid rgba(31,41,55,0.9); font-size:11px; color:var(--text-muted); margin-top:40px;}
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .logo-title {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .logo-sub {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-    }
-
-    .nav-links {
-      display: none;
-      align-items: center;
-      gap: 18px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
-    }
-
-    .nav-cta .btn-outline {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-main);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all var(--transition-med);
-    }
-    .nav-cta .btn-outline:hover {
-      border-color: rgba(248, 250, 252, 0.8);
-      background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
-      transform: translateY(-1px);
-    }
-    @media (min-width: 960px) {
-      .nav-links {
-        display: flex;
-      }
-    }
-
-    /* MAIN TITLE */
-    .hero-title {
-      font-size: 32px;
-      line-height: 1.05;
-      letter-spacing: 0.02em;
-      color: var(--text-main);
-    }
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 40px;
-      }
-    }
-    .hero-title span {
-      background: linear-gradient(120deg, var(--accent-2), var(--accent-1));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    /* PLAYGROUND */
-    .playground {
-      margin-top: 18px;
-      padding: 18px 16px 18px;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), #020617);
-      box-shadow: var(--shadow-soft);
-    }
-    .playground-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .playground-title-group {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .playground-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-    }
-    .playground-title {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    .playground-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: flex-end;
-    }
-    .pill-mini {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-muted);
-    }
-
-    /* PANELS */
-    .panel {
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1));
-      padding: 12px 12px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .panel-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .prompt-textarea {
-      width: 100%;
-      min-height: 120px;
-      resize: vertical;
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: 14px;
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      padding: 10px 11px;
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--text-main);
-      outline: none;
-      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
-    }
-    .prompt-textarea::placeholder {
-      color: rgba(148, 163, 184, 0.6);
-    }
-    .prompt-textarea:focus {
-      border-color: rgba(56, 189, 248, 0.9);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.8);
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    .btn-compact {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 7px 11px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--text-main);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all var(--transition-fast);
-    }
-    .btn-compact:hover {
-      border-color: rgba(248, 250, 252, 0.85);
-      background: rgba(15, 23, 42, 0.99);
-      transform: translateY(-0.5px);
-    }
-    .btn-compact-primary {
-      border: none;
-      background: linear-gradient(120deg, var(--accent-2), var(--accent-1));
-      color: #020617;
-      box-shadow: 0 0 0 1px rgba(226, 232, 240, 0.15), 0 0 24px rgba(56, 189, 248, 0.7);
-    }
-    .btn-compact-primary:hover {
-      box-shadow: 0 0 0 1px rgba(226, 232, 240, 0.25), 0 0 36px rgba(56, 189, 248, 0.9);
-    }
-
-    .footer {
-      margin-top: 26px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 12px;
-      font-size: 11px;
-      color: var(--text-muted);
-      justify-content: center;
-      text-align: center;
-    }
-  </style>
+</style>
 </head>
 
 <body>
   <div class="orb orb--purple"></div>
   <div class="orb orb--cyan"></div>
 
-  <main class="page">
+  <main>
     <!-- NAVBAR -->
-    <header class="nav fade-up">
+    <div class="nav">
       <div class="nav-left">
         <div class="logo-mark"><span>L</span></div>
         <div class="logo-text">
@@ -355,120 +115,130 @@
         </div>
       </div>
 
-      <nav class="nav-links">
+      <div>
         <a href="#playground">Playground</a>
-      </nav>
-
-      <div class="nav-cta">
-        <button class="btn-outline" onclick="toggleLang()">AR / EN</button>
       </div>
-    </header>
 
-    <!-- MAIN CONTENT -->
-    <section class="layout" style="display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center;">
-      <h1 class="hero-title fade-up delay-1">
-        Turn any idea into a <span>ready-to-use AI prompt</span>.
-      </h1>
+      <button class="btn-outline" id="langToggle">AR</button>
+    </div>
 
-      <!-- PLAYGROUND -->
-      <section class="playground fade-up delay-2" id="playground">
-        <div class="playground-header">
-          <div class="playground-title-group">
-            <span class="playground-label">Playground</span>
-            <span class="playground-title">LAILA Prompt & Vision Studio</span>
-          </div>
-          <div class="playground-badges">
-            <span class="pill-mini">Text → Image Prompt</span>
-            <span class="pill-mini">Image → Description</span>
-          </div>
+    <!-- MAIN TITLE -->
+    <h1 class="main-title" id="mainTitle">
+      Turn any idea into a <span>ready-to-use AI prompt</span>.
+    </h1>
+
+    <!-- PLAYGROUND -->
+    <div class="playground" id="playground">
+      <div class="playground-header">
+        <div>
+          <div class="playground-label" id="labelPlayground">Playground</div>
+          <div class="playground-title" id="titlePlayground">LAILA Prompt & Vision Studio</div>
+        </div>
+        <div>
+          <span class="pill-mini" id="pillTextImage">Text → Image Prompt</span>
+          <span class="pill-mini" id="pillImageDesc">Image → Description</span>
+        </div>
+      </div>
+
+      <textarea id="promptInput" placeholder="Describe what you want to see"></textarea>
+
+      <div style="margin-top:12px;">
+        <button class="btn-compact" data-preset="cinematic">Cinematic</button>
+        <button class="btn-compact" data-preset="ultra">Ultra-realistic</button>
+        <button class="btn-compact" data-preset="product">Product shot</button>
+        <button class="btn-compact" data-preset="portrait">Portrait studio</button>
+        <button class="btn-compact" data-preset="anime">Anime / stylized</button>
+        <button class="btn-compact" data-preset="laila">LAILA signature</button>
+      </div>
+
+      <div style="margin-top:12px;">
+        <button class="btn-compact" id="btnEnhance">Auto-Enhance Prompt</button>
+        <button class="btn-compact" id="btnReset">Reset</button>
+        <button class="btn-compact btn-compact-primary" id="btnGenerate">Generate with LAILA</button>
+      </div>
+
+      <div class="output-panel">
+        <div class="output-header">
+          <div id="outputTitle">LAILA Output</div>
+          <div class="status-pill"><div class="status-dot"></div><div id="statusText">Idle</div></div>
+        </div>
+        <div id="outputBody" style="margin-top:8px; font-size:12px; color:var(--text-muted);">
+          Type a prompt or upload an image.
         </div>
 
-        <div class="playground-layout">
-          <!-- Left: Prompt panel -->
-          <div class="panel">
-            <div class="panel-label">
-              <span>Prompt</span>
-              <span class="hint-text">Describe what you want to see</span>
-            </div>
-            <textarea id="promptInput" class="prompt-textarea" placeholder="Example: A Saudi engineer at sunrise..."></textarea>
-
-            <div class="panel-label" style="margin-top: 4px;">
-              <span>Presets</span><span class="hint-text">Tap to add style details</span>
-            </div>
-            <div class="presets" id="presetList">
-              <button class="preset-chip" type="button" data-preset="cinematic">Cinematic</button>
-              <button class="preset-chip" type="button" data-preset="ultra">Ultra-realistic</button>
-              <button class="preset-chip" type="button" data-preset="product">Product shot</button>
-              <button class="preset-chip" type="button" data-preset="portrait">Portrait studio</button>
-              <button class="preset-chip" type="button" data-preset="anime">Anime / stylized</button>
-              <button class="preset-chip" type="button" data-preset="laila">LAILA signature</button>
-            </div>
-
-            <div class="panel-actions-row">
-              <div class="panel-actions-row-left">
-                <button class="btn-compact" type="button" onclick="enhancePrompt()">Auto-Enhance Prompt</button>
-                <button class="btn-compact" type="button" onclick="resetPrompt()">Reset</button>
-              </div>
-              <button class="btn-compact btn-compact-primary" type="button" onclick="generateFromPrompt()">Generate with LAILA</button>
-            </div>
-
-            <div class="hint-text">
-              Note: Generation requires backend connection to OpenAI.
-            </div>
-          </div>
-
-          <!-- Right: Upload + Output -->
-          <div class="panel">
-            <div class="panel-label">
-              <span>Image → Description</span><span class="hint-text">Get prompts from any photo</span>
-            </div>
-
-            <div class="upload-area">
-              <div class="upload-header">
-                <div class="upload-icon">📷</div>
-                <div>
-                  <div class="upload-title">Upload reference image</div>
-                  <div class="upload-sub">LAILA will analyse your image and generate descriptions.</div>
-                </div>
-              </div>
-              <div class="upload-input-row">
-                <input type="file" id="imageInput" accept="image/*" />
-                <button class="btn-compact" onclick="describeImage()">Describe image</button>
-              </div>
-              <div id="fileName" class="upload-filename"></div>
-            </div>
-
-            <div class="output-panel">
-              <div class="output-header">
-                <div class="output-title">LAILA Output</div>
-                <div id="statusPill" class="status-pill" data-state="idle">
-                  <span class="status-dot"></span><span id="statusText">Idle</span>
-                </div>
-              </div>
-              <div id="outputBody" class="output-body">
-                Type a prompt, choose a preset, or upload an image.
-              </div>
-              <div class="output-actions">
-                <button class="btn-compact" onclick="copyOutput()">Copy text</button>
-                <button class="btn-compact" onclick="clearOutput()">Clear</button>
-              </div>
-            </div>
-          </div>
+        <div style="margin-top:10px;">
+          <button class="btn-compact" id="btnCopy">Copy text</button>
+          <button class="btn-compact" id="btnClear">Clear</button>
         </div>
-      </section>
-    </section>
+      </div>
+    </div>
 
     <!-- FOOTER -->
-    <footer class="footer fade-up delay-3">
-      © 2025 LAILA.ONE — Private creative intelligence for visual storytellers.
-    </footer>
+    <footer id="footerText">© 2025 LAILA.ONE — Private creative intelligence for visual storytellers.</footer>
   </main>
 
-  <script>
-    function toggleLang() {
-      alert("Language toggle coming soon!");
+<script>
+  const translations = {
+    en: {
+      mainTitle: "Turn any idea into a <span>ready-to-use AI prompt</span>.",
+      labelPlayground: "Playground",
+      titlePlayground: "LAILA Prompt & Vision Studio",
+      pillTextImage: "Text → Image Prompt",
+      pillImageDesc: "Image → Description",
+      btnEnhance: "Auto-Enhance Prompt",
+      btnReset: "Reset",
+      btnGenerate: "Generate with LAILA",
+      outputTitle: "LAILA Output",
+      statusIdle: "Idle",
+      btnCopy: "Copy text",
+      btnClear: "Clear",
+      footer: "© 2025 LAILA.ONE — Private creative intelligence for visual storytellers."
+    },
+    ar: {
+      mainTitle: "حوِّل أي فكرة إلى <span>وصف جاهز للاستخدام بواسطة الذكاء الاصطناعي</span>.",
+      labelPlayground: "ساحة التجربة",
+      titlePlayground: "استوديو ليلى للوصف البصري والبرومبت",
+      pillTextImage: "نص → وصف صورة",
+      pillImageDesc: "صورة → وصف",
+      btnEnhance: "تحسين تلقائي للوصف",
+      btnReset: "إعادة تعيين",
+      btnGenerate: "توليد باستخدام ليلى",
+      outputTitle: "ناتج ليلى",
+      statusIdle: "في وضع الانتظار",
+      btnCopy: "نسخ النص",
+      btnClear: "مسح",
+      footer: "© 2025 LAILA.ONE — الذكاء الإبداعي البصري للمبدعين."
     }
-    // All JS helper functions from your original code go here (preset logic, enhancePrompt, resetPrompt, generateFromPrompt, describeImage, copyOutput, clearOutput)
-  </script>
+  };
+
+  let currentLang = "en";
+
+  function applyLang() {
+    const t = translations[currentLang];
+    document.getElementById("mainTitle").innerHTML = t.mainTitle;
+    document.getElementById("labelPlayground").textContent = t.labelPlayground;
+    document.getElementById("titlePlayground").textContent = t.titlePlayground;
+    document.getElementById("pillTextImage").textContent = t.pillTextImage;
+    document.getElementById("pillImageDesc").textContent = t.pillImageDesc;
+    document.getElementById("btnEnhance").textContent = t.btnEnhance;
+    document.getElementById("btnReset").textContent = t.btnReset;
+    document.getElementById("btnGenerate").textContent = t.btnGenerate;
+    document.getElementById("outputTitle").textContent = t.outputTitle;
+    document.getElementById("statusText").textContent = t.statusIdle;
+    document.getElementById("btnCopy").textContent = t.btnCopy;
+    document.getElementById("btnClear").textContent = t.btnClear;
+    document.getElementById("footerText").textContent = t.footer;
+  }
+
+  document.getElementById("langToggle").addEventListener("click",()=> {
+    currentLang = currentLang === "en" ? "ar" : "en";
+    document.getElementById("langToggle").textContent = currentLang === "en" ? "AR" : "EN";
+    applyLang();
+  });
+
+  // Initialize default language
+  applyLang();
+</script>
+
 </body>
 </html>
