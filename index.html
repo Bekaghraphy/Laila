@@ -29,7 +29,7 @@ html, body {
   font-family:"Montserrat",sans-serif;
   background: radial-gradient(circle at top left,#111827 0,#020617 42%,#000 80%);
   color: var(--text-main);
-  overflow-x: hidden;
+  overflow-x:hidden;
 }
 
 /* ORBS */
@@ -39,9 +39,7 @@ html, body {
 
 /* HEADER */
 .nav { display:flex; justify-content:space-between; align-items:center; padding:12px 20px; }
-.logo-mark { width:38px;height:38px;border-radius:50%;
-  background:radial-gradient(circle at 20% 20%,#e5e7eb,#020617);
-  display:flex;align-items:center;justify-content:center;}
+.logo-mark { width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 20% 20%,#e5e7eb,#020617);display:flex;align-items:center;justify-content:center;}
 .logo-mark span { font-weight:700;font-size:15px;color:#020617;}
 .logo-text .logo-title { font-size:17px;font-weight:600;text-transform:uppercase; }
 .logo-text .logo-sub { font-size:11px;color:var(--text-muted);text-transform:uppercase; }
@@ -53,12 +51,9 @@ html, body {
 .btn-outline:hover { transform:translateY(-2px);filter:brightness(1.1); }
 
 /* MAIN TITLE */
-.main-title {
-  font-size:28px; text-align:center;
-  margin:10px 20px;
-}
+.main-title { font-size:28px;text-align:center;margin:10px 20px; }
 .main-title span {
-  background: linear-gradient(120deg,var(--accent-2),var(--accent-1));
+  background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
   -webkit-background-clip:text;color:transparent;
 }
 
@@ -75,14 +70,14 @@ html, body {
 
 /* UPLOAD + PREVIEW */
 .upload-area {
-  display:flex; flex-wrap:wrap; align-items:center; gap:12px;
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px;
   margin-bottom:16px;
 }
 .upload-btn {
   padding:8px 18px;border-radius:999px;
   background: linear-gradient(120deg,var(--accent-2),var(--accent-1));
   color:#020617;font-weight:600;
-  border:none; cursor:pointer; transition:all var(--trans);
+  border:none;cursor:pointer;transition:all var(--trans);
 }
 .upload-btn:hover { transform:translateY(-2px);filter:brightness(1.1); }
 .btn-compact, .btn-compact-primary {
@@ -96,17 +91,19 @@ html, body {
   background: linear-gradient(120deg,var(--accent-2),var(--accent-1));border:none;color:#020617;
 }
 
-/* PREVIEW */
+/* IMAGE PREVIEW */
 img.preview {
   max-width:120px; border-radius:12px; border:1px solid rgba(148,163,184,0.4);
 }
 
 /* OUTPUT BOX */
 .output-panel {
-  background:rgba(15,23,42,0.9);border:1px solid rgba(148,163,184,0.4);
-  border-radius:16px;padding:12px; min-height:60px;
+  background:rgba(15,23,42,0.9);
+  border:1px solid rgba(148,163,184,0.4);
+  border-radius:16px;padding:12px;
   color:var(--text-muted); font-size:14px;
   margin-bottom:16px;
+  min-height:60px;
 }
 
 /* TEXTAREA */
@@ -133,12 +130,6 @@ textarea {
 }
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* RESPONSIVE MOBILE */
-@media (max-width:600px) {
-  .main-title { font-size:24px; }
-  .upload-area { flex-direction:column; align-items:flex-start; }
-  img.preview { margin-top:8px; }
-}
 </style>
 </head>
 
@@ -152,6 +143,7 @@ textarea {
 </div>
 
 <main>
+
   <div class="nav">
     <div class="nav-left">
       <div class="logo-mark"><span>L</span></div>
@@ -220,7 +212,7 @@ imgInput.addEventListener("change", () => {
   previewContainer.appendChild(img);
 });
 
-// DESCRIBE IMAGE (Backend)
+// DESCRIBE IMAGE
 document.getElementById("btnDescribe").addEventListener("click", async () => {
   const file = imgInput.files[0];
   if (!file) return alert("Please upload an image first.");
@@ -248,7 +240,7 @@ document.querySelectorAll("[data-preset]").forEach(btn=>{
   });
 });
 
-// GENERATE BUTTON (Placeholder)
+// GENERATE
 document.getElementById("btnGenerate").addEventListener("click",()=>{
   const text = document.getElementById("promptInput").value.trim();
   if(text) document.getElementById("outputBody").textContent = text;
