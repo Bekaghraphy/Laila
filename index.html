@@ -11,329 +11,286 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
 <style>
-/* ===== ROOT COLORS & GLOBAL ===== */
+/* ===== COLORS & ROOT ===== */
 :root {
   --accent-1: #a855f7;
   --accent-2: #22d3ee;
   --text-main: #f9fafb;
   --text-muted: #9ca3af;
-  --bg-dark: #0f172a;
   --border-subtle: rgba(255,255,255,0.06);
   --radius-xl: 24px;
   --radius-lg: 18px;
   --shadow-soft: 0 24px 80px rgba(0,0,0,0.65);
-  --trans: 0.3s ease-out;
+  --trans: 0.2s ease-out;
 }
 
-/* ===== RESET & MAIN BACKGROUND ===== */
-html,body{
+/* ===== GLOBAL & RESET ===== */
+html, body {
   margin:0; padding:0; width:100%; min-height:100%;
   font-family:"Montserrat",sans-serif;
   background: radial-gradient(circle at top left,#111827 0,#020617 42%,#000 80%);
-  color:var(--text-main);
-  overflow-x:hidden;
+  color: var(--text-main);
 }
-main{
-  padding:24px 20px;
-  animation:fadeInUp 0.9s ease-out forwards;
-}
+main { padding:24px 20px; opacity:0; transform:translateY(40px); animation:fadeInUp 0.8s ease-out forwards 0.5s; }
 
 /* ===== ORBS ANIMATION ===== */
-.orb{
+.orb {
   position:fixed; filter:blur(60px); opacity:0.75; pointer-events:none; z-index:-1;
 }
-.orb--purple{
-  width:340px;height:340px;
-  background:radial-gradient(circle,rgba(168,85,247,0.8),transparent 70%);
-  top:-80px; right:-60px;
-  animation:floatOrb 8s ease-in-out infinite;
-}
-.orb--cyan{
-  width:320px;height:320px;
-  background:radial-gradient(circle,rgba(56,189,248,0.8),transparent 70%);
-  bottom:-100px; left:-40px;
-  animation:floatOrb 10s ease-in-out infinite reverse;
-}
-@keyframes floatOrb{
-  0%{transform:translateY(0) scale(1);}
-  50%{transform:translateY(-12px) scale(1.04);}
-  100%{transform:translateY(0) scale(1);}
+.orb--purple { width:340px;height:340px; background:radial-gradient(circle,rgba(168,85,247,0.8),transparent 70%); top:-80px; right:-60px; animation:floatOrb 8s ease-in-out infinite;}
+.orb--cyan   { width:320px;height:320px; background:radial-gradient(circle,rgba(56,189,248,0.8),transparent 70%); bottom:-100px; left:-40px; animation:floatOrb 10s ease-in-out infinite reverse;}
+
+@keyframes floatOrb {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.04); }
+  100% { transform: translateY(0) scale(1); }
 }
 
-/* ===== NAVBAR ===== */
-.nav{
-  display:flex;justify-content:space-between;align-items:center;
-}
-.logo-mark{
-  width:38px;height:38px;border-radius:50%;
-  background:radial-gradient(circle at 20% 20%,#e5e7eb,#020617);
-  display:flex;align-items:center;justify-content:center;
-}
-.logo-mark span{font-weight:700;font-size:15px;color:#020617;}
-.nav-title{font-size:17px;font-weight:600;text-transform:uppercase;}
-.nav-sub{font-size:11px;color:var(--text-muted);text-transform:uppercase;}
+/* ===== NAV BAR ===== */
+.nav { display:flex; justify-content:space-between; align-items:center; }
+.nav-left { display:flex; gap:14px; align-items:center; }
+.logo-mark { width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 20% 20%,#e5e7eb,#020617);display:flex;align-items:center;justify-content:center;}
+.logo-mark span { font-weight:700;font-size:15px;color:#020617;}
+.logo-text .logo-title { font-size:17px;font-weight:600; text-transform:uppercase; }
+.logo-text .logo-sub { font-size:11px;color:var(--text-muted);text-transform:uppercase;}
 
-.btn-outline{
-  padding:8px 14px;border-radius:999px;border:1px solid rgba(148,163,184,0.6);
+.btn-outline {
+  padding:10px 16px;border-radius:999px;
+  border:1px solid rgba(148,163,184,0.6);
   background:rgba(15,23,42,0.9);color:var(--text-main);
-  cursor:pointer;font-size:12px;transition:all var(--trans);
+  cursor:pointer;font-size:12px;text-transform:uppercase;transition:all var(--trans);
 }
-.btn-outline:hover{transform:translateY(-2px);filter:brightness(1.1);}
+.btn-outline:hover { border-color:rgba(248,250,252,0.8);transform:translateY(-2px);}
 
 /* ===== MAIN TITLE ===== */
-.main-title{
-  font-size:36px;text-align:center;
-  margin-top:32px;margin-bottom:16px;
-}
-.main-title span{
+.main-title { font-size:36px;text-align:center;margin-top:32px; }
+.main-title span {
   background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
   -webkit-background-clip:text;color:transparent;
 }
 
-/* ===== PLAYGROUND WRAPPER ===== */
-.playground{
-  margin-top:24px;padding:24px;
+/* ===== PLAYGROUND ===== */
+.playground {
+  margin-top:40px;padding:24px;
   border-radius:var(--radius-xl);
   background:linear-gradient(145deg,rgba(15,23,42,0.98),#020617);
   border:1px solid var(--border-subtle);
   box-shadow:var(--shadow-soft);
-  max-width:1024px;margin:auto;
-  animation:fadeInUp 0.9s ease-out forwards 0.3s;
+  max-width:1100px;margin:auto;
 }
+.playground-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.playground-label { font-size:10px;color:var(--text-muted); text-transform:uppercase; }
+.playground-title { font-size:14px;font-weight:600; text-transform:uppercase; }
 
-/* ===== TEXTAREA & BUTTONS ===== */
-textarea{
-  width:100%;min-height:120px;
-  border-radius:14px;border:1px solid rgba(31,41,55,0.9);
+textarea {
+  width:100%;min-height:120px;border-radius:14px;
+  border:1px solid rgba(31,41,55,0.9);
   background:rgba(15,23,42,0.95);color:var(--text-main);
   padding:12px;font-size:14px;outline:none;
-  transition:all var(--trans);
-}
-textarea:focus{
-  border-color:var(--accent-2);
-  box-shadow:0 0 8px rgba(34,211,238,0.4);
+  margin-top:12px;
 }
 
-.btn-compact{
+/* ===== BUTTONS ===== */
+.btn-compact {
   font-size:11px;padding:8px 14px;border-radius:999px;
   border:1px solid rgba(148,163,184,0.6);
   background:rgba(15,23,42,0.95);color:var(--text-main);
   cursor:pointer;margin:6px 4px 0 0;transition:all var(--trans);
 }
-.btn-compact:hover{
-  transform:translateY(-2px);border-color:rgba(248,250,252,0.8);
+.btn-compact:hover { transform:translateY(-2px); border-color:rgba(248,250,252,0.8); }
+
+.btn-compact-primary {
+  background:linear-gradient(120deg,var(--accent-2),var(--accent-1));border:none;color:#020617;
 }
-.btn-compact-primary{
-  background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
-  border:none;color:#020617;
-}
-.btn-compact-primary:hover{transform:translateY(-2px);}
+.btn-compact-primary:hover { transform:translateY(-2px); }
 
 /* ===== UPLOAD AREA ===== */
-.upload-area{
-  border-radius:var(--radius-lg);
-  border:1px dashed rgba(148,163,184,0.6);
-  background:rgba(15,23,42,0.9);
-  padding:16px;margin-top:24px;
+.upload-area {
+  border-radius:var(--radius-lg);border:1px dashed rgba(148,163,184,0.6);
+  background:rgba(15,23,42,0.9);padding:16px;margin-top:24px;
 }
-.upload-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.upload-icon{font-size:18px;}
-.upload-btn input{display:none;}
-img.preview{
-  max-width:200px;margin-top:12px;border-radius:14px;
-  border:1px solid rgba(148,163,184,0.4);
+.upload-header { display:flex;align-items:center;gap:10px;margin-bottom:8px; }
+.upload-icon { font-size:18px; }
+.upload-btn {
+  display:inline-block;padding:6px 12px;border-radius:999px;
+  background:rgba(15,23,42,0.95);border:1px solid rgba(148,163,184,0.6);
+  color:var(--text-main);cursor:pointer;transition:all var(--trans);
 }
+.upload-btn:hover { transform:translateY(-1px);border-color:rgba(248,250,252,0.8); }
 
 /* ===== OUTPUT PANEL ===== */
-.output-panel{
+.output-panel {
   margin-top:30px;border-radius:18px;border:1px solid rgba(148,163,184,0.4);
   background:rgba(15,23,42,0.9);padding:16px;
 }
-.status-pill{display:flex;align-items:center;gap:6px;}
-.status-dot{
-  width:8px;height:8px;background:var(--accent-2);
-  border-radius:50%;
-  animation:pulse 1.6s infinite ease-in-out;
-}
-@keyframes pulse{0%{opacity:0.4;}50%{opacity:1;}100%{opacity:0.4;}}
+.output-header { display:flex;justify-content:space-between;align-items:center; }
 
-/* ===== SPINNER ===== */
-#spinnerOverlay{
+/* ===== FOOTER ===== */
+footer {
+  text-align:center;padding:16px 0;border-top:1px solid rgba(31,41,55,0.9);
+  font-size:11px;color:var(--text-muted);margin-top:48px;
+  background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
+  -webkit-background-clip:text;color:transparent;
+  animation:gradientMove 3s ease-in-out infinite alternate;
+}
+@keyframes gradientMove {
+  0%{background-position:0%;}
+  100%{background-position:100%;}
+}
+
+/* ===== SPINNER & PROGRESS TEXT ===== */
+#spinnerOverlay {
   position:fixed;top:0;left:0;width:100%;height:100%;
   background:rgba(0,0,0,0.6);display:none;
   justify-content:center;align-items:center;flex-direction:column;
-  z-index:10000;
+  z-index:9999;
 }
-.spinner{
+.spinner {
   border:6px solid rgba(255,255,255,0.2);
   border-top:6px solid var(--accent-2);
   border-radius:50%;width:50px;height:50px;
   animation:spin 1s linear infinite;
 }
-@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes spin { to{transform:rotate(360deg);} }
+#spinnerText {
+  margin-top:12px;font-size:14px;color:var(--accent-2);font-weight:500;
+  animation:fadeIn 0.8s ease-out forwards;
+}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
-/* ===== PAGE ANIMATIONS ===== */
-@keyframes fadeInUp{
+/* ===== PAGE LOAD ANIMATION ===== */
+@keyframes fadeInUp {
   from{opacity:0;transform:translateY(40px);}
   to{opacity:1;transform:translateY(0);}
 }
-
 </style>
 </head>
-<body>
 
+<body>
 <div class="orb orb--purple"></div>
 <div class="orb orb--cyan"></div>
 
-<!-- Spinner -->
+<!-- Loading Spinner with Progress Text -->
 <div id="spinnerOverlay">
   <div class="spinner"></div>
   <div id="spinnerText">Loading...</div>
 </div>
 
 <main>
-  <div class="nav">
-    <div class="nav-left">
-      <div class="logo-mark"><span>L</span></div>
-      <div>
-        <div class="nav-title">LAILA.ONE</div>
-        <div class="nav-sub">Creative Intelligence Engine</div>
-      </div>
-    </div>
-    <button class="btn-outline" id="langToggle">AR</button>
-  </div>
 
-  <h1 class="main-title" id="mainTitle">
-    Turn any idea into a ready-to-use AI prompt
-  </h1>
-
-  <div class="playground">
-    <!-- TEXT PROMPT -->
-    <textarea id="promptInput" placeholder="Describe what you want to see..."></textarea>
-
-    <!-- PRESETS -->
-    <div>
-      <button class="btn-compact" data-preset="Cinematic">Cinematic</button>
-      <button class="btn-compact" data-preset="Ultra-realistic">Ultra-realistic</button>
-      <button class="btn-compact" data-preset="Product shot">Product shot</button>
-      <button class="btn-compact" data-preset="Portrait studio">Portrait studio</button>
-      <button class="btn-compact" data-preset="Anime / stylized">Anime / stylized</button>
-      <button class="btn-compact" data-preset="LAILA signature">LAILA signature</button>
-    </div>
-
-    <!-- ACTION BUTTONS -->
-    <div>
-      <button class="btn-compact" id="btnEnhance">Auto‑Enhance Prompt</button>
-      <button class="btn-compact" id="btnReset">Reset</button>
-      <button class="btn-compact btn-compact-primary" id="btnGenerate">Generate with LAILA</button>
-    </div>
-
-    <!-- UPLOAD IMAGE -->
-    <div class="upload-area">
-      <div class="upload-header">
-        <div class="upload-icon">📷</div>
-      </div>
-      <label class="upload-btn">
-        Choose File <input type="file" id="imageInput" accept="image/*"/>
-      </label>
-      <img id="imgPreview" class="preview"/>
-      <button class="btn-compact" id="btnDescribe">Describe image</button>
-    </div>
-
-    <!-- OUTPUT -->
-    <div class="output-panel">
-      <div class="output-header">
-        <div id="outputTitle">LAILA Output</div>
-        <div class="status-pill">
-          <div class="status-dot"></div><div id="statusText">Idle</div>
-        </div>
-      </div>
-      <div id="outputBody" style="margin-top:10px;font-size:12px;color:var(--text-muted);">
-        Type a prompt or upload an image.
-      </div>
+<div class="nav">
+  <div class="nav-left">
+    <div class="logo-mark"><span>L</span></div>
+    <div class="logo-text">
+      <div class="logo-title">LAILA.ONE</div>
+      <div class="logo-sub">Creative Intelligence Engine</div>
     </div>
   </div>
+  <button class="btn-outline" id="langToggle">AR</button>
+</div>
+
+<h1 class="main-title" id="mainTitle">Turn any idea into a ready-to-use AI prompt</h1>
+
+<div class="playground" id="playground">
+  <div class="playground-header">
+    <div>
+      <div class="playground-label" id="labelPlayground">Playground</div>
+      <div class="playground-title" id="titlePlayground">LAILA Prompt & Vision Studio</div>
+    </div>
+  </div>
+
+  <textarea id="promptInput" placeholder="Describe what you want to see"></textarea>
+
+  <div>
+    <button class="btn-compact" data-preset="cinematic">Cinematic</button>
+    <button class="btn-compact" data-preset="ultra">Ultra-realistic</button>
+    <button class="btn-compact" data-preset="product">Product shot</button>
+    <button class="btn-compact" data-preset="portrait">Portrait studio</button>
+    <button class="btn-compact" data-preset="anime">Anime / stylized</button>
+    <button class="btn-compact" data-preset="laila">LAILA signature</button>
+  </div>
+
+  <div>
+    <button class="btn-compact" id="btnEnhance">Auto-Enhance Prompt</button>
+    <button class="btn-compact" id="btnReset">Reset</button>
+    <button class="btn-compact btn-compact-primary" id="btnGenerate">Generate with LAILA</button>
+  </div>
+
+  <div class="upload-area">
+    <div class="upload-header">
+      <div class="upload-icon">📷</div>
+    </div>
+    <label class="upload-btn">Choose File <input type="file" id="imageInput" accept="image/*" style="display:none;"/></label>
+    <button class="btn-compact" id="btnDescribe">Describe image</button>
+  </div>
+
+  <div class="output-panel">
+    <div class="output-header">
+      <div id="outputTitle">LAILA Output</div>
+      <div class="status-pill">
+        <div class="status-dot"></div><div id="statusText">Idle</div>
+      </div>
+    </div>
+    <div id="outputBody" style="margin-top:10px;font-size:12px;color:var(--text-muted);">
+      Type a prompt or upload an image.
+    </div>
+    <div style="margin-top:12px;">
+      <button class="btn-compact" id="btnCopy">Copy text</button>
+      <button class="btn-compact" id="btnClear">Clear</button>
+    </div>
+  </div>
+</div>
+
+<footer id="footerText">© 2025 LAILA.ONE — Private creative intelligence for visual storytellers.</footer>
 </main>
 
 <script>
-// LANGUAGE SUPPORT
+// Language translations
 const translations = {
-  en:{
-    mainTitle:"Turn any idea into a ready-to-use AI prompt",
-    btnEnhance:"Auto‑Enhance Prompt",
-    btnReset:"Reset",
-    btnGenerate:"Generate with LAILA",
-    outputIdle:"Idle",
-    outputPlaceholder:"Type a prompt or upload an image."
-  },
-  ar:{
-    mainTitle:"حوِّل أي فكرة إلى وصف جاهز للاستخدام بواسطة الذكاء الاصطناعي",
-    btnEnhance:"تحسين تلقائي للوصف",
-    btnReset:"إعادة تعيين",
-    btnGenerate:"توليد باستخدام ليلى",
-    outputIdle:"في وضع الانتظار",
-    outputPlaceholder:"اكتب وصف أو ارفع صورة."
-  }
+  en:{mainTitle:"Turn any idea into a ready-to-use AI prompt",labelPlayground:"Playground",titlePlayground:"LAILA Prompt & Vision Studio",btnEnhance:"Auto-Enhance Prompt",btnReset:"Reset",btnGenerate:"Generate with LAILA",outputTitle:"LAILA Output",statusIdle:"Idle",btnCopy:"Copy text",btnClear:"Clear",footer:"© 2025 LAILA.ONE — Private creative intelligence for visual storytellers."},
+  ar:{mainTitle:"حوِّل أي فكرة إلى وصف جاهز للاستخدام بواسطة الذكاء الاصطناعي",labelPlayground:"ساحة التجربة",titlePlayground:"استوديو ليلى للوصف البصري والبرومبت",btnEnhance:"تحسين تلقائي للوصف",btnReset:"إعادة تعيين",btnGenerate:"توليد باستخدام ليلى",outputTitle:"ناتج ليلى",statusIdle:"في وضع الانتظار",btnCopy:"نسخ النص",btnClear:"مسح",footer:"© 2025 LAILA.ONE — الذكاء الإبداعي البصري للمبدعين."}
 };
 let currentLang="en";
+function applyLang(){
+  const t=translations[currentLang];
+  document.getElementById("mainTitle").textContent=t.mainTitle;
+  document.getElementById("labelPlayground").textContent=t.labelPlayground;
+  document.getElementById("titlePlayground").textContent=t.titlePlayground;
+  document.getElementById("btnEnhance").textContent=t.btnEnhance;
+  document.getElementById("btnReset").textContent=t.btnReset;
+  document.getElementById("btnGenerate").textContent=t.btnGenerate;
+  document.getElementById("outputTitle").textContent=t.outputTitle;
+  document.getElementById("statusText").textContent=t.statusIdle;
+  document.getElementById("btnCopy").textContent=t.btnCopy;
+  document.getElementById("btnClear").textContent=t.btnClear;
+  document.getElementById("footerText").textContent=t.footer;
+}
 document.getElementById("langToggle").addEventListener("click",()=>{
-  currentLang=currentLang==="en"?"ar":"en";
+  currentLang=currentLang==="en"?"ar":"en";applyLang();
   document.getElementById("langToggle").textContent=currentLang==="en"?"AR":"EN";
-  document.getElementById("mainTitle").textContent=translations[currentLang].mainTitle;
-  document.getElementById("btnEnhance").textContent=translations[currentLang].btnEnhance;
-  document.getElementById("btnReset").textContent=translations[currentLang].btnReset;
-  document.getElementById("btnGenerate").textContent=translations[currentLang].btnGenerate;
-  document.getElementById("statusText").textContent=translations[currentLang].outputIdle;
-  document.getElementById("outputBody").textContent=translations[currentLang].outputPlaceholder;
 });
+applyLang();
 
-// PRESets click
-document.querySelectorAll("[data-preset]").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    document.getElementById("promptInput").value += " "+btn.dataset.preset;
-  });
-});
+// Spinner & Text Progress
+const spinner = document.getElementById("spinnerOverlay");
+const spinnerText = document.getElementById("spinnerText");
 
-// SPINNER UTILS
-const spinner=document.getElementById("spinnerOverlay");
-const spinnerText=document.getElementById("spinnerText");
 function showProgress(text){
-  spinnerText.textContent=text;
-  spinner.style.display="flex";
+  spinnerText.textContent = text;
+  spinner.style.display = "flex";
 }
 function hideProgress(){
-  spinner.style.display="none";
+  spinner.style.display = "none";
 }
 
-// GENERATE PROMPT (just placeholder example)
-document.getElementById("btnGenerate").addEventListener("click",async()=>{
-  const text=document.getElementById("promptInput").value.trim();
-  if(!text)return;
-  showProgress("Generating prompt...");
-  setTimeout(()=>{document.getElementById("outputBody").textContent=text;hideProgress();},1200);
+// Use this for real API: showProgress("Generating...") etc
+document.getElementById("btnGenerate").addEventListener("click",()=>{
+  showProgress(currentLang==="en"?"Generating…":"جاري التوليد…");
+  setTimeout(hideProgress,1800);
 });
-
-// IMAGE PREVIEW
-const imgInput=document.getElementById("imageInput");
-const imgPreview=document.getElementById("imgPreview");
-imgInput.addEventListener("change",()=>{
-  const file=imgInput.files[0];
-  if(file){imgPreview.src=URL.createObjectURL(file);}
-});
-
-// DESCRIBE IMAGE
-document.getElementById("btnDescribe").addEventListener("click",async()=>{
-  const file=imgInput.files[0];
-  if(!file)return alert("Upload an image first.");
-  showProgress("Describing image...");
-  const form=new FormData();form.append("image",file);
-  try{
-    const res=await fetch("https://laila-backend.onrender.com/describe-image",{method:"POST",body:form});
-    const data=await res.json();
-    document.getElementById("outputBody").textContent=data.description||"";
-  }catch(e){
-    document.getElementById("outputBody").textContent="Error describing image.";
-  }finally{hideProgress();}
+document.getElementById("btnDescribe").addEventListener("click",()=>{
+  showProgress(currentLang==="en"?"Describing image…":"جاري وصف الصورة…");
+  setTimeout(hideProgress,1800);
 });
 </script>
 
