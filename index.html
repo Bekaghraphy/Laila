@@ -1,224 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LAILA AI</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAILA AI</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="LOG.png" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-  <style>
-    body {
-      margin: 0;
-      font-family: "Montserrat", sans-serif;
-      background: linear-gradient(120deg, #020617, #0f172a, #1e293b);
-      background-size: 300% 300%;
-      animation: gradientMove 12s ease infinite;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      color: #fff;
-      overflow: hidden;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Main container */
-    .card {
-      width: 85%;
-      max-width: 950px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 26px;
-      padding: 50px;
-      backdrop-filter: blur(25px);
-      box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
-      animation: fade 0.7s ease-out;
-    }
-
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Language Switch */
-    .lang-switch {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 12px;
-      gap: 8px;
-    }
-
-    .lang-btn {
-      padding: 7px 16px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.35);
-      background: rgba(255,255,255,0.08);
-      font-size: 12px;
-      cursor: pointer;
-      transition: 0.25s;
-      letter-spacing: 0.1em;
-    }
-
-    .lang-btn:hover {
-      background: rgba(255,255,255,0.2);
-    }
-
-    .lang-active {
-      background: #fff;
-      color: #000;
-      font-weight: 700;
-    }
-
-    /* Main Title */
-    .main-title {
-      text-align: center;
-      font-size: 55px;
-      font-weight: 700;
-      margin-bottom: 40px;
-      letter-spacing: 0.05em;
-      color: #ffffff;
-      text-shadow: 0 0 22px rgba(180, 220, 255, 0.45);
-      animation: pulseTitle 5s infinite ease-in-out;
-    }
-
-    @keyframes pulseTitle {
-      0% { text-shadow: 0 0 18px rgba(180, 220, 255, 0.45); }
-      50% { text-shadow: 0 0 35px rgba(180, 220, 255, 0.8); }
-      100% { text-shadow: 0 0 18px rgba(180, 220, 255, 0.45); }
-    }
-
-    /* Upload Box */
-    .upload-box {
-      border: 1px dashed rgba(255, 255, 255, 0.5);
-      padding: 30px;
-      border-radius: 22px;
-      margin-bottom: 35px;
-      animation: pulseFrame 3s infinite ease-in-out;
-    }
-
-    @keyframes pulseFrame {
-      0% { box-shadow: 0 0 0px rgba(100, 200, 255, 0.15); }
-      50% { box-shadow: 0 0 25px rgba(100, 200, 255, 0.35); }
-      100% { box-shadow: 0 0 0px rgba(100, 200, 255, 0.15); }
-    }
-
-    .upload-label {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    input[type="file"] {
-      display: block;
-      margin: 10px auto;
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .btn {
-      background: #38bdf8;
-      color: #000;
-      font-size: 16px;
-      padding: 12px 34px;
-      border-radius: 30px;
-      border: none;
-      cursor: pointer;
-      margin: 18px auto;
-      display: block;
-      transition: 0.25s;
-      font-weight: 600;
-    }
-    .btn:hover {
-      background: #7dd3fc;
-      scale: 1.04;
-    }
-
-    /* Prompt Output */
-    .output {
-      border: 1px solid rgba(255,255,255,0.25);
-      background: rgba(255,255,255,0.06);
-      border-radius: 20px;
-      padding: 25px;
-      min-height: 260px;
-      font-size: 16px;
-      line-height: 1.7;
-      overflow-y: auto;
-      box-shadow: inset 0 0 25px rgba(0,0,0,0.4);
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      margin-top: 22px;
-      font-size: 12px;
-      color: #aaa;
-    }
-  </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div class="card">
 
-    <!-- Language Switch -->
-    <div class="lang-switch">
-      <button class="lang-btn lang-active" id="btnEN">EN</button>
-      <button class="lang-btn" id="btnAR">AR</button>
+    <!-- Animated Gradient Background -->
+    <div class="animated-bg"></div>
+
+    <!-- LOGO (النسخة القديمة اللامعة) -->
+    <div class="logo-box">
+        <div class="logo-circle">
+            <span class="logo-letter">L</span>
+        </div>
+        <p class="logo-sub">Creative Intelligence Engine</p>
     </div>
 
-    <h1 class="main-title" id="mainTitle">LAILA AI</h1>
+    <!-- MAIN CONTAINER -->
+    <div class="container">
 
-    <!-- Upload Box -->
-    <div class="upload-box">
-      <label class="upload-label" id="uploadText">Upload a photo</label>
-      <input type="file" id="imageInput" accept="image/*" />
-      <button class="btn" id="enhanceBtn">Enhance Auto Prompt</button>
+        <h1 class="title">LAILA AI</h1>
+
+        <!-- Upload Box -->
+        <div class="upload-box">
+            <label for="fileInput" class="upload-label">Upload Photo</label>
+            <input type="file" id="fileInput" accept="image/*">
+        </div>
+
+        <!-- Preview Image -->
+        <div id="previewHolder" class="preview-holder"></div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="actions">
+            <button id="btnPrompt" class="btn primary">Generate Prompt</button>
+            <button id="btnGenerate" class="btn secondary">Generate Image</button>
+        </div>
+
+        <!-- Prompt Output -->
+        <textarea id="promptOutput" class="prompt-output" placeholder="Generated prompt will appear here..."></textarea>
+
+        <!-- Language Switch -->
+        <div class="lang-switch">
+            <button id="langEN">EN</button>
+            <button id="langAR">عربي</button>
+        </div>
+
     </div>
 
-    <!-- Output -->
-    <div class="output" id="outputBox">
-      Upload an image to generate prompts.
-    </div>
+    <footer>
+        © 2025 LAILA.ONE — Private creative intelligence for visual storytellers.
+    </footer>
 
-    <div class="footer">
-      © 2025 LAILA.ONE — Private creative intelligence for visual storytellers.
-    </div>
-  </div>
-
-  <script>
-    const btnEN = document.getElementById("btnEN");
-    const btnAR = document.getElementById("btnAR");
-    const mainTitle = document.getElementById("mainTitle");
-    const uploadText = document.getElementById("uploadText");
-    const outputBox = document.getElementById("outputBox");
-
-    btnEN.onclick = () => {
-      btnEN.classList.add("lang-active");
-      btnAR.classList.remove("lang-active");
-      mainTitle.textContent = "LAILA AI";
-      uploadText.textContent = "Upload a photo";
-      outputBox.textContent = "Upload an image to generate prompts.";
-    };
-
-    btnAR.onclick = () => {
-      btnAR.classList.add("lang-active");
-      btnEN.classList.remove("lang-active");
-      mainTitle.textContent = "ليلى للذكاء الاصطناعي";
-      uploadText.textContent = "ارفع صورة";
-      outputBox.textContent = "قم برفع صورة لإنشاء برومبت احترافي.";
-    };
-  </script>
+    <script src="app.js"></script>
 </body>
 </html>
