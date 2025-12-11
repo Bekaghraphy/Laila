@@ -3,721 +3,222 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LAILA.ONE | Image → Prompt</title>
+  <title>LAILA AI</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="LOG.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    :root {
-      --bg-start: #020617;
-      --bg-mid: #111827;
-      --bg-end: #000000;
-      --accent-1: #a855f7;
-      --accent-2: #22d3ee;
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.4);
-      --card-bg: rgba(15, 23, 42, 0.9);
-      --radius-xl: 26px;
-      --radius-lg: 18px;
-      --shadow-soft: 0 30px 90px rgba(0, 0, 0, 0.75);
-      --shadow-glow: 0 0 40px rgba(56, 189, 248, 0.65);
-      --transition-fast: 160ms ease-out;
-      --transition-med: 220ms ease-out;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text-main);
+      margin: 0;
+      font-family: "Montserrat", sans-serif;
+      background: linear-gradient(120deg, #020617, #0f172a, #1e293b);
+      background-size: 300% 300%;
+      animation: gradientMove 12s ease infinite;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.16), transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(15, 23, 42, 0.9), transparent 60%),
-        linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
-      background-size: 320% 320%;
-      animation: bgShift 18s ease-in-out infinite alternate;
-      -webkit-font-smoothing: antialiased;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px 18px 48px;
-      position: relative;
+      padding: 20px;
+      color: #fff;
       overflow: hidden;
     }
 
-    @keyframes bgShift {
-      0% {
-        background-position: 0% 0%;
-      }
-      50% {
-        background-position: 50% 100%;
-      }
-      100% {
-        background-position: 100% 0%;
-      }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    /* Ambient glows */
-    body::before {
-      content: "";
-      position: absolute;
-      width: 520px;
-      height: 520px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.22), transparent 70%);
-      top: -140px;
-      right: -120px;
-      filter: blur(8px);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    body::after {
-      content: "";
-      position: absolute;
-      width: 460px;
-      height: 460px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.2), transparent 70%);
-      bottom: -160px;
-      left: -120px;
-      filter: blur(10px);
-      opacity: 0.8;
-      pointer-events: none;
-    }
-
-    /* Center stack */
-    .center-shell {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 780px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-    }
-
-    @media (min-width: 768px) {
-      .center-shell {
-        gap: 22px;
-      }
-    }
-
-    /* Logo block in center */
-    .side-logo {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      justify-content: center;
-      opacity: 0;
-      transform: translateY(10px);
-      animation: fadeUp 0.7s ease-out forwards;
-    }
-
-    .logo-mark {
-      width: 48px;
-      height: 48px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 20% 20%, #e5e7eb, #020617);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow:
-        0 0 0 1px rgba(148, 163, 184, 0.5),
-        0 0 30px rgba(56, 189, 248, 0.7);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .logo-mark::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: conic-gradient(
-        from 200deg,
-        rgba(168, 85, 247, 0.30),
-        transparent 15%,
-        rgba(56, 189, 248, 0.35),
-        transparent 55%,
-        rgba(248, 250, 252, 0.4),
-        transparent 85%
-      );
-      mix-blend-mode: screen;
-      opacity: 0.9;
-      animation: logoSweep 4.8s linear infinite;
-    }
-
-    @keyframes logoSweep {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .logo-mark span {
-      position: relative;
-      font-weight: 700;
-      font-size: 19px;
-      letter-spacing: 0.18em;
-      color: #020617;
-    }
-
-    .logo-text-block {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      text-align: left;
-    }
-
-    .logo-main {
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: #e5e7eb;
-    }
-
-    .logo-sub {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
-      max-width: 260px;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 480px) {
-      .logo-text-block {
-        gap: 2px;
-      }
-      .logo-sub {
-        max-width: 220px;
-      }
-    }
-
-    /* Main card in center */
+    /* Main container */
     .card {
-      position: relative;
-      border-radius: var(--radius-xl);
-      padding: 24px 18px 22px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background:
-        radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.08), transparent 60%),
-        radial-gradient(circle at 100% 0%, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
-      backdrop-filter: blur(22px);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      width: 100%;
-      max-width: 780px;
-      opacity: 0;
-      transform: translateY(12px);
-      animation: fadeUp 0.7s ease-out forwards;
-      animation-delay: 0.1s;
+      width: 85%;
+      max-width: 950px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 26px;
+      padding: 50px;
+      backdrop-filter: blur(25px);
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+      animation: fade 0.7s ease-out;
     }
 
-    @media (min-width: 640px) {
-      .card {
-        padding: 26px 24px 24px;
-      }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.05), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .eyebrow {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .title {
-      font-size: 22px;
-      line-height: 1.25;
-      letter-spacing: 0.02em;
-      margin-bottom: 10px;
-    }
-
-    @media (min-width: 640px) {
-      .title {
-        font-size: 26px;
-      }
-    }
-
-    .title span {
-      background: linear-gradient(115deg, var(--accent-2), var(--accent-1));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 18px;
-      line-height: 1.7;
-      max-width: 520px;
-    }
-
-    /* Upload frame */
-    .upload-area {
-      border-radius: var(--radius-lg);
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.92);
-      padding: 14px 14px 12px;
+    /* Language Switch */
+    .lang-switch {
       display: flex;
-      flex-direction: column;
+      justify-content: flex-end;
+      margin-bottom: 12px;
       gap: 8px;
-      margin-bottom: 14px;
-      position: relative;
-      overflow: hidden;
     }
 
-    .upload-area::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        120deg,
-        rgba(148, 163, 184, 0.22),
-        transparent,
-        rgba(56, 189, 248, 0.16),
-        transparent
-      );
-      mix-blend-mode: soft-light;
-      opacity: 0.8;
-      pointer-events: none;
-    }
-
-    .upload-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .upload-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: radial-gradient(circle at 20% 20%, rgba(248, 250, 252, 0.15), rgba(15, 23, 42, 1));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
-    }
-
-    .upload-text-main {
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .upload-text-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .upload-bottom {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-    .upload-bottom input[type="file"] {
-      font-size: 11px;
-      color: var(--text-muted);
-      max-width: 250px;
-    }
-
-    .file-name {
-      font-size: 11px;
-      color: #e5e7eb;
-    }
-
-    .btn-main {
-      border-radius: 999px;
-      border: none;
-      padding: 9px 18px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      cursor: pointer;
-      color: #020617;
-      background: linear-gradient(120deg, var(--accent-2), var(--accent-1));
-      box-shadow:
-        0 0 0 1px rgba(226, 232, 240, 0.15),
-        0 0 32px rgba(56, 189, 248, 0.9);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform var(--transition-med), box-shadow var(--transition-med), filter var(--transition-med);
-      white-space: nowrap;
-    }
-
-    .btn-main:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-      box-shadow:
-        0 0 0 1px rgba(226, 232, 240, 0.22),
-        0 0 40px rgba(56, 189, 248, 1);
-    }
-
-    .btn-main span {
+    .lang-btn {
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.08);
       font-size: 12px;
-    }
-
-    .hint-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-top: 4px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-
-    .hint-text {
-      font-size: 10px;
-      color: var(--text-muted);
-    }
-
-    .status-pill {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.9);
-    }
-
-    .status-pill[data-state="working"] .status-dot {
-      background: linear-gradient(to right, rgba(56, 189, 248, 0.9), rgba(129, 140, 248, 0.95));
-      box-shadow: 0 0 14px rgba(56, 189, 248, 0.9);
-    }
-
-    .status-pill[data-state="ready"] .status-dot {
-      background: #4ade80;
-      box-shadow: 0 0 14px rgba(74, 222, 128, 0.9);
-    }
-
-    .status-pill[data-state="error"] .status-dot {
-      background: #fb7185;
-      box-shadow: 0 0 14px rgba(248, 113, 113, 0.9);
-    }
-
-    .status-label {
-      font-size: 10px;
-    }
-
-    .output-box {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at 100% 0%, rgba(15, 23, 42, 1), rgba(17, 24, 39, 0.98));
-      padding: 11px 12px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      max-height: 260px;
-      overflow: hidden;
-    }
-
-    .output-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .output-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-    }
-
-    .output-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn-ghost {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text-main);
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 5px 10px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all var(--transition-fast);
-      white-space: nowrap;
+      transition: 0.25s;
+      letter-spacing: 0.1em;
     }
 
-    .btn-ghost:hover {
-      border-color: rgba(248, 250, 252, 0.9);
-      background: rgba(15, 23, 42, 1);
-      transform: translateY(-0.5px);
+    .lang-btn:hover {
+      background: rgba(255,255,255,0.2);
     }
 
-    .output-body {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      max-height: 190px;
-      overflow-y: auto;
-      padding-right: 2px;
-      margin-top: 2px;
+    .lang-active {
+      background: #fff;
+      color: #000;
+      font-weight: 700;
     }
 
-    .output-body strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    .footer {
-      position: fixed;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 11px;
-      color: var(--text-muted);
+    /* Main Title */
+    .main-title {
       text-align: center;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.88);
-      border: 1px solid rgba(31, 41, 55, 0.8);
-      backdrop-filter: blur(18px);
-      z-index: 1;
-      white-space: nowrap;
+      font-size: 55px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      letter-spacing: 0.05em;
+      color: #ffffff;
+      text-shadow: 0 0 22px rgba(180, 220, 255, 0.45);
+      animation: pulseTitle 5s infinite ease-in-out;
     }
 
-    @media (max-width: 480px) {
-      .footer {
-        max-width: 92%;
-        white-space: normal;
-      }
+    @keyframes pulseTitle {
+      0% { text-shadow: 0 0 18px rgba(180, 220, 255, 0.45); }
+      50% { text-shadow: 0 0 35px rgba(180, 220, 255, 0.8); }
+      100% { text-shadow: 0 0 18px rgba(180, 220, 255, 0.45); }
     }
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Upload Box */
+    .upload-box {
+      border: 1px dashed rgba(255, 255, 255, 0.5);
+      padding: 30px;
+      border-radius: 22px;
+      margin-bottom: 35px;
+      animation: pulseFrame 3s infinite ease-in-out;
+    }
+
+    @keyframes pulseFrame {
+      0% { box-shadow: 0 0 0px rgba(100, 200, 255, 0.15); }
+      50% { box-shadow: 0 0 25px rgba(100, 200, 255, 0.35); }
+      100% { box-shadow: 0 0 0px rgba(100, 200, 255, 0.15); }
+    }
+
+    .upload-label {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin: 10px auto;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .btn {
+      background: #38bdf8;
+      color: #000;
+      font-size: 16px;
+      padding: 12px 34px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      margin: 18px auto;
+      display: block;
+      transition: 0.25s;
+      font-weight: 600;
+    }
+    .btn:hover {
+      background: #7dd3fc;
+      scale: 1.04;
+    }
+
+    /* Prompt Output */
+    .output {
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 25px;
+      min-height: 260px;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-y: auto;
+      box-shadow: inset 0 0 25px rgba(0,0,0,0.4);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 12px;
+      color: #aaa;
     }
   </style>
 </head>
+
 <body>
-  <div class="center-shell">
-    <!-- Logo in center top -->
-    <aside class="side-logo">
-      <div class="logo-mark">
-        <span>L</span>
-      </div>
-      <div class="logo-text-block">
-        <div class="logo-main">LAILA.ONE</div>
-        <div class="logo-sub">Creative Intelligence Engine</div>
-      </div>
-    </aside>
+  <div class="card">
 
-    <!-- Main centered card -->
-    <main class="card" aria-label="LAILA image to prompt playground">
-      <div class="card-inner">
-        <div class="eyebrow">Image → Prompt</div>
-        <h1 class="title">
-          Professional AI prompts <br />
-          generated from <span>any image.</span>
-        </h1>
-        <p class="subtitle">
-          Upload a reference photo and let LAILA craft clear, structured, 
-          production-ready prompts you can use in Whisk, Midjourney, Runway, 
-          and any other image model.
-        </p>
+    <!-- Language Switch -->
+    <div class="lang-switch">
+      <button class="lang-btn lang-active" id="btnEN">EN</button>
+      <button class="lang-btn" id="btnAR">AR</button>
+    </div>
 
-        <!-- Upload frame -->
-        <section class="upload-area">
-          <div class="upload-top">
-            <div class="upload-icon">📷</div>
-            <div>
-              <div class="upload-text-main">Upload a photo</div>
-              <div class="upload-text-sub">
-                Drop a single image. LAILA will analyse it and return a refined, AI-ready prompt.
-              </div>
-            </div>
-          </div>
+    <h1 class="main-title" id="mainTitle">LAILA AI</h1>
 
-          <div class="upload-bottom">
-            <input type="file" id="imageInput" accept="image/*" />
-            <button class="btn-main" type="button" id="enhanceBtn">
-              <span>Enhance Auto Prompt</span>
-            </button>
-          </div>
+    <!-- Upload Box -->
+    <div class="upload-box">
+      <label class="upload-label" id="uploadText">Upload a photo</label>
+      <input type="file" id="imageInput" accept="image/*" />
+      <button class="btn" id="enhanceBtn">Enhance Auto Prompt</button>
+    </div>
 
-          <div class="file-name" id="fileName"></div>
-        </section>
+    <!-- Output -->
+    <div class="output" id="outputBox">
+      Upload an image to generate prompts.
+    </div>
 
-        <div class="hint-row">
-          <div class="hint-text">
-            Your image is processed securely through your own backend connected to OpenAI Vision.
-          </div>
-          <div class="status-pill" id="statusPill" data-state="idle">
-            <span class="status-dot"></span>
-            <span class="status-label" id="statusLabel">Idle</span>
-          </div>
-        </div>
-
-        <!-- Output -->
-        <section class="output-box">
-          <div class="output-header">
-            <div class="output-title">LAILA Output</div>
-            <div class="output-actions">
-              <button class="btn-ghost" type="button" id="copyBtn">
-                Copy
-              </button>
-              <button class="btn-ghost" type="button" id="clearBtn">
-                Clear
-              </button>
-            </div>
-          </div>
-          <div class="output-body" id="outputBody">
-            Upload an image, then click “Enhance Auto Prompt”. LAILA will return a
-            basic description, a detailed version, and a final AI-ready prompt.
-          </div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <!-- Footer -->
-  <div class="footer">
-    © 2025 LAILA.ONE — Private creative intelligence for visual storytellers.
+    <div class="footer">
+      © 2025 LAILA.ONE — Private creative intelligence for visual storytellers.
+    </div>
   </div>
 
   <script>
-    const imageInput = document.getElementById("imageInput");
-    const fileName = document.getElementById("fileName");
-    const enhanceBtn = document.getElementById("enhanceBtn");
-    const statusPill = document.getElementById("statusPill");
-    const statusLabel = document.getElementById("statusLabel");
-    const outputBody = document.getElementById("outputBody");
-    const copyBtn = document.getElementById("copyBtn");
-    const clearBtn = document.getElementById("clearBtn");
+    const btnEN = document.getElementById("btnEN");
+    const btnAR = document.getElementById("btnAR");
+    const mainTitle = document.getElementById("mainTitle");
+    const uploadText = document.getElementById("uploadText");
+    const outputBox = document.getElementById("outputBox");
 
-    imageInput.addEventListener("change", () => {
-      const file = imageInput.files[0];
-      if (!file) {
-        fileName.textContent = "";
-        return;
-      }
-      fileName.textContent = "Selected: " + file.name;
-      setStatus("idle", "Image loaded");
-    });
+    btnEN.onclick = () => {
+      btnEN.classList.add("lang-active");
+      btnAR.classList.remove("lang-active");
+      mainTitle.textContent = "LAILA AI";
+      uploadText.textContent = "Upload a photo";
+      outputBox.textContent = "Upload an image to generate prompts.";
+    };
 
-    function setStatus(state, text) {
-      statusPill.setAttribute("data-state", state);
-      statusLabel.textContent = text;
-
-      if (state === "idle") {
-        statusPill.style.borderColor = "rgba(148,163,184,0.7)";
-      } else if (state === "working") {
-        statusPill.style.borderColor = "rgba(56,189,248,0.9)";
-      } else if (state === "ready") {
-        statusPill.style.borderColor = "rgba(74,222,128,0.95)";
-      } else if (state === "error") {
-        statusPill.style.borderColor = "rgba(248,113,113,0.95)";
-      }
-    }
-
-    enhanceBtn.addEventListener("click", () => {
-      const file = imageInput.files[0];
-      if (!file) {
-        setStatus("error", "No image selected");
-        outputBody.textContent =
-          "Please upload an image first. LAILA needs a visual reference to generate a meaningful prompt.";
-        return;
-      }
-
-      setStatus("working", "Analysing image…");
-
-      // هنا في النسخة الحقيقية:
-      // 1) ترفع الصورة للباك إند بتاعك (Node / PHP / Python).
-      // 2) الباك إند يستدعي OpenAI Vision model.
-      // 3) يرجع لك basic / detailed / ai_prompt كنص.
-      //
-      // الكود هنا مجرد Demo واجهة فقط.
-      setTimeout(() => {
-        const demo =
-          "<strong>1) Basic description</strong><br>" +
-          "A person standing in front of a modern city skyline at sunset, looking towards the horizon.<br><br>" +
-          "<strong>2) Detailed description</strong><br>" +
-          "A young engineer wearing a reflective safety vest, seen from behind on a high platform, overlooking a futuristic city skyline at golden hour. Warm orange sunlight reflects off glass towers, with a soft atmospheric haze and a calm, hopeful mood.<br><br>" +
-          "<strong>3) AI-ready prompt</strong><br>" +
-          "A young engineer in a high-visibility safety vest, viewed from behind, standing on a rooftop platform and looking over a futuristic city skyline at sunset, warm golden hour lighting, cinematic composition, soft atmospheric haze, ultra photorealistic, 8k resolution, sharp details, depth of field, professional photography, inspirational and hopeful mood.";
-
-        outputBody.innerHTML = demo;
-        setStatus("ready", "Prompt ready");
-      }, 600);
-    });
-
-    copyBtn.addEventListener("click", () => {
-      const text = outputBody.innerText || outputBody.textContent;
-      if (!text || !text.trim()) return;
-
-      navigator.clipboard
-        .writeText(text.trim())
-        .then(() => {
-          setStatus("ready", "Copied to clipboard");
-        })
-        .catch(() => {
-          setStatus("error", "Unable to copy");
-        });
-    });
-
-    clearBtn.addEventListener("click", () => {
-      outputBody.innerHTML =
-        "Upload an image, then click “Enhance Auto Prompt”. LAILA will return a " +
-        "basic description, a detailed version, and a final AI-ready prompt.";
-      setStatus("idle", "Idle");
-    });
+    btnAR.onclick = () => {
+      btnAR.classList.add("lang-active");
+      btnEN.classList.remove("lang-active");
+      mainTitle.textContent = "ليلى للذكاء الاصطناعي";
+      uploadText.textContent = "ارفع صورة";
+      outputBox.textContent = "قم برفع صورة لإنشاء برومبت احترافي.";
+    };
   </script>
 </body>
 </html>
