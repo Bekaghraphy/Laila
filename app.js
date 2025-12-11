@@ -14,7 +14,9 @@ const promptOutput = document.getElementById("promptOutput");
 const langSwitch = document.getElementById("langSwitch");
 
 let currentLang = "en";
-const backendURL = "https://d10e6243-c63b-49f1-be59-b43234a56af4-00-18q80rsc3iyxb.sisko.replit.dev/";
+
+// IMPORTANT — removed trailing slash
+const backendURL = "https://d10e6243-c63b-49f1-be59-b43234a56af4-00-18q80rsc3iyxb.sisko.replit.dev";
 
 
 // =======================
@@ -61,7 +63,7 @@ function applyArabic() {
 
 
 // =======================
-// SHOW LOADING STATE
+// LOADING STATE
 // =======================
 function setLoading(state, message = "") {
     if (state) {
@@ -74,7 +76,7 @@ function setLoading(state, message = "") {
 
 
 // =======================
-// API: UPLOAD IMAGE + GET PROMPT
+// API: Generate Description
 // =======================
 async function generateDescription() {
     const file = fileInput.files[0];
@@ -94,21 +96,26 @@ async function generateDescription() {
     formData.append("image", file);
 
     try {
-        const response = await fetch(`${backendURL}/generate-description`, {
+        const response = await fetch(backendURL + "/generate-description", {
             method: "POST",
             body: formData
         });
 
+        if (!response.ok) {
+            throw new Error("Server responded with: " + response.status);
+        }
+
         const result = await response.json();
 
-        if (result.success) {
+        if (result.success && result.description) {
             promptOutput.value = result.description;
         } else {
             promptOutput.value = "Error: No description returned.";
         }
+
     } catch (err) {
         promptOutput.value = "Failed to connect to backend.";
-        console.error(err);
+        console.error("Backend Error:", err);
     }
 
     setLoading(false);
@@ -116,7 +123,7 @@ async function generateDescription() {
 
 
 // =======================
-// API: GENERATE IMAGE (COMING SOON)
+// API: Generate Image (Not active yet)
 // =======================
 async function generateImage() {
     promptOutput.value = currentLang === "en"
@@ -130,4 +137,3 @@ async function generateImage() {
 // =======================
 btnPrompt.addEventListener("click", generateDescription);
 btnGenerate.addEventListener("click", generateImage);
-
