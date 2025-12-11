@@ -1,197 +1,180 @@
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
 
-/* PAGE */
 body {
-    background: #000;
-    color: #fff;
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
     overflow-x: hidden;
-}
-
-/* ANIMATED VIOLET GRADIENT – SOFT & LUX */
-.animated-bg {
-    position: fixed;
-    width: 260%;
-    height: 260%;
-    background: radial-gradient(
-        circle at 30% 30%,
-        rgba(140, 70, 255, 0.20),
-        rgba(90, 30, 180, 0.18),
-        rgba(40, 0, 90, 0.25),
-        #050014
-    );
-    animation: violetMove 18s infinite ease-in-out;
-    filter: blur(150px);
-    opacity: 0.38; /* لمعان بسيط جداً */
-    z-index: -1;
-}
-
-@keyframes violetMove {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(-12%, -10%) scale(1.05); }
-    100% { transform: translate(0, 0) scale(1); }
-}
-
-
-/* LANGUAGE TOGGLE */
-.lang-toggle {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    padding: 25px 25px 0 0;
-}
-
-.toggle-btn {
-    width: 70px;
-    height: 32px;
-    background: #222;
-    border-radius: 20px;
-    padding: 4px;
-    cursor: pointer;
-    border: 1px solid #444;
+    background: #0f0b1a;
+    color: #fff;
     position: relative;
 }
 
-.toggle-circle {
-    width: 24px;
-    height: 24px;
-    background: #6f00ff;
-    border-radius: 50%;
-    transition: 0.25s ease;
-    position: absolute;
-    left: 4px;
-    top: 4px;
+/* Animated Background */
+.animated-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 30%, #5a3ca7, #1b1035, #0f0b1a);
+    animation: glow 10s infinite alternate;
+    z-index: -1;
 }
 
-.toggle-btn.arabic .toggle-circle {
-    transform: translateX(36px);
-    background: #4b4bff;
+@keyframes glow {
+    0% { filter: brightness(0.8); }
+    100% { filter: brightness(1.2); }
 }
 
-/* LOGO */
+/* Logo */
 .logo-box {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .logo-circle {
-    width: 110px;
-    height: 110px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    background: linear-gradient(145deg, #333, #111);
-    margin: auto;
+    background: linear-gradient(135deg, #cba6ff, #7c3aed);
     display: flex;
-    justify-content: center;
     align-items: center;
-    box-shadow: inset 0 0 22px rgba(255,255,255,0.15),
-                0 0 35px rgba(255,255,255,0.08);
+    justify-content: center;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
 }
 
 .logo-letter {
-    font-size: 72px;
+    font-size: 32px;
     font-weight: 700;
-    color: #fff;
 }
 
 .logo-sub {
-    margin-top: 10px;
-    font-size: 14px;
+    margin-top: 8px;
     opacity: 0.7;
+    font-size: 14px;
 }
 
-/* MAIN */
+/* Container */
 .container {
-    max-width: 700px;
-    margin: 40px auto;
-    text-align: center;
+    max-width: 450px;
+    margin: auto;
     padding: 20px;
+    text-align: center;
+    margin-top: 25px;
 }
 
 .title {
-    font-size: 40px;
-    margin-bottom: 35px;
+    font-size: 38px;
     font-weight: 700;
+    margin-bottom: 28px;
 }
 
-/* UPLOAD BOX */
+/* Upload Box */
 .upload-box {
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 45px;
-    border-radius: 22px;
-    backdrop-filter: blur(25px);
-    background: rgba(255,255,255,0.03);
-    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 18px;
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 20px;
 }
 
 .upload-label {
-    font-size: 22px;
-    font-weight: 600;
-    cursor: pointer;
-    background: linear-gradient(90deg, #4b4bff, #6f00ff);
-    padding: 14px 30px;
-    border-radius: 14px;
-    display: inline-block;
-    opacity: 0.85;
+    display: block;
+    font-size: 18px;
+    margin-bottom: 12px;
 }
 
 #fileInput {
-    display: none;
-}
-
-/* PREVIEW */
-.preview-holder img {
     width: 100%;
-    border-radius: 16px;
-    margin: 20px 0;
 }
 
-/* BUTTONS */
+/* Preview */
+.preview-holder {
+    margin-top: 15px;
+}
+
+.preview-img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
 .actions {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    gap: 10px;
+    margin-bottom: 18px;
 }
 
 .btn {
-    padding: 14px 28px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 600;
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
     border: none;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 .primary {
-    background: #7f00ff;
+    background: #7c3aed;
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(124, 58, 237, 0.4);
 }
 
 .secondary {
-    background: #e100ff;
+    background: #cba6ff;
+    color: #000;
 }
 
-/* PROMPT OUTPUT */
+/* Output Box */
 .prompt-output {
     width: 100%;
-    margin-top: 25px;
-    height: 180px;
-    border-radius: 14px;
-    padding: 15px;
-    font-size: 15px;
+    height: 140px;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-size: 14px;
     resize: none;
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* FOOTER */
+/* Language Switch */
+.lang-toggle {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+.toggle-btn {
+    width: 55px;
+    height: 27px;
+    border-radius: 20px;
+    background: #3c2f58;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle-btn .toggle-circle {
+    width: 22px;
+    height: 22px;
+    background: #cba6ff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2.5px;
+    left: 3px;
+    transition: 0.25s;
+}
+
+.toggle-btn.arabic .toggle-circle {
+    left: 30px;
+}
+
+/* Footer */
 footer {
     text-align: center;
-    margin-top: 60px;
     opacity: 0.7;
-    padding-bottom: 40px;
+    margin-top: 40px;
+    font-size: 13px;
 }
