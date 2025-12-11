@@ -3,30 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LAILA AI | Creative Intelligence Engine</title>
+  <title>LAILA.ONE | Image → Prompt</title>
 
-  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg: #050509;
-      --bg-soft: #0b0b12;
-      --bg-elevated: #10101a;
-      --border-subtle: rgba(255, 255, 255, 0.06);
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
+      --bg-start: #020617;
+      --bg-mid: #111827;
+      --bg-end: #000000;
       --accent-1: #a855f7;
       --accent-2: #22d3ee;
-      --danger: #f97373;
-      --success: #4ade80;
-      --radius-xl: 24px;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --card-bg: rgba(15, 23, 42, 0.9);
+      --radius-xl: 26px;
       --radius-lg: 18px;
-      --radius-md: 12px;
-      --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.65);
-      --shadow-glow: 0 0 40px rgba(168, 85, 247, 0.4);
+      --shadow-soft: 0 30px 90px rgba(0, 0, 0, 0.75);
+      --shadow-glow: 0 0 40px rgba(56, 189, 248, 0.65);
       --transition-fast: 160ms ease-out;
       --transition-med: 220ms ease-out;
     }
@@ -39,82 +36,114 @@
 
     body {
       font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #111827 0, #020617 42%, #000 80%);
       color: var(--text-main);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.16), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(15, 23, 42, 0.9), transparent 60%),
+        linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
+      background-size: 320% 320%;
+      animation: bgShift 18s ease-in-out infinite alternate;
       -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .page {
-      min-height: 100vh;
-      padding: 24px 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 18px;
       position: relative;
       overflow: hidden;
     }
 
-    @media (min-width: 960px) {
-      .page {
-        padding: 28px 60px 64px;
+    @keyframes bgShift {
+      0% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 50% 100%;
+      }
+      100% {
+        background-position: 100% 0%;
       }
     }
 
-    /* Glow orbs background */
-    .orb {
-      position: fixed;
-      filter: blur(60px);
-      opacity: 0.75;
+    /* Soft ambient glow */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.22), transparent 70%);
+      top: -140px;
+      right: -120px;
+      filter: blur(8px);
+      opacity: 0.9;
       pointer-events: none;
-      z-index: -1;
-    }
-    .orb--purple {
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.8), transparent 70%);
-      top: -80px;
-      right: -60px;
-    }
-    .orb--cyan {
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.8), transparent 70%);
-      bottom: -100px;
-      left: -40px;
     }
 
-    /* NAVBAR */
-    .nav {
+    body::after {
+      content: "";
+      position: absolute;
+      width: 460px;
+      height: 460px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.2), transparent 70%);
+      bottom: -160px;
+      left: -120px;
+      filter: blur(10px);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1040px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (min-width: 960px) {
+      .shell {
+        grid-template-columns: auto minmax(0, 540px);
+        gap: 52px;
+      }
+    }
+
+    /* Side logo */
+    .side-logo {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 16px;
-      margin-bottom: 36px;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.7s ease-out forwards;
     }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    @media (min-width: 960px) {
+      .side-logo {
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
     }
 
     .logo-mark {
-      width: 38px;
-      height: 38px;
+      width: 48px;
+      height: 48px;
       border-radius: 999px;
       background: radial-gradient(circle at 20% 20%, #e5e7eb, #020617);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.2), var(--shadow-glow);
+      box-shadow:
+        0 0 0 1px rgba(148, 163, 184, 0.5),
+        0 0 30px rgba(56, 189, 248, 0.7);
       position: relative;
       overflow: hidden;
     }
@@ -123,589 +152,174 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: conic-gradient(from 220deg, rgba(168, 85, 247, 0.2), transparent 20%, rgba(56, 189, 248, 0.35), transparent 60%, rgba(248, 250, 252, 0.35));
+      background: conic-gradient(
+        from 200deg,
+        rgba(168, 85, 247, 0.30),
+        transparent 15%,
+        rgba(56, 189, 248, 0.35),
+        transparent 55%,
+        rgba(248, 250, 252, 0.4),
+        transparent 85%
+      );
       mix-blend-mode: screen;
-      opacity: 0.8;
+      opacity: 0.9;
+      animation: logoSweep 4.8s linear infinite;
+    }
+
+    @keyframes logoSweep {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     .logo-mark span {
       position: relative;
       font-weight: 700;
-      font-size: 15px;
-      letter-spacing: 0.16em;
+      font-size: 19px;
+      letter-spacing: 0.18em;
       color: #020617;
     }
 
-    .logo-text {
+    .logo-text-block {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
     }
 
-    .logo-title {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
+    .logo-main {
+      font-size: 13px;
       text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #e5e7eb;
     }
 
     .logo-sub {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-    }
-
-    .nav-links {
-      display: none;
-      align-items: center;
-      gap: 18px;
-      font-size: 13px;
-      text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--text-muted);
+      max-width: 220px;
+      line-height: 1.5;
     }
 
-    .nav-links a {
+    @media (max-width: 959px) {
+      .logo-text-block {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo-sub {
+        max-width: none;
+      }
+    }
+
+    /* Main card */
+    .card {
       position: relative;
-      padding-bottom: 4px;
+      border-radius: var(--radius-xl);
+      padding: 24px 20px 22px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.08), transparent 60%),
+        radial-gradient(circle at 100% 0%, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+      backdrop-filter: blur(22px);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.7s ease-out forwards;
+      animation-delay: 0.1s;
     }
 
-    .nav-links a::after {
+    @media (min-width: 640px) {
+      .card {
+        padding: 26px 24px 24px;
+      }
+    }
+
+    .card::before {
       content: "";
       position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 1px;
-      background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
-      transition: width var(--transition-fast);
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .nav-cta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .badge-beta {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.12), rgba(15, 23, 42, 0.9));
-      color: var(--text-muted);
-    }
-
-    .btn-outline {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-main);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all var(--transition-med);
-    }
-
-    .btn-outline:hover {
-      border-color: rgba(248, 250, 252, 0.8);
-      background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
-      transform: translateY(-1px);
-    }
-
-    @media (min-width: 960px) {
-      .nav-links {
-        display: flex;
-      }
-    }
-
-    /* LAYOUT MAIN */
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr);
-      gap: 28px;
-      align-items: flex-start;
-    }
-
-    @media (min-width: 1024px) {
-      .layout {
-        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
-        gap: 36px;
-      }
-    }
-
-    /* HERO */
-    .hero {
-      padding: 22px 18px 20px;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.08), rgba(15, 23, 42, 0.96));
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-shine {
-      position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.12), transparent 55%);
-      opacity: 0.75;
+      background: radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.05), transparent 60%);
+      opacity: 0.9;
       pointer-events: none;
     }
 
-    .hero-inner {
+    .card-inner {
       position: relative;
       z-index: 1;
     }
 
-    .hero-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      background: rgba(15, 23, 42, 0.9);
-      margin-bottom: 14px;
-      font-size: 11px;
-      letter-spacing: 0.12em;
+    .eyebrow {
+      font-size: 10px;
       text-transform: uppercase;
+      letter-spacing: 0.2em;
       color: var(--text-muted);
+      margin-bottom: 8px;
     }
 
-    .hero-pill-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: radial-gradient(circle, var(--accent-2), var(--accent-1));
-      box-shadow: 0 0 16px rgba(56, 189, 248, 0.8);
-    }
-
-    .hero-eyebrow {
-      font-size: 13px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+    .title {
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
       margin-bottom: 10px;
     }
 
-    .hero-title {
-      font-size: 32px;
-      line-height: 1.05;
-      letter-spacing: 0.02em;
-      margin-bottom: 12px;
-    }
-
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 40px;
+    @media (min-width: 640px) {
+      .title {
+        font-size: 26px;
       }
     }
 
-    .hero-title span {
-      background: linear-gradient(120deg, var(--accent-2), var(--accent-1));
+    .title span {
+      background: linear-gradient(115deg, var(--accent-2), var(--accent-1));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
-    .hero-subtitle {
-      font-size: 14px;
-      line-height: 1.6;
+    .subtitle {
+      font-size: 13px;
       color: var(--text-muted);
-      max-width: 460px;
       margin-bottom: 18px;
+      line-height: 1.7;
+      max-width: 420px;
     }
 
-    .hero-subtitle strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    .hero-ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .btn-primary {
-      position: relative;
-      border-radius: 999px;
-      border: none;
-      padding: 11px 20px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      cursor: pointer;
-      color: #020617;
-      background: linear-gradient(120deg, var(--accent-2), var(--accent-1));
-      box-shadow: 0 0 0 1px rgba(226, 232, 240, 0.1), var(--shadow-glow);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: transform var(--transition-med), box-shadow var(--transition-med), filter var(--transition-med);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
-      box-shadow: 0 0 0 1px rgba(226, 232, 240, 0.2), 0 0 40px rgba(56, 189, 248, 0.7);
-    }
-
-    .btn-ghost {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.85);
-      color: var(--text-main);
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 11px 16px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all var(--transition-med);
-    }
-
-    .btn-ghost:hover {
-      border-color: rgba(248, 250, 252, 0.85);
-      background: rgba(15, 23, 42, 0.98);
-      transform: translateY(-1px);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
-    .hero-meta-block {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-meta-badge {
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: #e5e7eb;
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .hero-meta-label {
-      color: var(--text-muted);
-    }
-
-    /* HERO SIDE CARD (What LAILA does) */
-    .side-card {
-      padding: 18px 18px 16px;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at top right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1));
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .side-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      gap: 10px;
-    }
-
-    .side-card-title {
-      font-size: 13px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #e5e7eb;
-    }
-
-    .side-card-tag {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-muted);
-    }
-
-    .side-card-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .feature-chip {
-      padding: 10px 10px;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
-      font-size: 11px;
-      line-height: 1.4;
-      color: var(--text-muted);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feature-chip span {
-      display: block;
-      font-size: 11px;
-      font-weight: 500;
-      color: #e5e7eb;
-      margin-bottom: 3px;
-    }
-
-    .side-footnote {
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .side-footnote strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    /* PLAYGROUND BLOCK */
-    .playground {
-      margin-top: 18px;
-      padding: 18px 16px 18px;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), #020617);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .playground-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .playground-title-group {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .playground-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-    }
-
-    .playground-title {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .playground-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: flex-end;
-    }
-
-    .pill-mini {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-muted);
-    }
-
-    .playground-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr);
-      gap: 14px;
-    }
-
-    @media (min-width: 900px) {
-      .playground-layout {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      }
-    }
-
-    /* Prompt panel */
-    .panel {
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1));
-      padding: 12px 12px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .panel-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .prompt-textarea {
-      width: 100%;
-      min-height: 120px;
-      resize: vertical;
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: 14px;
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      padding: 10px 11px;
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--text-main);
-      outline: none;
-      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
-    }
-
-    .prompt-textarea::placeholder {
-      color: rgba(148, 163, 184, 0.6);
-    }
-
-    .prompt-textarea:focus {
-      border-color: rgba(56, 189, 248, 0.9);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.8);
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    .presets {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .preset-chip {
-      font-size: 11px;
-      padding: 5px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      white-space: nowrap;
-    }
-
-    .preset-chip:hover {
-      border-color: rgba(248, 250, 252, 0.9);
-      color: #e5e7eb;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.96));
-      transform: translateY(-0.5px);
-    }
-
-    .preset-chip[data-active="true"] {
-      border-color: rgba(248, 250, 252, 0.9);
-      color: #020617;
-      background: linear-gradient(120deg, var(--accent-2), var(--accent-1));
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.6);
-    }
-
-    .panel-actions-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .panel-actions-row-left {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .btn-compact {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 7px 11px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--text-main);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all var(--transition-fast);
-    }
-
-    .btn-compact:hover {
-      border-color: rgba(248, 250, 252, 0.85);
-      background: rgba(15, 23, 42, 0.99);
-      transform: translateY(-0.5px);
-    }
-
-    .btn-compact-primary {
-      border: none;
-      background: linear-gradient(120deg, var(--accent-2), var(--accent-1));
-      color: #020617;
-      box-shadow: 0 0 0 1px rgba(226, 232, 240, 0.15), 0 0 24px rgba(56, 189, 248, 0.7);
-    }
-
-    .btn-compact-primary:hover {
-      box-shadow: 0 0 0 1px rgba(226, 232, 240, 0.25), 0 0 36px rgba(56, 189, 248, 0.9);
-    }
-
-    .hint-text {
-      font-size: 10px;
-      color: var(--text-muted);
-    }
-
-    /* Upload panel */
     .upload-area {
       border-radius: var(--radius-lg);
-      border: 1px dashed rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9);
-      padding: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.92);
+      padding: 14px 14px 12px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      align-items: flex-start;
-      justify-content: center;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .upload-header {
+    .upload-area::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        rgba(148, 163, 184, 0.22),
+        transparent,
+        rgba(56, 189, 248, 0.16),
+        transparent
+      );
+      mix-blend-mode: soft-light;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .upload-top {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -715,52 +329,141 @@
       width: 32px;
       height: 32px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: radial-gradient(circle at 20% 20%, rgba(248, 250, 252, 0.15), rgba(15, 23, 42, 1));
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.95));
       font-size: 16px;
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
     }
 
-    .upload-title {
-      font-size: 12px;
+    .upload-text-main {
+      font-size: 13px;
       font-weight: 500;
     }
 
-    .upload-sub {
+    .upload-text-sub {
       font-size: 11px;
       color: var(--text-muted);
     }
 
-    .upload-input-row {
+    .upload-bottom {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
       align-items: center;
-      margin-top: 4px;
+      gap: 10px;
+      margin-top: 6px;
     }
 
-    .upload-input-row input[type="file"] {
+    .upload-bottom input[type="file"] {
       font-size: 11px;
-      max-width: 200px;
       color: var(--text-muted);
+      max-width: 230px;
     }
 
-    .upload-filename {
+    .file-name {
       font-size: 11px;
       color: #e5e7eb;
     }
 
-    /* Output panel */
-    .output-panel {
+    .btn-main {
+      border-radius: 999px;
+      border: none;
+      padding: 9px 18px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      color: #020617;
+      background: linear-gradient(120deg, var(--accent-2), var(--accent-1));
+      box-shadow:
+        0 0 0 1px rgba(226, 232, 240, 0.15),
+        0 0 32px rgba(56, 189, 248, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform var(--transition-med), box-shadow var(--transition-med), filter var(--transition-med);
+      white-space: nowrap;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow:
+        0 0 0 1px rgba(226, 232, 240, 0.22),
+        0 0 40px rgba(56, 189, 248, 1);
+    }
+
+    .btn-main span {
+      font-size: 12px;
+    }
+
+    .hint-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    .hint-text {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .status-pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.9);
+    }
+
+    .status-pill[data-state="working"] .status-dot {
+      background: linear-gradient(to right, rgba(56, 189, 248, 0.9), rgba(129, 140, 248, 0.95));
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.9);
+    }
+
+    .status-pill[data-state="ready"] .status-dot {
+      background: #4ade80;
+      box-shadow: 0 0 14px rgba(74, 222, 128, 0.9);
+    }
+
+    .status-pill[data-state="error"] .status-dot {
+      background: #fb7185;
+      box-shadow: 0 0 14px rgba(248, 113, 113, 0.9);
+    }
+
+    .status-label {
+      font-size: 10px;
+    }
+
+    .output-box {
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      background: radial-gradient(circle at top right, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.96));
-      padding: 12px;
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at 100% 0%, rgba(15, 23, 42, 1), rgba(17, 24, 39, 0.98));
+      padding: 11px 12px 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
+      max-height: 220px;
+      overflow: hidden;
     }
 
     .output-header {
@@ -773,48 +476,47 @@
     .output-title {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       color: var(--text-muted);
     }
 
-    .status-pill {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 4px 8px;
+    .output-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-ghost {
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      color: var(--text-main);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
     }
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.9), rgba(129, 140, 248, 0.9));
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.9);
-    }
-
-    .status-pill[data-state="idle"] .status-dot {
-      background: rgba(148, 163, 184, 0.8);
-      box-shadow: none;
-    }
-
-    .status-pill[data-state="error"] .status-dot {
-      background: rgba(248, 113, 113, 0.95);
-      box-shadow: 0 0 14px rgba(248, 113, 113, 0.9);
+    .btn-ghost:hover {
+      border-color: rgba(248, 250, 252, 0.9);
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-0.5px);
     }
 
     .output-body {
       font-size: 12px;
       color: var(--text-muted);
       line-height: 1.6;
-      max-height: 180px;
+      max-height: 150px;
       overflow-y: auto;
-      padding-right: 4px;
+      padding-right: 2px;
+      margin-top: 2px;
     }
 
     .output-body strong {
@@ -822,59 +524,28 @@
       font-weight: 500;
     }
 
-    .output-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
     .footer {
-      margin-top: 26px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 12px;
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 11px;
       color: var(--text-muted);
-      justify-content: space-between;
+      text-align: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(31, 41, 55, 0.8);
+      backdrop-filter: blur(18px);
+      z-index: 1;
+      white-space: nowrap;
     }
 
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-links a {
-      font-size: 11px;
-      color: var(--text-muted);
-      transition: color var(--transition-fast);
-    }
-
-    .footer-links a:hover {
-      color: #e5e7eb;
-    }
-
-    /* Simple fade-up animation */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(10px);
-      animation: fadeUp 0.6s ease-out forwards;
-    }
-
-    .fade-up.delay-1 {
-      animation-delay: 0.12s;
-    }
-
-    .fade-up.delay-2 {
-      animation-delay: 0.2s;
-    }
-
-    .fade-up.delay-3 {
-      animation-delay: 0.3s;
+    @media (max-width: 480px) {
+      .footer {
+        max-width: 92%;
+        white-space: normal;
+      }
     }
 
     @keyframes fadeUp {
@@ -886,383 +557,100 @@
   </style>
 </head>
 <body>
-  <div class="orb orb--purple"></div>
-  <div class="orb orb--cyan"></div>
-
-  <main class="page">
-    <!-- NAVBAR -->
-    <header class="nav fade-up">
-      <div class="nav-left">
-        <div class="logo-mark">
-          <span>L</span>
-        </div>
-        <div class="logo-text">
-          <div class="logo-title">LAILA.ONE</div>
-          <div class="logo-sub">Creative Intelligence Engine</div>
-        </div>
+  <div class="shell">
+    <!-- Side Logo -->
+    <aside class="side-logo">
+      <div class="logo-mark">
+        <span>L</span>
       </div>
-
-      <nav class="nav-links">
-        <a href="#hero">Overview</a>
-        <a href="#playground">Playground</a>
-        <a href="#use-cases">Use cases</a>
-        <a href="#footer">About</a>
-      </nav>
-
-      <div class="nav-cta">
-        <div class="badge-beta">Private Alpha</div>
-        <button class="btn-outline" type="button" onclick="scrollToPlayground()">
-          Open Playground
-        </button>
+      <div class="logo-text-block">
+        <div class="logo-main">LAILA.ONE</div>
+        <div class="logo-sub">Creative Intelligence Engine</div>
       </div>
-    </header>
+    </aside>
 
-    <!-- LAYOUT -->
-    <section class="layout">
-      <!-- LEFT: HERO -->
-      <section class="hero fade-up delay-1" id="hero">
-        <div class="hero-shine"></div>
-        <div class="hero-inner">
-          <div class="hero-pill">
-            <span class="hero-pill-dot"></span>
-            <span>Built for creators, editors & storytellers</span>
+    <!-- Main Card -->
+    <main class="card" aria-label="LAILA image to prompt playground">
+      <div class="card-inner">
+        <div class="eyebrow">Image → Prompt</div>
+        <h1 class="title">
+          Professional AI prompts <br />
+          generated from <span>any image.</span>
+        </h1>
+        <p class="subtitle">
+          Upload a reference photo and let LAILA craft clear, structured, 
+          production-ready prompts you can use in Whisk, Midjourney, Runway, 
+          and any other image model.
+        </p>
+
+        <!-- Upload frame -->
+        <section class="upload-area">
+          <div class="upload-top">
+            <div class="upload-icon">📷</div>
+            <div>
+              <div class="upload-text-main">Upload a photo</div>
+              <div class="upload-text-sub">
+                Drop a single image. LAILA will analyse it and return a refined, AI-ready prompt.
+              </div>
+            </div>
           </div>
 
-          <div class="hero-eyebrow">Vision & Image Intelligence</div>
-
-          <h1 class="hero-title">
-            Turn any idea into a<br />
-            <span>ready-to-use AI prompt</span>.
-          </h1>
-
-          <p class="hero-subtitle">
-            LAILA AI is your private assistant for <strong>image generation</strong>, 
-            <strong>smart prompting</strong>, and <strong>photo description</strong>.
-            Designed for professionals who want quality, not noise.
-          </p>
-
-          <div class="hero-ctas">
-            <button class="btn-primary" type="button" onclick="scrollToPlayground()">
-              Open LAILA Playground
-            </button>
-            <button class="btn-ghost" type="button">
-              Coming soon: API access
+          <div class="upload-bottom">
+            <input type="file" id="imageInput" accept="image/*" />
+            <button class="btn-main" type="button" id="enhanceBtn">
+              <span>Enhance Auto Prompt</span>
             </button>
           </div>
 
-          <div class="hero-meta">
-            <div class="hero-meta-block">
-              <span class="hero-meta-badge">Prompt Engine</span>
-              <span class="hero-meta-label">Optimized for Whisk · Midjourney · Runway</span>
-            </div>
-            <div class="hero-meta-block">
-              <span class="hero-meta-badge">Image Describer</span>
-              <span class="hero-meta-label">Upload any image – get 3 levels of description</span>
-            </div>
+          <div class="file-name" id="fileName"></div>
+        </section>
+
+        <div class="hint-row">
+          <div class="hint-text">
+            Your image is processed securely through your own backend connected to OpenAI Vision.
+          </div>
+          <div class="status-pill" id="statusPill" data-state="idle">
+            <span class="status-dot"></span>
+            <span class="status-label" id="statusLabel">Idle</span>
           </div>
         </div>
-      </section>
 
-      <!-- RIGHT: WHAT LAILA DOES + PLAYGROUND -->
-      <section class="fade-up delay-2">
-        <!-- What LAILA does -->
-        <section class="side-card" id="use-cases">
-          <div class="side-card-header">
-            <div class="side-card-title">What LAILA does</div>
-            <div class="side-card-tag">For Creative Workflows</div>
-          </div>
-
-          <div class="side-card-grid">
-            <div class="feature-chip">
-              <span>Image Generation</span>
-              Turn a simple idea into a detailed prompt for ultra-realistic,
-              cinematic, or stylized AI images.
-            </div>
-            <div class="feature-chip">
-              <span>Smart Prompting</span>
-              Auto-enhance your text with camera, lighting, and composition
-              details in one click.
-            </div>
-            <div class="feature-chip">
-              <span>Image Describer</span>
-              Upload a photo and get perfect, structured descriptions ready
-              for any AI image model.
-            </div>
-            <div class="feature-chip">
-              <span>Preset Styles</span>
-              One-tap presets tuned for product shots, portraits, anime,
-              editorial, and more.
+        <!-- Output -->
+        <section class="output-box">
+          <div class="output-header">
+            <div class="output-title">LAILA Output</div>
+            <div class="output-actions">
+              <button class="btn-ghost" type="button" id="copyBtn">
+                Copy
+              </button>
+              <button class="btn-ghost" type="button" id="clearBtn">
+                Clear
+              </button>
             </div>
           </div>
-
-          <p class="side-footnote">
-            Built for <strong>editors, designers, agencies, and solo creators</strong> who need
-            consistent, high-quality outputs without spending hours tweaking prompts.
-          </p>
-        </section>
-
-        <!-- Playground -->
-        <section class="playground" id="playground">
-          <div class="playground-header">
-            <div class="playground-title-group">
-              <span class="playground-label">Playground</span>
-              <span class="playground-title">LAILA Prompt & Vision Studio</span>
-            </div>
-            <div class="playground-badges">
-              <span class="pill-mini">Text → Image Prompt</span>
-              <span class="pill-mini">Image → Description</span>
-            </div>
-          </div>
-
-          <div class="playground-layout">
-            <!-- Left: Prompt panel -->
-            <div class="panel">
-              <div class="panel-label">
-                <span>Prompt</span>
-                <span class="hint-text">Describe what you want to see</span>
-              </div>
-              <textarea
-                id="promptInput"
-                class="prompt-textarea"
-                placeholder="Example: A young engineer standing on a rooftop at sunset, looking at a futuristic city skyline full of glowing skyscrapers and drones in the sky..."
-              ></textarea>
-
-              <div class="panel-label" style="margin-top: 4px;">
-                <span>Presets</span>
-                <span class="hint-text">Tap to add style details</span>
-              </div>
-              <div class="presets" id="presetList">
-                <button class="preset-chip" type="button" data-preset="cinematic">
-                  Cinematic
-                </button>
-                <button class="preset-chip" type="button" data-preset="ultra">
-                  Ultra-realistic
-                </button>
-                <button class="preset-chip" type="button" data-preset="product">
-                  Product shot
-                </button>
-                <button class="preset-chip" type="button" data-preset="portrait">
-                  Portrait studio
-                </button>
-                <button class="preset-chip" type="button" data-preset="anime">
-                  Anime / stylized
-                </button>
-                <button class="preset-chip" type="button" data-preset="laila">
-                  LAILA signature
-                </button>
-              </div>
-
-              <div class="panel-actions-row">
-                <div class="panel-actions-row-left">
-                  <button class="btn-compact" type="button" onclick="enhancePrompt()">
-                    Auto-Enhance Prompt
-                  </button>
-                  <button class="btn-compact" type="button" onclick="resetPrompt()">
-                    Reset
-                  </button>
-                </div>
-                <button class="btn-compact btn-compact-primary" type="button" onclick="generateFromPrompt()">
-                  Generate with LAILA
-                </button>
-              </div>
-
-              <div class="hint-text">
-                Note: Image generation requires connecting your private backend to OpenAI. 
-                This demo focuses on the prompt engine UI.
-              </div>
-            </div>
-
-            <!-- Right: Upload + Output -->
-            <div class="panel" style="gap: 10px;">
-              <div class="panel-label">
-                <span>Image → Description</span>
-                <span class="hint-text">Get prompts from any photo</span>
-              </div>
-
-              <div class="upload-area">
-                <div class="upload-header">
-                  <div class="upload-icon">📷</div>
-                  <div>
-                    <div class="upload-title">Upload reference image</div>
-                    <div class="upload-sub">
-                      LAILA will analyse your image and generate 3 levels of description:
-                      basic, detailed, and AI-ready.
-                    </div>
-                  </div>
-                </div>
-
-                <div class="upload-input-row">
-                  <input type="file" id="imageInput" accept="image/*" />
-                  <button class="btn-compact" type="button" onclick="describeImage()">
-                    Describe image
-                  </button>
-                </div>
-                <div id="fileName" class="upload-filename"></div>
-              </div>
-
-              <div class="output-panel">
-                <div class="output-header">
-                  <div class="output-title">LAILA Output</div>
-                  <div id="statusPill" class="status-pill" data-state="idle">
-                    <span class="status-dot"></span>
-                    <span id="statusText">Idle</span>
-                  </div>
-                </div>
-
-                <div id="outputBody" class="output-body">
-                  Type a prompt, choose a preset, or upload an image.
-                  LAILA will return structured text you can paste into any AI image tool.
-                </div>
-
-                <div class="output-actions">
-                  <button class="btn-compact" type="button" onclick="copyOutput()">
-                    Copy text
-                  </button>
-                  <button class="btn-compact" type="button" onclick="clearOutput()">
-                    Clear
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div class="output-body" id="outputBody">
+            Upload an image, then click “Enhance Auto Prompt”. LAILA will return a
+            basic description, a detailed version, and a final AI-ready prompt.
           </div>
         </section>
-      </section>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer fade-up delay-3" id="footer">
-      <div>© <span id="year"></span> LAILA.ONE — Private creative intelligence for visual storytellers.</div>
-      <div class="footer-links">
-        <a href="#hero">Overview</a>
-        <a href="#playground">Playground</a>
-        <a href="https://platform.openai.com/" target="_blank" rel="noreferrer">OpenAI</a>
-        <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
       </div>
-    </footer>
-  </main>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    © 2025 LAILA.ONE — Private creative intelligence for visual storytellers.
+  </div>
 
   <script>
-    // Basic helpers
-    function scrollToPlayground() {
-      const el = document.getElementById("playground");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const promptInput = document.getElementById("promptInput");
-    const presetList = document.getElementById("presetList");
     const imageInput = document.getElementById("imageInput");
     const fileName = document.getElementById("fileName");
-    const outputBody = document.getElementById("outputBody");
+    const enhanceBtn = document.getElementById("enhanceBtn");
     const statusPill = document.getElementById("statusPill");
-    const statusText = document.getElementById("statusText");
-
-    const PRESET_TEXT = {
-      cinematic:
-        " cinematic, wide-angle shot, dramatic lighting, volumetric light, rich contrast, 4K, film still, mastered color grading, shallow depth of field",
-      ultra:
-        " ultra photorealistic, 8k resolution, hyper-detailed textures, physically-based lighting, realistic skin, natural atmosphere, professional photography",
-      product:
-        " clean studio product shot, seamless background, soft box lighting, high dynamic range, sharp focus, commercial catalog style",
-      portrait:
-        " portrait composition, studio lighting, crisp focus, subtle depth of field, natural skin tones, professional lens, editorial look",
-      anime:
-        " anime style illustration, clean line art, vibrant colors, expressive lighting, dynamic composition, highly stylized",
-      laila:
-        " premium composition, balanced negative space, storytelling visuals, tasteful color palette, subtle glow, art-directed framing"
-    };
-
-    presetList.addEventListener("click", (e) => {
-      const btn = e.target.closest(".preset-chip");
-      if (!btn) return;
-      const key = btn.getAttribute("data-preset");
-      const extra = PRESET_TEXT[key] || "";
-      if (!extra) return;
-
-      document
-        .querySelectorAll(".preset-chip")
-        .forEach((chip) => chip.setAttribute("data-active", "false"));
-      btn.setAttribute("data-active", "true");
-
-      if (promptInput.value.trim().length === 0) {
-        promptInput.value = "Your subject here," + extra;
-      } else if (!promptInput.value.includes(extra.trim())) {
-        promptInput.value = promptInput.value.trim().replace(/[, ]*$/, "") + "," + extra;
-      }
-
-      promptInput.focus();
-    });
-
-    function setStatus(state, text) {
-      statusPill.setAttribute("data-state", state);
-      statusText.textContent = text;
-    }
-
-    function enhancePrompt() {
-      const value = promptInput.value.trim();
-      if (!value) {
-        setStatus("error", "Add a basic description first");
-        outputBody.innerHTML =
-          "Start with a simple sentence about what you want to see. For example:<br><br><strong>A Saudi engineer standing on a bridge at sunrise, looking at a new city skyline in the distance.</strong>";
-        return;
-      }
-
-      setStatus("loading", "Enhancing…");
-
-      setTimeout(() => {
-        const enhanced =
-          value.replace(/\s+/g, " ") +
-          ", ultra photorealistic, professional photography, cinematic lighting, sharp focus, realistic textures, depth of field, 8k quality";
-        outputBody.textContent = enhanced;
-        setStatus("success", "Enhanced prompt ready");
-      }, 350);
-    }
-
-    function resetPrompt() {
-      promptInput.value = "";
-      document
-        .querySelectorAll(".preset-chip")
-        .forEach((chip) => chip.setAttribute("data-active", "false"));
-      setStatus("idle", "Idle");
-    }
-
-    function generateFromPrompt() {
-      const value = promptInput.value.trim();
-      if (!value) {
-        setStatus("error", "Prompt is empty");
-        outputBody.textContent =
-          "Write at least one sentence describing the scene you want to generate, then click “Generate with LAILA”.";
-        return;
-      }
-
-      setStatus("loading", "Preparing request…");
-
-      // TODO: هنا بتربط الواجهة بتاعت LAILA.ONE بالباك إند الخاص بيك
-      // مهم جداً: الـ API key بتاع OpenAI لازم يكون في السيرفر فقط، مش في الفرونت إند.
-      //
-      // مثال مبدأي لاستدعاء باك إند خاص بيك:
-      //
-      // fetch('https://YOUR-BACKEND-ENDPOINT/generate-image', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ prompt: value })
-      // })
-      //   .then(res => res.json())
-      //   .then(data => {
-      //     // data.resultPrompt / data.imageUrl حسب ما هتصمم الـ API
-      //   })
-      //   .catch(err => { ... });
-
-      setTimeout(() => {
-        outputBody.innerHTML =
-          "<strong>Prompt prepared for image generation:</strong><br><br>" +
-          value;
-        setStatus("success", "Prompt ready for your model");
-      }, 400);
-    }
+    const statusLabel = document.getElementById("statusLabel");
+    const outputBody = document.getElementById("outputBody");
+    const copyBtn = document.getElementById("copyBtn");
+    const clearBtn = document.getElementById("clearBtn");
 
     imageInput.addEventListener("change", () => {
       const file = imageInput.files[0];
@@ -1271,65 +659,75 @@
         return;
       }
       fileName.textContent = "Selected: " + file.name;
+      setStatus("idle", "Image loaded");
     });
 
-    function describeImage() {
+    function setStatus(state, text) {
+      statusPill.setAttribute("data-state", state);
+      statusLabel.textContent = text;
+
+      if (state === "idle") {
+        statusPill.style.borderColor = "rgba(148,163,184,0.7)";
+      } else if (state === "working") {
+        statusPill.style.borderColor = "rgba(56,189,248,0.9)";
+      } else if (state === "ready") {
+        statusPill.style.borderColor = "rgba(74,222,128,0.95)";
+      } else if (state === "error") {
+        statusPill.style.borderColor = "rgba(248,113,113,0.95)";
+      }
+    }
+
+    enhanceBtn.addEventListener("click", () => {
       const file = imageInput.files[0];
       if (!file) {
         setStatus("error", "No image selected");
         outputBody.textContent =
-          "Please upload an image first. LAILA will then generate three descriptions: basic, detailed, and AI-ready.";
+          "Please upload an image first. LAILA needs a visual reference to generate a meaningful prompt.";
         return;
       }
 
-      setStatus("loading", "Analysing image…");
+      setStatus("working", "Analysing image…");
 
-      // TODO: هنا هترفع الصورة للباك إند بتاعك اللي متوصل على OpenAI Vision.
+      // هنا في النسخة الحقيقية:
+      // 1) ترفع الصورة للباك إند بتاعك (Node / PHP / Python).
+      // 2) الباك إند يستدعي OpenAI Vision model.
+      // 3) يرجع لك basic / detailed / ai_prompt كنص.
       //
-      // const formData = new FormData();
-      // formData.append('image', file);
-      //
-      // fetch('https://YOUR-BACKEND-ENDPOINT/describe-image', {
-      //   method: 'POST',
-      //   body: formData
-      // })
-      //   .then(res => res.json())
-      //   .then(data => {
-      //     // data.basic / data.detailed / data.ai_prompt
-      //   });
-
+      // الكود هنا مجرد Demo واجهة فقط.
       setTimeout(() => {
-        outputBody.innerHTML =
-          "<strong>Example output (demo):</strong><br><br>" +
+        const demo =
           "<strong>1) Basic description</strong><br>" +
           "A person standing in front of a modern city skyline at sunset, looking towards the horizon.<br><br>" +
           "<strong>2) Detailed description</strong><br>" +
-          "A young engineer wearing a safety vest, seen from behind, standing on a high platform overlooking a futuristic city skyline at golden hour. Warm sunlight reflects off glass skyscrapers, while soft clouds fill the sky.<br><br>" +
+          "A young engineer wearing a reflective safety vest, seen from behind on a high platform, overlooking a futuristic city skyline at golden hour. Warm orange sunlight reflects off glass towers, with a soft atmospheric haze and a calm, hopeful mood.<br><br>" +
           "<strong>3) AI-ready prompt</strong><br>" +
-          "A young engineer in a high-visibility safety vest, viewed from behind, standing on a rooftop platform and looking over a futuristic city skyline at sunset, warm golden hour lighting, cinematic composition, soft atmospheric haze, ultra-realistic, 8k, depth of field, professional photography, crisp details, inspirational and hopeful mood.";
-        setStatus("success", "Demo description ready");
-      }, 500);
-    }
+          "A young engineer in a high-visibility safety vest, viewed from behind, standing on a rooftop platform and looking over a futuristic city skyline at sunset, warm golden hour lighting, cinematic composition, soft atmospheric haze, ultra photorealistic, 8k resolution, sharp details, depth of field, professional photography, inspirational and hopeful mood.";
 
-    function copyOutput() {
+        outputBody.innerHTML = demo;
+        setStatus("ready", "Prompt ready");
+      }, 600);
+    });
+
+    copyBtn.addEventListener("click", () => {
       const text = outputBody.innerText || outputBody.textContent;
       if (!text || !text.trim()) return;
 
       navigator.clipboard
         .writeText(text.trim())
         .then(() => {
-          setStatus("success", "Copied to clipboard");
+          setStatus("ready", "Copied to clipboard");
         })
         .catch(() => {
           setStatus("error", "Unable to copy");
         });
-    }
+    });
 
-    function clearOutput() {
-      outputBody.textContent =
-        "Type a prompt, choose a preset, or upload an image. LAILA will return structured text you can paste into any AI image tool.";
+    clearBtn.addEventListener("click", () => {
+      outputBody.innerHTML =
+        "Upload an image, then click “Enhance Auto Prompt”. LAILA will return a " +
+        "basic description, a detailed version, and a final AI-ready prompt.";
       setStatus("idle", "Idle");
-    }
+    });
   </script>
 </body>
 </html>
