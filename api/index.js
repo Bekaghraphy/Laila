@@ -1,57 +1,52 @@
-import express from "express";
-import cors from "cors";
-import multer from "multer";
-import fs from "fs";
-import { OpenAI } from "openai";
+import express from 'express';
+import multer from 'multer';
+import fs from 'fs';
+import { OpenAI } from 'openai';
 
 const app = express();
-const port = process.env.PORT || 4000;
-
-app.use(cors());
-app.use(express.json());
-
-const upload = multer({ dest: "uploads/" });
+const port = process.env.PORT || 3000;
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY
 });
 
-app.post("/describe-image", upload.single("image"), async (req, res) => {
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/describe-image', upload.single('file'), async (req, res) => {
   try {
-    const filePath = req.file.path;
+    const imagePath = req.file.path;
+    const base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
 
-    const uploadResponse = await openai.files.create({
-      file: fs.createReadStream(filePath),
-      purpose: "vision",
-    });
-
-    const visionResponse = await openai.chat.completions.create({
-      model: "gpt-4-vision-preview",
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4-vision-preview',
       messages: [
         {
-          role: "user",
+          role: 'user',
           content: [
-            { type: "text", text: "Give me a clean, descriptive prompt for this image." },
+            { type: 'text', text: 'Describe this image in detail' },
             {
-              type: "image_url",
-              image_url: { file_id: uploadResponse.id },
-            },
-          ],
-        },
+              type: 'image_url',
+              image_url: {
+                url: `data:image/jpeg;base64,${base64Image}`
+              }
+            }
+          ]
+        }
       ],
-      max_tokens: 600,
+      max_tokens: 1000
     });
 
-    fs.unlinkSync(filePath);
-
-    const description = visionResponse.choices[0].message.content;
-    res.json({ description });
+    res.json({ description: response.choices[0].message.content });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error describing image" });
+    console.error('Error:', error.message);
+    res.status(500).json({ error: 'Error describing image' });
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('Image description API is running.');
+});
+
 app.listen(port, () => {
-  console.log(`LAILA backend running at http://localhost:${port}`);
+  console.log(`Server is running on port ${port}`);
 });
