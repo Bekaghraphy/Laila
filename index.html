@@ -23,7 +23,6 @@
   --trans: 0.2s ease-out;
 }
 
-/* Global */
 html, body {
   margin:0; padding:0;
   width:100%; height:100%;
@@ -36,58 +35,99 @@ main {
   padding:12px 16px;
 }
 
-/* Title */
+/* HEADER */
+.nav {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 8px;
+}
+.logo-mark {
+  width:40px; height:40px;
+  border-radius:50%;
+  background:radial-gradient(circle at 20% 20%,#e5e7eb,#020617);
+  display:flex; align-items:center; justify-content:center;
+}
+.logo-mark span {
+  font-weight:700;
+  font-size:16px;
+  color:#020617;
+}
+.logo-text .logo-title {
+  font-size:18px; font-weight:600; text-transform:uppercase;
+}
+.logo-text .logo-sub {
+  font-size:11px; color:var(--text-muted); text-transform:uppercase;
+}
+.btn-outline {
+  padding:6px 14px;border-radius:999px;
+  border:1px solid rgba(148,163,184,0.6);
+  background:rgba(15,23,42,0.9);
+  color:var(--text-main);
+  cursor:pointer;font-size:12px;transition:all var(--trans);
+}
+.btn-outline:hover {
+  transform:translateY(-1px);
+  filter:brightness(1.1);
+}
+
+/* TITLE */
 .main-title {
   font-size:26px;
   text-align:center;
-  margin:14px 0;
+  margin:8px 0;
 }
 .main-title span {
   background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
   -webkit-background-clip:text;color:transparent;
 }
 
-/* Upload row */
+/* UPLOAD BTN + DESCRIBE */
 .upload-area {
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:8px;
+  gap:10px;
   flex-wrap:nowrap;
-  margin-bottom:8px;
+  margin:10px 0;
 }
 .upload-btn {
-  padding:6px 14px;
-  border-radius:999px;
-  background: linear-gradient(120deg,var(--accent-2),var(--accent-1));
+  padding:8px 18px;border-radius:999px;
+  background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
   color:#020617;font-weight:600;
   border:none;cursor:pointer;transition:all var(--trans);
   font-size:14px;
 }
-.upload-btn:hover { transform:translateY(-1px);filter:brightness(1.1); }
-
-.btn-compact, .btn-compact-primary {
-  font-size:13px; padding:8px 12px; border-radius:999px;
-  border:1px solid rgba(148,163,184,0.6);
-  background:rgba(15,23,42,0.95); color:var(--text-main);
-  cursor:pointer; margin:6px 4px 4px 0; transition:all var(--trans);
+.upload-btn:hover {
+  transform:translateY(-1px);
+  filter:brightness(1.1);
 }
-.btn-compact:hover { transform:translateY(-1px);}
+.btn-compact {
+  font-size:13px;padding:8px 14px;border-radius:999px;
+  border:1px solid rgba(148,163,184,0.6);
+  background:rgba(15,23,42,0.95);
+  color:var(--text-main);
+  cursor:pointer;transition:all var(--trans);
+}
+.btn-compact:hover {
+  transform:translateY(-1px);
+  border-color:rgba(248,250,252,0.8);
+}
 .btn-compact-primary {
-  background: linear-gradient(120deg,var(--accent-2),var(--accent-1));
+  background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
   border:none;color:#020617;
 }
 
-/* Preview */
+/* IMAGE PREVIEW */
 img.preview {
-  max-width:140px;
-  height:auto;
+  max-width:160px; height:auto;
   border-radius:12px;
   border:1px solid rgba(148,163,184,0.4);
-  margin-top:4px;
+  display:block;
+  margin:0 auto 8px auto;
 }
 
-/* Output */
+/* OUTPUT BOX */
 .output-panel {
   background:rgba(15,23,42,0.9);
   border:1px solid rgba(148,163,184,0.4);
@@ -96,46 +136,41 @@ img.preview {
   color:var(--text-muted);
   font-size:14px;
   min-height:60px;
+  margin-top:6px;
   margin-bottom:10px;
 }
 
-/* Textarea */
+/* TEXTAREA */
 textarea {
   width:100%;
   min-height:80px;
   border-radius:14px;
   border:1px solid rgba(31,41,55,0.9);
-  background:rgba(15,23,42,0.95); color:var(--text-main);
-  padding:10px; font-size:14px;
-  margin-top:8px;
+  background:rgba(15,23,42,0.95);
+  color:var(--text-main);
+  padding:10px;
+  font-size:14px;
+  margin-top:12px;
 }
 
-/* Presets Row */
-.preset-row {
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:8px;
-}
-
-/* Spinner */
+/* SPINNER */
 #spinnerOverlay {
-  position:fixed; top:0; left:0;
+  position:fixed;
+  top:0; left:0;
   width:100%; height:100%;
   background:rgba(0,0,0,0.6);
   display:none;
-  justify-content:center;
-  align-items:center;
+  justify-content:center; align-items:center;
   z-index:9999;
 }
 .spinner {
   border:6px solid rgba(255,255,255,0.2);
   border-top:6px solid var(--accent-2);
-  border-radius:50%; width:50px; height:50px;
+  border-radius:50%;
+  width:50px; height:50px;
   animation:spin 1s linear infinite;
 }
-@keyframes spin { to{transform:rotate(360deg);} }
+@keyframes spin{to{transform:rotate(360deg);}}
 
 </style>
 </head>
@@ -144,49 +179,48 @@ textarea {
 
 <div id="spinnerOverlay">
   <div class="spinner"></div>
-  <div id="spinnerText" style="margin-top:8px;color:var(--accent-2);font-size:15px;">Loading...</div>
+  <div id="spinnerText" style="margin-top:8px;color:var(--accent-2);font-size:15px;">Processing...</div>
 </div>
 
 <main>
 
-  <div class="main-title" id="mainTitle">Turn any idea into a ready-to-use AI prompt</div>
+  <!-- HEADER -->
+  <div class="nav">
+    <div class="nav-left">
+      <div class="logo-mark"><span>L</span></div>
+      <div class="logo-text">
+        <div class="logo-title">LAILA.ONE</div>
+        <div class="logo-sub">CREATIVE INTELLIGENCE ENGINE</div>
+      </div>
+    </div>
+    <button class="btn-outline" id="langToggle">AR</button>
+  </div>
 
-  <!-- Upload + Describe buttons -->
+  <!-- TITLE -->
+  <div class="main-title" id="mainTitle">
+    Turn any idea into a ready-to-use AI prompt
+  </div>
+
+  <!-- UPLOAD + DESCRIBE -->
   <div class="upload-area">
     <label class="upload-btn">
-      Choose File <input type="file" id="imageInput" accept="image/*" style="display:none;">
+      Choose File <input type="file" id="imageInput" accept="image/*" hidden>
     </label>
     <button class="btn-compact" id="btnDescribe">Describe image</button>
   </div>
 
-  <!-- Image preview -->
-  <div style="text-align:center;">
-    <img id="imgPreview" class="preview"/>
-  </div>
+  <!-- IMAGE PREVIEW -->
+  <img id="imgPreview" class="preview"/>
 
-  <!-- Output (Description) -->
+  <!-- OUTPUT -->
   <div class="output-panel" id="outputBody"></div>
 
-  <!-- Text prompt -->
+  <!-- PROMPT TEXT -->
   <textarea id="promptInput" placeholder="Describe what you want to see"></textarea>
 
-  <!-- Presets -->
-  <div class="preset-row">
-    <button class="btn-compact" data-preset="Cinematic">Cinematic</button>
-    <button class="btn-compact" data-preset="Ultra-realistic">Ultra-realistic</button>
-    <button class="btn-compact" data-preset="Product shot">Product shot</button>
-    <button class="btn-compact" data-preset="Portrait studio">Portrait studio</button>
-    <button class="btn-compact" data-preset="Anime / stylized">Anime / stylized</button>
-    <button class="btn-compact" data-preset="LAILA signature">LAILA signature</button>
-  </div>
-
-  <!-- Generate -->
-  <div style="text-align:center; margin-top:10px;">
+  <!-- GENERATE + COPY PROMPT -->
+  <div style="display:flex; justify-content:center; gap:8px; margin-top:10px;">
     <button class="btn-compact btn-compact-primary" id="btnGenerate">Generate with LAILA</button>
-  </div>
-
-  <!-- Copy Prompt -->
-  <div style="text-align:center; margin-top:8px;">
     <button class="btn-compact" id="btnCopy">Copy Prompt</button>
   </div>
 
@@ -198,14 +232,11 @@ const imgInput = document.getElementById("imageInput");
 const imgPreview = document.getElementById("imgPreview");
 imgInput.addEventListener("change", () => {
   const file = imgInput.files[0];
-  if (!file) {
-    imgPreview.src = "";
-    return;
-  }
+  if (!file) { imgPreview.src = ""; return; }
   imgPreview.src = URL.createObjectURL(file);
 });
 
-// DESCRIBE IMAGE (Backend)
+// DESCRIBE IMAGE with Backend
 document.getElementById("btnDescribe").addEventListener("click", async () => {
   const file = imgInput.files[0];
   if (!file) return alert("Please upload an image first.");
@@ -216,48 +247,43 @@ document.getElementById("btnDescribe").addEventListener("click", async () => {
   formData.append("image", file);
 
   try {
-    const res = await fetch("https://laila-backend.onrender.com/describe-image", {
-      method: "POST",
-      body: formData
-    });
+    const res = await fetch("https://laila-backend.onrender.com/describe-image",{method:"POST",body:formData});
     const data = await res.json();
     document.getElementById("outputBody").textContent = data.description || "";
-  } catch (err) {
+  } catch {
     document.getElementById("outputBody").textContent = "Error describing image.";
   } finally {
     hideProgress();
   }
 });
 
-// PRESETS
-document.querySelectorAll("[data-preset]").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.getElementById("promptInput").value += " "+btn.dataset.preset;
-  });
-});
-
-// GENERATE (text placeholder)
+// GENERATE (Just updates Output with prompt text)
 document.getElementById("btnGenerate").addEventListener("click",()=>{
-  const text = document.getElementById("promptInput").value.trim();  
-  if(text) document.getElementById("outputBody").textContent = text;
+  const text = document.getElementById("promptInput").value.trim();
+  document.getElementById("outputBody").textContent = text;
 });
 
-// COPY PROMPT
+// COPY PROMPT TEXT
 document.getElementById("btnCopy").addEventListener("click",()=>{
-  const text = document.getElementById("outputBody").textContent;
+  const text = document.getElementById("promptInput").value.trim();
   navigator.clipboard.writeText(text);
 });
 
 // SPINNER
 const spinner = document.getElementById("spinnerOverlay");
 const spinnerText = document.getElementById("spinnerText");
-function showProgress(msg){
-  spinnerText.textContent = msg;
+function showProgress(txt){
+  spinnerText.textContent = txt;
   spinner.style.display = "flex";
 }
-function hideProgress(){
-  spinner.style.display = "none";
-}
+function hideProgress(){ spinner.style.display = "none"; }
+
+// LANG TOGGLE (no content change)
+let currentLang="en";
+document.getElementById("langToggle").addEventListener("click",()=>{
+  currentLang = currentLang==="en"?"ar":"en";
+  document.getElementById("langToggle").textContent = currentLang==="en"?"AR":"EN";
+});
 </script>
 
 </body>
