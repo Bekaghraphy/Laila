@@ -16,7 +16,14 @@
     <!-- Animated Gradient Background -->
     <div class="animated-bg"></div>
 
-    <!-- LOGO (النسخة القديمة اللامعة) -->
+    <!-- Language Switch -->
+    <div class="lang-toggle">
+        <div id="langSwitch" class="toggle-btn">
+            <div class="toggle-circle"></div>
+        </div>
+    </div>
+
+    <!-- LOGO -->
     <div class="logo-box">
         <div class="logo-circle">
             <span class="logo-letter">L</span>
@@ -24,21 +31,21 @@
         <p class="logo-sub">Creative Intelligence Engine</p>
     </div>
 
-    <!-- MAIN CONTAINER -->
+    <!-- MAIN CONTENT -->
     <div class="container">
 
         <h1 class="title">LAILA AI</h1>
 
-        <!-- Upload Box -->
+        <!-- Upload -->
         <div class="upload-box">
             <label for="fileInput" class="upload-label">Upload Photo</label>
             <input type="file" id="fileInput" accept="image/*">
         </div>
 
-        <!-- Preview Image -->
+        <!-- Preview -->
         <div id="previewHolder" class="preview-holder"></div>
 
-        <!-- ACTION BUTTONS -->
+        <!-- Action Buttons -->
         <div class="actions">
             <button id="btnPrompt" class="btn primary">Generate Prompt</button>
             <button id="btnGenerate" class="btn secondary">Generate Image</button>
@@ -46,12 +53,6 @@
 
         <!-- Prompt Output -->
         <textarea id="promptOutput" class="prompt-output" placeholder="Generated prompt will appear here..."></textarea>
-
-        <!-- Language Switch -->
-        <div class="lang-switch">
-            <button id="langEN">EN</button>
-            <button id="langAR">عربي</button>
-        </div>
 
     </div>
 
