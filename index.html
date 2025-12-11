@@ -3,364 +3,282 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Laila Ai</title>
+<title>LAILA | Image to Prompt</title>
+
+<link rel="icon" type="image/png" href="img/favicon.png" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 
 <style>
+/* ================= LAILA ONLY (SCOPED) ================= */
+.laila-wrapper{
+  max-width:900px;
+  margin:140px auto 100px;
+  padding:0 20px;
+  animation:fadeUp .7s ease forwards;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.laila-sub{color:rgba(255,255,255,.65);margin-bottom:40px}
 
-/* ----------------------------------------------------
-   COLOR SYSTEM
----------------------------------------------------- */
-:root {
-  --dark-bg: #0d0a14;
-  --purple-1: #3a1c71;
-  --purple-2: #602f82;
-
-  --green-1: #1B211A;
-  --green-2: #628141;
-  --green-3: #8BAE66;
-  --green-4: #EBD5AB;
-
-  --white: #ffffff;
-  --text-soft: #d6d6d6;
-
-  --card-bg: rgba(255,255,255,0.05);
+.laila-card{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:22px;
+  padding:40px;
 }
 
-/* ----------------------------------------------------
-   GENERAL PAGE STYLE
----------------------------------------------------- */
-body {
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
-  background-size: 200% 200%;
-  animation: bgMove 12s ease infinite;
-  font-family: "Montserrat", sans-serif;
-  color: var(--white);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 40px 10px;
+.laila-upload{
+  text-align:center;
+  border:1px dashed rgba(255,255,255,.25);
+  padding:40px;
+  border-radius:18px;
+}
+.laila-upload input{display:none}
+.laila-upload label{
+  padding:14px 26px;
+  border-radius:14px;
+  background:rgba(255,255,255,.08);
+  cursor:pointer;
+}
+.laila-preview img{
+  margin-top:30px;
+  max-width:100%;
+  border-radius:18px;
 }
 
-@keyframes bgMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.laila-subject{
+  width:100%;
+  margin-top:25px;
+  padding:16px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.05);
+  color:white;
+}
+.laila-subject::placeholder{color:rgba(255,255,255,.45)}
+
+.laila-presets{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+  flex-wrap:wrap;
+}
+.laila-presets button{
+  padding:8px 14px;
+  border-radius:20px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:white;
+  font-size:12px;
+  cursor:pointer;
+}
+.laila-presets button:hover{
+  background:rgba(216,185,122,.25);
+  border-color:#d8b97a;
 }
 
-/* ----------------------------------------------------
-   MAIN CONTAINER FRAME
----------------------------------------------------- */
-.frame {
-  width: 95%;
-  max-width: 900px;
-  background: rgba(0,0,0,0.35);
-  border: 1px solid var(--green-3);
-  border-radius: 22px;
-  padding: 40px;
-  box-shadow: 0 0 20px rgba(139,174,102,0.2);
-  backdrop-filter: blur(12px);
-  margin-top: 40px;
-
-  animation: fadeIn 1.4s ease forwards;
+.laila-controls select,
+.laila-controls button,
+.laila-output textarea{
+  width:100%;
+  margin-top:25px;
+  padding:16px;
+  border-radius:16px;
+  border:none;
+  font-size:15px;
 }
 
-@keyframes fadeIn {
-  from { opacity:0; transform: translateY(20px); }
-  to   { opacity:1; transform: translateY(0); }
+.laila-controls select{
+  background:#050505;
+  color:#d8b97a;
+  border:1px solid rgba(216,185,122,.6);
+}
+.laila-controls select option{
+  background:#050505;
+  color:white;
 }
 
-/* Title */
-h1.title {
-  text-align: center;
-  font-size: 42px;
-  margin-bottom: 20px;
-  font-weight: 700;
+.laila-controls button{
+  background:#d8b97a;
+  font-weight:600;
+  cursor:pointer;
+}
+.laila-controls button:hover{background:#e6c894}
+.laila-controls button.secondary{
+  background:rgba(255,255,255,.1);
+  color:white;
 }
 
-/* ----------------------------------------------------
-   UPLOAD SECTION
----------------------------------------------------- */
-.upload-box {
-  background: rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 15px;
-  text-align: center;
-  margin-bottom: 25px;
-  border: 1px solid var(--green-4);
+.laila-output{display:none;margin-top:40px}
+.laila-output textarea{
+  background:rgba(255,255,255,.04);
+  color:white;
+  min-height:180px;
+  resize:none;
 }
-
-.upload-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-/* Custom Upload Button */
-input[type="file"] {
-  appearance: none;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--green-2), var(--green-3));
-  color: #fff;
-  cursor: pointer;
-  border: none;
-  font-size: 14px;
-  transition: 0.25s;
-}
-
-input[type="file"]:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px var(--green-3);
-}
-
-/* ----------------------------------------------------
-   PREVIEW IMAGE
----------------------------------------------------- */
-.preview-holder {
-  width: 100%;
-  height: auto;
-  margin-bottom: 25px;
-  display: flex;
-  justify-content: center;
-}
-
-.preview-holder img {
-  width: 100%;
-  max-width: 600px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(139,174,102,0.45);
-  animation: pulseGlow 3s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-  0%   { box-shadow: 0 0 10px rgba(139,174,102,0.2); }
-  50%  { box-shadow: 0 0 20px rgba(139,174,102,0.45); }
-  100% { box-shadow: 0 0 10px rgba(139,174,102,0.2); }
-}
-
-/* ----------------------------------------------------
-   BUTTONS
----------------------------------------------------- */
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.btn {
-  padding: 12px 25px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 600;
-  transition: 0.25s ease;
-  color: #fff;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--green-2), var(--green-3));
-}
-.btn-secondary {
-  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
-}
-
-.btn:hover {
-  transform: scale(1.06);
-  box-shadow: 0 0 16px rgba(255,255,255,0.3);
-}
-
-/* ----------------------------------------------------
-   PROMPT OUTPUT
----------------------------------------------------- */
-textarea {
-  width: 100%;
-  height: 150px;
-  border-radius: 12px;
-  padding: 15px;
-  border: 1px solid var(--green-4);
-  background: rgba(255,255,255,0.06);
-  color: var(--white);
-  resize: none;
-  font-size: 14px;
-  outline: none;
-}
-
-/* ----------------------------------------------------
-   LANGUAGE SWITCH
----------------------------------------------------- */
-.lang-switch {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.lang-btn {
-  cursor: pointer;
-  padding: 8px 16px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 8px;
-  display: inline-block;
-  color: var(--white);
-  border: 1px solid var(--green-3);
-  transition: 0.25s;
-}
-
-.lang-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 12px var(--green-3);
-}
-
-/* ----------------------------------------------------
-   RESPONSIVE
----------------------------------------------------- */
-@media (max-width: 600px) {
-  .frame {
-    padding: 25px;
-  }
-  h1.title { font-size: 30px; }
-}
-
 </style>
-
 </head>
+
 <body>
 
-<div class="frame">
+<!-- ✅ NAVBAR (نفس موقعك) -->
+<header class="nav">
+  <nav class="nav-center">
+    <a href="index.html">Home</a>
+    <a href="my-work.html">My Work</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="academy.html">Academy</a>
+    <a href="laila.html" class="active">LAILA</a>
+    <a href="cv.html">CV</a>
+  </nav>
+</header>
 
-  <h1 class="title">LAILA AI</h1>
+<div class="laila-wrapper">
+  <h1>LAILA</h1>
+  <p class="laila-sub">
+    Image → Smart Prompt for Midjourney & Whisk
+  </p>
 
-  <!-- Upload -->
-  <div class="upload-box">
-    <label class="upload-label">Upload Photo</label>
-    <input type="file" id="fileInput" accept="image/*">
+  <div class="laila-card">
+
+    <!-- Upload -->
+    <div class="laila-upload">
+      <label>
+        Upload Image
+        <input type="file" accept="image/*" id="imageInput">
+      </label>
+      <div class="laila-preview" id="preview"></div>
+    </div>
+
+    <!-- Subject -->
+    <input
+      type="text"
+      id="subjectInput"
+      class="laila-subject"
+      placeholder="Describe the main subject (e.g. Saudi engineer on a construction site)"
+    />
+
+    <!-- Subject Presets -->
+    <div class="laila-presets">
+      <button onclick="setPreset('portrait')">Portrait</button>
+      <button onclick="setPreset('architecture')">Architecture</button>
+      <button onclick="setPreset('product')">Product</button>
+      <button onclick="setPreset('lifestyle')">Lifestyle</button>
+      <button onclick="setPreset('cinematic')">Cinematic</button>
+    </div>
+
+    <!-- Style -->
+    <div class="laila-controls">
+      <select id="styleSelect">
+        <option value="cinematic">Cinematic</option>
+        <option value="photo">Photorealistic</option>
+        <option value="illustration">Illustration</option>
+        <option value="3d">3D Render</option>
+        <option value="architecture">Architecture</option>
+        <option value="portrait">Portrait Studio</option>
+      </select>
+
+      <!-- Engine Presets -->
+      <div class="laila-presets">
+        <button onclick="setEngine('whisk')">Whisk</button>
+        <button onclick="setEngine('midjourney')">Midjourney</button>
+      </div>
+
+      <button id="generateBtn" disabled onclick="generatePrompt()">
+        Generate Prompt
+      </button>
+
+      <button class="secondary" onclick="enhancePrompt()">
+        Auto-Enhance Prompt
+      </button>
+    </div>
+
+    <!-- Output -->
+    <div class="laila-output" id="output">
+      <textarea id="promptOutput" readonly></textarea>
+      <button onclick="copyPrompt()">Copy Prompt</button>
+    </div>
+
   </div>
-
-  <!-- Preview -->
-  <div id="previewHolder" class="preview-holder"></div>
-
-  <!-- Buttons -->
-  <div class="actions">
-    <button id="btnPrompt" class="btn btn-primary">Generate Prompt</button>
-    <button id="btnGenerate" class="btn btn-secondary">Generate Image</button>
-  </div>
-
-  <!-- Prompt Output -->
-  <textarea id="promptOutput" placeholder="Generated prompt will appear here..."></textarea>
-
-  <!-- Language Switch -->
-  <div class="lang-switch">
-    <div id="langSwitch" class="lang-btn">AR / EN</div>
-  </div>
-
 </div>
 
 <script>
-/* ----------------------------------------------------
-   FRONTEND LOGIC
----------------------------------------------------- */
+let engine="whisk";
 
-const fileInput = document.getElementById("fileInput");
-const previewHolder = document.getElementById("previewHolder");
-const btnPrompt = document.getElementById("btnPrompt");
-const promptOutput = document.getElementById("promptOutput");
-const langSwitch = document.getElementById("langSwitch");
+const presets={
+  portrait:"A person facing the camera with confident expression",
+  architecture:"Modern architectural structure with clean lines",
+  product:"Product placed on a clean surface with soft shadows",
+  lifestyle:"Lifestyle scene with natural human interaction",
+  cinematic:"Cinematic scene with dramatic composition"
+};
 
-let currentLang = "en";
-const backendURL = "https://d10e6243-c63b-49f1-be59-b43234a56af4-00-18q80rsc3iyxb.sisko.replit.dev:4000";
-
-/* -------------------------------
-   IMAGE PREVIEW
-------------------------------- */
-fileInput.addEventListener("change", () => {
-  const file = fileInput.files[0];
-  if (!file) return;
-
-  const img = document.createElement("img");
-  img.src = URL.createObjectURL(file);
-
-  previewHolder.innerHTML = "";
-  previewHolder.appendChild(img);
-});
-
-/* -------------------------------
-   LANGUAGE SWITCH
-------------------------------- */
-langSwitch.addEventListener("click", () => {
-  currentLang = currentLang === "en" ? "ar" : "en";
-  updateLanguage();
-});
-
-function updateLanguage() {
-  document.querySelector(".title").textContent =
-    currentLang === "en" ? "LAILA AI" : "ليلى الذكية";
-
-  document.querySelector(".upload-label").textContent =
-    currentLang === "en" ? "Upload Photo" : "ارفع صورة";
-
-  btnPrompt.textContent =
-    currentLang === "en" ? "Generate Prompt" : "إنشاء برومبت";
-
-  promptOutput.placeholder =
-    currentLang === "en" ? "Generated prompt will appear here..." : "سيظهر البرومبت هنا...";
+function setPreset(type){
+  subjectInput.value=presets[type];
 }
 
-/* -------------------------------
-   TYPING EFFECT
-------------------------------- */
-function typeText(text) {
-  promptOutput.value = "";
-  let i = 0;
-  const speed = 25;
-
-  function typing() {
-    if (i < text.length) {
-      promptOutput.value += text.charAt(i);
-      i++;
-      setTimeout(typing, speed);
-    }
-  }
-  typing();
+function setEngine(type){
+  engine=type;
 }
 
-/* -------------------------------
-   CALL BACKEND
-------------------------------- */
-btnPrompt.addEventListener("click", async () => {
-  const file = fileInput.files[0];
+const styleMap={
+  cinematic:"cinematic scene, film still, dramatic atmosphere",
+  photo:"ultra photorealistic, professional photography",
+  illustration:"high detail digital illustration",
+  "3d":"3d render, octane render",
+  architecture:"architectural visualization",
+  portrait:"studio portrait"
+};
 
-  if (!file) {
-    typeText(currentLang === "en" ? "Please upload an image first." : "من فضلك ارفع صورة أولاً.");
-    return;
-  }
-
-  typeText(currentLang === "en" ? "Processing image..." : "جاري معالجة الصورة...");
-
-  const formData = new FormData();
-  formData.append("image", file);
-
-  try {
-    const res = await fetch(`${backendURL}/generate-description`, {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      typeText(data.description);
-    } else {
-      typeText("Error: No description returned.");
-    }
-  } catch (e) {
-    typeText("Failed to connect to backend.");
-  }
+imageInput.addEventListener("change",()=>{
+  preview.innerHTML="";
+  const img=document.createElement("img");
+  img.src=URL.createObjectURL(imageInput.files[0]);
+  preview.appendChild(img);
+  generateBtn.disabled=false;
 });
 
+function generatePrompt(){
+  const subject=subjectInput.value.trim() || "Main subject clearly visible in the scene";
+  const style=styleSelect.value;
+
+  let engineTail="";
+  if(engine==="midjourney"){
+    engineTail="--ar 2:3 --stylize 100 --quality 2";
+  }
+
+  promptOutput.value=
+`${subject},
+${styleMap[style]},
+cinematic lighting,
+sharp focus,
+high detail,
+realistic textures,
+depth of field,
+8k quality
+${engineTail}`;
+
+  output.style.display="block";
+}
+
+function enhancePrompt(){
+  if(!promptOutput.value) return;
+  promptOutput.value +=
+`, professional composition,
+natural skin tones,
+balanced contrast,
+global illumination`;
+}
+
+function copyPrompt(){
+  promptOutput.select();
+  document.execCommand("copy");
+  alert("Prompt copied");
+}
 </script>
+
 </body>
 </html>
