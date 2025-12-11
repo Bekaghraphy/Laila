@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 <title>LAILA.ONE | Creative Intelligence Engine</title>
 
-<link rel="icon" href="favicon.png" />
+<link rel="icon" href="favicon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -23,19 +23,20 @@
   --trans: 0.2s ease-out;
 }
 html, body {
-  margin:0; padding:0; width:100%; height:100%;
+  margin:0; padding:0;
+  width:100%; height:100%;
   font-family:"Montserrat",sans-serif;
   background:radial-gradient(circle at top left,#111827 0,#020617 42%,#000 80%);
-  color:var(--text-main); overflow-x:hidden;
+  color:var(--text-main);overflow-x:hidden;
 }
 main { padding:10px 16px; box-sizing:border-box; }
 
 /* HEADER */
 .nav { display:flex; justify-content:space-between; align-items:center; padding:12px 4px; }
-.logo-mark { width:38px; height:38px; border-radius:50%; background:radial-gradient(circle at 20% 20%,#e5e7eb,#020617); display:flex;align-items:center;justify-content:center; }
-.logo-mark span { font-weight:700; font-size:15px; color:#020617; }
-.logo-text .logo-title { font-size:17px; font-weight:600; text-transform:uppercase; }
-.logo-text .logo-sub { font-size:10px; color:var(--text-muted); text-transform:uppercase; }
+.logo-mark { width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 20% 20%,#e5e7eb,#020617); display:flex;align-items:center;justify-content:center;}
+.logo-mark span { font-weight:700; font-size:15px; color:#020617;}
+.logo-text .logo-title { font-size:17px; font-weight:600; text-transform:uppercase;}
+.logo-text .logo-sub { font-size:10px; color:var(--text-muted); text-transform:uppercase;}
 .btn-outline {
   padding:6px 14px;border-radius:999px;border:1px solid rgba(148,163,184,0.6);
   background:rgba(15,23,42,0.9);color:var(--text-main);
@@ -79,16 +80,8 @@ img.preview {
   border:1px solid rgba(148,163,184,0.4);
   border-radius:16px;padding:10px;
   color:var(--text-muted);font-size:14px;
-  min-height:50px; margin-top:6px; margin-bottom:8px;
+  min-height:50px;margin-top:6px;margin-bottom:8px;
   display:none;
-}
-
-/* TEXTAREA */
-textarea {
-  width:100%;min-height:80px;border-radius:14px;
-  border:1px solid rgba(31,41,55,0.9);
-  background:rgba(15,23,42,0.95);color:var(--text-main);
-  padding:10px;font-size:14px; margin-top:10px;
 }
 
 /* GENERATE + COPY */
@@ -101,9 +94,9 @@ textarea {
 .copyright { text-align:center; font-size:11px; color:var(--text-muted); margin-top:4px; }
 
 /* SPINNER */
-#spinnerOverlay { position:fixed; top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:9999; }
-.spinner { border:6px solid rgba(255,255,255,0.2);border-top:6px solid var(--accent-2);border-radius:50%;width:50px;height:50px;animation:spin 1s linear infinite; }
-@keyframes spin { to {transform:rotate(360deg);} }
+#spinnerOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:9999;}
+.spinner{border:6px solid rgba(255,255,255,0.2);border-top:6px solid var(--accent-2);border-radius:50%;width:50px;height:50px;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 
 </style>
 </head>
@@ -145,13 +138,10 @@ textarea {
   <!-- OUTPUT BOX -->
   <div class="output-panel" id="outputBody"></div>
 
-  <!-- PROMPT TEXT -->
-  <textarea id="promptInput" placeholder="Describe what you want to see"></textarea>
-
-  <!-- GENERATE + COPY PROMPT -->
+  <!-- GENERATE + COPY -->
   <div class="action-row">
-    <button class="btn-compact btn-compact-primary" id="btnGenerate"><span>Generate with LAILA</span></button>
-    <button class="btn-compact" id="btnCopy"><span>Copy Prompt</span></button>
+    <button class="btn-compact btn-compact-primary" id="btnGenerate"><span id="generateText">Generate with LAILA</span></button>
+    <button class="btn-compact" id="btnCopy"><span id="copyText">Copy Prompt</span></button>
   </div>
 
   <!-- LINE + COPYRIGHT -->
@@ -167,35 +157,36 @@ const texts = {
     title: "Turn any idea into a ready-to-use AI prompt",
     choose: "Choose File",
     describeBtn: "Describe image",
-    textareaPlaceholder: "Describe what you want to see",
     generate: "Generate with LAILA",
     copyPrompt: "Copy Prompt",
     copyright: "© 2025 LAILA.ONE — Private creative intelligence for visual storytellers.",
     errorNoImage: "Please upload an image first.",
-    descrError: "Error describing image."
+    generating: "Generating…",
+    descrError: "Error describing image.",
+    genError: "Error generating text."
   },
   ar: {
     title: "حوِّل أي فكرة لوصف جاهز للاستخدام عبر الذكاء الاصطناعي",
     choose: "اختر ملف",
     describeBtn: "وصف الصورة",
-    textareaPlaceholder: "اكتب ما تريد رؤيته",
     generate: "توليد مع ليلى",
     copyPrompt: "انسخ الوصف",
     copyright: "© 2025 LAILA.ONE — الذكاء الإبداعي البصري للمبدعين.",
     errorNoImage: "يرجى اختيار صورة أولاً.",
-    descrError: "حدث خطأ أثناء وصف الصورة."
+    generating: "جاري التوليد…",
+    descrError: "حدث خطأ أثناء وصف الصورة.",
+    genError: "خطأ في التوليد."
   }
 };
 
 let currentLang="en";
-function applyLang() {
+function applyLang(){
   const t=texts[currentLang];
   document.getElementById("titleText").textContent=t.title;
   document.getElementById("chooseText").querySelector("span").textContent=t.choose;
   document.getElementById("btnDescribe").querySelector("span").textContent=t.describeBtn;
-  document.getElementById("promptInput").placeholder=t.textareaPlaceholder;
-  document.getElementById("btnGenerate").querySelector("span").textContent=t.generate;
-  document.getElementById("btnCopy").querySelector("span").textContent=t.copyPrompt;
+  document.getElementById("generateText").textContent=t.generate;
+  document.getElementById("copyText").textContent=t.copyPrompt;
   document.getElementById("copyrightText").textContent=t.copyright;
 }
 document.getElementById("langToggle").addEventListener("click",()=>{
@@ -210,51 +201,54 @@ const imgInput=document.getElementById("imageInput");
 const imgPreview=document.getElementById("imgPreview");
 imgInput.addEventListener("change",()=>{
   const file=imgInput.files[0];
-  if(!file){imgPreview.src="";return;}
+  if(!file){ imgPreview.src=""; return; }
   imgPreview.src=URL.createObjectURL(file);
 });
 
 // DESCRIBE IMAGE
 document.getElementById("btnDescribe").addEventListener("click",async()=>{
   const file=imgInput.files[0];
-  if(!file)return alert(texts[currentLang].errorNoImage);
-  showProgress(currentLang==="en"?"Describing image…":"جاري وصف الصورة…");
+  if(!file) return alert(texts[currentLang].errorNoImage);
+
+  showProgress(texts[currentLang].generating);
+
   const formData=new FormData();
   formData.append("image",file);
-  try {
+
+  try{
     const res=await fetch("https://laila-backend.onrender.com/describe-image",{method:"POST",body:formData});
     const data=await res.json();
     const out=document.getElementById("outputBody");
     out.style.display="block";
     out.textContent=data.description||"";
-  } catch {
+  }catch{
     const out=document.getElementById("outputBody");
     out.style.display="block";
     out.textContent=texts[currentLang].descrError;
-  } finally{hideProgress();}
+  }finally{hideProgress();}
 });
 
-// GENERATE (Backend text)
+// GENERATE TEXT (Backend)
 document.getElementById("btnGenerate").addEventListener("click",async()=>{
-  const promptText=document.getElementById("promptInput").value.trim();
-  if(!promptText) return;
-  showProgress(currentLang==="en"?"Generating…":"جاري التوليد…");
-  try {
-    const res=await fetch("https://laila-backend.onrender.com/generate-text",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:promptText})});
+  const currentPrompt=document.getElementById("outputBody").textContent.trim();
+  if(!currentPrompt) return;
+  showProgress(texts[currentLang].generating);
+  try{
+    const res=await fetch("https://laila-backend.onrender.com/generate-text",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:currentPrompt})});
     const data=await res.json();
     const out=document.getElementById("outputBody");
     out.style.display="block";
-    out.textContent=data.result||promptText;
-  } catch {
+    out.textContent=data.result||currentPrompt;
+  }catch{
     const out=document.getElementById("outputBody");
     out.style.display="block";
-    out.textContent=currentLang==="en"?"Error generating text.":"خطأ في التوليد.";
-  } finally{hideProgress();}
+    out.textContent=texts[currentLang].genError;
+  }finally{hideProgress();}
 });
 
 // COPY PROMPT
 document.getElementById("btnCopy").addEventListener("click",()=>{
-  const text=document.getElementById("promptInput").value.trim();
+  const text=document.getElementById("outputBody").textContent.trim();
   navigator.clipboard.writeText(text);
 });
 
