@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 <title>LAILA.ONE | Creative Intelligence Engine</title>
 
 <link rel="icon" href="favicon.png" />
@@ -32,7 +32,8 @@ html, body {
   overflow-x:hidden;
 }
 main {
-  padding:12px 16px;
+  padding:10px 16px;
+  box-sizing:border-box;
 }
 
 /* HEADER */
@@ -40,91 +41,79 @@ main {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:12px 8px;
+  padding:12px 4px;
 }
 .logo-mark {
-  width:40px; height:40px;
+  width:38px; height:38px;
   border-radius:50%;
   background:radial-gradient(circle at 20% 20%,#e5e7eb,#020617);
   display:flex; align-items:center; justify-content:center;
 }
 .logo-mark span {
-  font-weight:700;
-  font-size:16px;
-  color:#020617;
+  font-weight:700; font-size:15px; color:#020617;
 }
 .logo-text .logo-title {
-  font-size:18px; font-weight:600; text-transform:uppercase;
+  font-size:17px; font-weight:600; text-transform:uppercase;
 }
 .logo-text .logo-sub {
-  font-size:11px; color:var(--text-muted); text-transform:uppercase;
+  font-size:10px; color:var(--text-muted); text-transform:uppercase;
 }
 .btn-outline {
-  padding:6px 14px;border-radius:999px;
+  padding:6px 14px; border-radius:999px;
   border:1px solid rgba(148,163,184,0.6);
   background:rgba(15,23,42,0.9);
   color:var(--text-main);
-  cursor:pointer;font-size:12px;transition:all var(--trans);
+  cursor:pointer; font-size:12px; transition:all var(--trans);
 }
-.btn-outline:hover {
-  transform:translateY(-1px);
-  filter:brightness(1.1);
-}
+.btn-outline:hover { transform:translateY(-1px); filter:brightness(1.1); }
 
-/* TITLE */
+/* MAIN TITLE */
 .main-title {
-  font-size:26px;
+  font-size:24px;
   text-align:center;
   margin:8px 0;
 }
 .main-title span {
   background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
-  -webkit-background-clip:text;color:transparent;
+  -webkit-background-clip:text; color:transparent;
 }
 
-/* UPLOAD BTN + DESCRIBE */
+/* UPLOAD + DESCRIBE */
 .upload-area {
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:10px;
-  flex-wrap:nowrap;
-  margin:10px 0;
+  gap:8px;
+  margin-top:8px;
 }
 .upload-btn {
-  padding:8px 18px;border-radius:999px;
+  padding:8px 18px; border-radius:999px;
   background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
-  color:#020617;font-weight:600;
-  border:none;cursor:pointer;transition:all var(--trans);
+  color:#020617; font-weight:600;
+  border:none; cursor:pointer; transition:all var(--trans);
   font-size:14px;
 }
-.upload-btn:hover {
-  transform:translateY(-1px);
-  filter:brightness(1.1);
-}
+.upload-btn:hover { transform:translateY(-1px); filter:brightness(1.1); }
 .btn-compact {
-  font-size:13px;padding:8px 14px;border-radius:999px;
+  font-size:13px; padding:8px 14px; border-radius:999px;
   border:1px solid rgba(148,163,184,0.6);
   background:rgba(15,23,42,0.95);
   color:var(--text-main);
-  cursor:pointer;transition:all var(--trans);
+  cursor:pointer; transition:all var(--trans);
 }
-.btn-compact:hover {
-  transform:translateY(-1px);
-  border-color:rgba(248,250,252,0.8);
-}
+.btn-compact:hover { transform:translateY(-1px); border-color:rgba(248,250,252,0.8); }
 .btn-compact-primary {
   background:linear-gradient(120deg,var(--accent-2),var(--accent-1));
-  border:none;color:#020617;
+  border:none; color:#020617;
 }
 
 /* IMAGE PREVIEW */
 img.preview {
-  max-width:160px; height:auto;
+  display:block;
+  margin:6px auto 8px auto;
+  max-width:160px;
   border-radius:12px;
   border:1px solid rgba(148,163,184,0.4);
-  display:block;
-  margin:0 auto 8px auto;
 }
 
 /* OUTPUT BOX */
@@ -135,9 +124,9 @@ img.preview {
   padding:10px;
   color:var(--text-muted);
   font-size:14px;
-  min-height:60px;
+  min-height:50px;
   margin-top:6px;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 /* TEXTAREA */
@@ -148,26 +137,45 @@ textarea {
   border:1px solid rgba(31,41,55,0.9);
   background:rgba(15,23,42,0.95);
   color:var(--text-main);
-  padding:10px;
-  font-size:14px;
-  margin-top:12px;
+  padding:10px; font-size:14px;
+  margin-top:10px;
+}
+
+/* GENERATE + COPY PROMPT */
+.action-row {
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:8px;
+}
+
+/* LINE */
+.divider {
+  width:95%;
+  margin:10px auto;
+  border-top:1px solid rgba(255,255,255,0.2);
+}
+
+/* COPYRIGHT */
+.copyright {
+  text-align:center;
+  font-size:11px;
+  color:var(--text-muted);
+  margin-top:4px;
 }
 
 /* SPINNER */
 #spinnerOverlay {
-  position:fixed;
-  top:0; left:0;
+  position:fixed; top:0; left:0;
   width:100%; height:100%;
   background:rgba(0,0,0,0.6);
-  display:none;
-  justify-content:center; align-items:center;
+  display:none; justify-content:center; align-items:center;
   z-index:9999;
 }
 .spinner {
   border:6px solid rgba(255,255,255,0.2);
   border-top:6px solid var(--accent-2);
-  border-radius:50%;
-  width:50px; height:50px;
+  border-radius:50%; width:50px; height:50px;
   animation:spin 1s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -197,9 +205,7 @@ textarea {
   </div>
 
   <!-- TITLE -->
-  <div class="main-title" id="mainTitle">
-    Turn any idea into a ready-to-use AI prompt
-  </div>
+  <div class="main-title"><span>Turn any idea into a ready-to-use AI prompt</span></div>
 
   <!-- UPLOAD + DESCRIBE -->
   <div class="upload-area">
@@ -212,17 +218,21 @@ textarea {
   <!-- IMAGE PREVIEW -->
   <img id="imgPreview" class="preview"/>
 
-  <!-- OUTPUT -->
+  <!-- OUTPUT BOX -->
   <div class="output-panel" id="outputBody"></div>
 
   <!-- PROMPT TEXT -->
   <textarea id="promptInput" placeholder="Describe what you want to see"></textarea>
 
   <!-- GENERATE + COPY PROMPT -->
-  <div style="display:flex; justify-content:center; gap:8px; margin-top:10px;">
+  <div class="action-row">
     <button class="btn-compact btn-compact-primary" id="btnGenerate">Generate with LAILA</button>
     <button class="btn-compact" id="btnCopy">Copy Prompt</button>
   </div>
+
+  <!-- LINE + COPYRIGHT -->
+  <div class="divider"></div>
+  <div class="copyright">© 2025 LAILA.ONE — Private creative intelligence for visual storytellers.</div>
 
 </main>
 
@@ -236,7 +246,7 @@ imgInput.addEventListener("change", () => {
   imgPreview.src = URL.createObjectURL(file);
 });
 
-// DESCRIBE IMAGE with Backend
+// DESCRIBE IMAGE (Backend)
 document.getElementById("btnDescribe").addEventListener("click", async () => {
   const file = imgInput.files[0];
   if (!file) return alert("Please upload an image first.");
@@ -257,7 +267,7 @@ document.getElementById("btnDescribe").addEventListener("click", async () => {
   }
 });
 
-// GENERATE (Just updates Output with prompt text)
+// GENERATE BUTTON (Text only placeholder)
 document.getElementById("btnGenerate").addEventListener("click",()=>{
   const text = document.getElementById("promptInput").value.trim();
   document.getElementById("outputBody").textContent = text;
@@ -276,9 +286,11 @@ function showProgress(txt){
   spinnerText.textContent = txt;
   spinner.style.display = "flex";
 }
-function hideProgress(){ spinner.style.display = "none"; }
+function hideProgress(){
+  spinner.style.display = "none";
+}
 
-// LANG TOGGLE (no content change)
+// LANG TOGGLE (no text change)
 let currentLang="en";
 document.getElementById("langToggle").addEventListener("click",()=>{
   currentLang = currentLang==="en"?"ar":"en";
