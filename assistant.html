@@ -190,22 +190,22 @@ const archive = [
   }}
 ];
 
-function askLaila(){
-  const q=document.getElementById("question").value.toLowerCase();
-  const box=document.getElementById("answerBox");
-  let lang=localStorage.getItem(STORAGE_KEY)||"en";
-  let found=null;
+async function askLaila(){
+  const q = document.getElementById("question").value;
+  const box = document.getElementById("answerBox");
+  const lang = localStorage.getItem("laila_lang") || "en";
 
-  archive.forEach(item=>{
-    item.key.forEach(k=>{
-      if(q.includes(k)) found=item.answer[lang];
-    });
+  box.style.display = "block";
+  box.innerText = lang === "en" ? "Thinking..." : "جاري التفكير...";
+
+  const res = await fetch("https://YOUR-VERCEL-URL/api/laila", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question: q, lang })
   });
 
-  box.style.display="block";
-  box.innerText = found || (lang==="en"
-    ? "This information is not available yet in the LAILA archive."
-    : "هذه المعلومة غير متوفرة حاليًا داخل أرشيف ليلى.");
+  const data = await res.json();
+  box.innerText = data.answer;
 }
 
 /* === Language === */
