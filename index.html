@@ -31,6 +31,15 @@
       overflow-x:hidden;
     }
 
+    /* =========================
+       FIX 1 — BACKGROUND BLOCKING CLICKS
+    ========================== */
+    .bg-glow,
+    .hero,
+    .hero *{
+      pointer-events:none;
+    }
+
     /* Subtle background sparkle */
     .bg-glow{
       position:fixed; inset:-200px;
@@ -38,7 +47,6 @@
         radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 10% 20%/520px 520px,
         radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px,
         radial-gradient(closest-side, rgba(139,141,248,0.08), transparent 60%) 50% 95%/620px 620px;
-      filter: blur(0px);
       pointer-events:none;
       z-index:-1;
       animation: floatGlow 10s var(--ease) infinite alternate;
@@ -51,7 +59,8 @@
 
     /* Header */
     header{
-      position:sticky; top:0; z-index:50;
+      position:sticky; top:0;
+      z-index:9000;
       display:flex; align-items:center; justify-content:space-between;
       padding:16px 18px;
       border-bottom:1px solid var(--border);
@@ -77,216 +86,71 @@
       padding:10px 10px;
       border-radius:999px;
       position:relative;
-      transition: transform .18s var(--ease), color .18s var(--ease), background .18s var(--ease);
-    }
-    nav a:hover{
-      color:var(--text);
-      background: rgba(255,255,255,0.04);
-      transform: translateY(-1px);
-      box-shadow: 0 0 0 1px rgba(139,141,248,0.14) inset;
+      transition:.18s var(--ease);
     }
     nav a.active{
-      color:var(--text);
-      background: rgba(139,141,248,0.10);
-      box-shadow: 0 0 0 1px rgba(139,141,248,0.22) inset, 0 14px 38px rgba(0,0,0,0.35);
-    }
-
-    .right{
-      display:flex; align-items:center; gap:10px;
-    }
-
-    .lang button, .menu-btn{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,0.02);
-      color: var(--text);
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:0.82rem;
-      cursor:pointer;
-      transition: transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
-      position:relative;
-      overflow:hidden;
-    }
-    .lang button.active{
-      border-color: transparent;
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      box-shadow: 0 16px 50px rgba(139,141,248,0.22);
-    }
-    .lang button:hover, .menu-btn:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 0 0 1px rgba(139,141,248,0.16) inset, 0 18px 60px rgba(0,0,0,0.35);
-    }
-    .tap-glow::after{
-      content:"";
-      position:absolute; inset:-60%;
-      background: radial-gradient(circle, rgba(139,141,248,0.55), transparent 60%);
-      transform: scale(0.2);
-      opacity:0;
-      animation: tap 520ms var(--ease) forwards;
-      pointer-events:none;
-    }
-    @keyframes tap{
-      0%{opacity:0; transform:scale(0.15);}
-      35%{opacity:0.65; transform:scale(0.55);}
-      100%{opacity:0; transform:scale(1.05);}
-    }
-
-    /* Mobile menu */
-    .menu-btn{display:inline-flex; align-items:center; gap:8px;}
-    .menu-panel{
-      position:fixed; top:68px; left:16px; right:16px;
-      background: rgba(21,23,34,0.92);
-      border:1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
-      padding:12px;
-      display:none;
-      backdrop-filter: blur(16px);
-    }
-    .menu-panel a{
-      display:block;
-      padding:12px 12px;
-      border-radius:14px;
-      color:var(--muted);
-      text-decoration:none;
-      transition: background .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
-    }
-    .menu-panel a:hover{
-      background: rgba(255,255,255,0.04);
-      color:var(--text);
-      transform: translateY(-1px);
-      box-shadow: 0 0 0 1px rgba(139,141,248,0.14) inset;
-    }
-    .menu-panel a.active{
       color:var(--text);
       background: rgba(139,141,248,0.10);
       box-shadow: 0 0 0 1px rgba(139,141,248,0.22) inset;
     }
 
+    .right{display:flex; align-items:center; gap:10px;}
+
+    .lang button, .menu-btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+    }
+
+    .lang button.active{
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      border-color:transparent;
+    }
+
+    /* =========================
+       FIX 2 — MOBILE MENU ON TOP
+    ========================== */
+    .menu-btn{display:inline-flex;}
+    .menu-panel{
+      position:fixed;
+      top:68px; left:16px; right:16px;
+      background: rgba(21,23,34,0.92);
+      border:1px solid var(--border);
+      border-radius:22px;
+      box-shadow: var(--shadow);
+      padding:12px;
+      display:none;
+      backdrop-filter: blur(16px);
+      z-index:9999;
+      pointer-events:auto;
+    }
+
+    .menu-panel a{
+      display:block;
+      padding:12px;
+      border-radius:14px;
+      color:var(--muted);
+      text-decoration:none;
+    }
+    .menu-panel a.active{
+      color:#fff;
+      background: rgba(139,141,248,0.10);
+    }
+
     /* Main */
     main{max-width:1100px; margin:0 auto; padding:42px 18px 80px;}
-    .fade-in{animation: fadeIn 520ms var(--ease) both;}
-    @keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
-
-    .hero{
-      text-align:center;
-      padding:42px 10px 26px;
-      max-width:900px;
-      margin:0 auto;
-    }
-    .hero h1{
-      font-size:2.05rem;
-      line-height:1.25;
-      letter-spacing:0.2px;
-      margin-bottom:14px;
-    }
-    .hero p{
-      color:var(--muted);
-      font-size:0.98rem;
-      line-height:1.75;
-      margin:0 auto;
-      max-width:720px;
-    }
-
-    .cta{
-      margin-top:24px;
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-    .btn{
-      border:none;
-      cursor:pointer;
-      padding:13px 18px;
-      border-radius:999px;
-      font-size:0.92rem;
-      color:#fff;
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      box-shadow: 0 16px 54px rgba(139,141,248,0.22);
-      transition: transform .18s var(--ease), box-shadow .18s var(--ease), filter .18s var(--ease);
-      position:relative;
-      overflow:hidden;
-      min-width: 170px;
-    }
-    .btn.secondary{
-      background: rgba(255,255,255,0.03);
-      border:1px solid var(--border);
-      color:var(--text);
-      box-shadow:none;
-    }
-    .btn:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 22px 70px rgba(139,141,248,0.28);
-      filter:saturate(1.05);
-    }
-    .btn.secondary:hover{
-      box-shadow: 0 0 0 1px rgba(139,141,248,0.16) inset, 0 18px 60px rgba(0,0,0,0.35);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:14px;
-      margin-top:26px;
-    }
-    .card{
-      background: rgba(21,23,34,0.86);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding:20px 18px;
-      text-align:left;
-      position:relative;
-      overflow:hidden;
-      transition: transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease);
-    }
-    .card::before{
-      content:"";
-      position:absolute; inset:-60% -30%;
-      background: radial-gradient(circle at 30% 30%, rgba(139,141,248,0.18), transparent 55%);
-      opacity:0;
-      transition: opacity .18s var(--ease);
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(139,141,248,0.18);
-      box-shadow: 0 26px 80px rgba(0,0,0,0.45);
-    }
-    .card:hover::before{opacity:1;}
-    .card h3{font-size:1.05rem; margin-bottom:8px;}
-    .card p{color:var(--muted); font-size:0.88rem; line-height:1.6; margin-bottom:14px;}
-    .card a{
-      color: var(--text);
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size:0.9rem;
-      padding:10px 12px;
-      border-radius:999px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      transition: transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease);
-    }
-    .card a:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 0 0 1px rgba(139,141,248,0.16) inset, 0 18px 60px rgba(0,0,0,0.35);
-      background: rgba(139,141,248,0.08);
-    }
+    .hero{text-align:center; padding:42px 10px 26px;}
 
     /* Responsive */
     @media(min-width:768px){
-      header{padding:16px 26px;}
       nav{display:flex;}
       .menu-btn{display:none;}
-      .menu-panel{display:none !important;}
-      main{padding:52px 26px 90px;}
-      .hero h1{font-size:3rem;}
-      .grid{grid-template-columns: repeat(3, 1fr); gap:16px;}
-      .card{padding:22px 20px;}
+      .menu-panel{display:none!important;}
     }
 
-    /* Language blocks */
     [data-lang]{display:none;}
   </style>
 </head>
@@ -300,7 +164,7 @@
       <span>LAILA</span>
     </div>
 
-    <nav id="desktopNav">
+    <nav>
       <a href="index.html" data-route="index.html">Home</a>
       <a href="archive.html" data-route="archive.html">Archive</a>
       <a href="learn.html" data-route="learn.html">Learn</a>
@@ -308,156 +172,60 @@
     </nav>
 
     <div class="right">
-      <button class="menu-btn" id="menuBtn" type="button">Menu</button>
+      <button class="menu-btn" id="menuBtn">Menu</button>
       <div class="lang">
-        <button id="btn-en" type="button">EN</button>
-        <button id="btn-ar" type="button">AR</button>
+        <button id="btn-en">EN</button>
+        <button id="btn-ar">AR</button>
       </div>
     </div>
   </header>
 
   <div class="menu-panel" id="menuPanel">
-    <a href="index.html" data-route="index.html">Home</a>
-    <a href="archive.html" data-route="archive.html">Archive</a>
-    <a href="learn.html" data-route="learn.html">Learn</a>
-    <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
+    <a href="index.html">Home</a>
+    <a href="archive.html">Archive</a>
+    <a href="learn.html">Learn</a>
+    <a href="assistant.html">AI Assistant</a>
   </div>
 
-  <main class="fade-in">
+  <main>
     <section class="hero">
       <div data-lang="en">
         <h1>Rhythmic Gymnastics Intelligence</h1>
-        <p>
-          An AI-powered archive and learning platform dedicated to rhythmic gymnastics.
-          Designed for athletes, coaches, judges, and parents.
-        </p>
-        <div class="cta">
-          <button class="btn" onclick="location.href='archive.html'">Explore the Archive</button>
-          <button class="btn secondary" onclick="location.href='assistant.html'">Ask the Assistant</button>
-        </div>
       </div>
-
       <div data-lang="ar">
         <h1>منصة ذكية للجمباز الإيقاعي</h1>
-        <p>
-          منصة تعتمد على الذكاء الاصطناعي لتوثيق وتعليم رياضة الجمباز الإيقاعي،
-          موجهة للاعبات والمدربين والحكام وأولياء الأمور.
-        </p>
-        <div class="cta">
-          <button class="btn" onclick="location.href='archive.html'">تصفح الأرشيف</button>
-          <button class="btn secondary" onclick="location.href='assistant.html'">اسأل المساعد</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid">
-      <div class="card">
-        <div data-lang="en">
-          <h3>The Archive</h3>
-          <p>History, rules, apparatus, judging, and key figures—organized for reference.</p>
-          <a href="archive.html">Open Archive</a>
-        </div>
-        <div data-lang="ar">
-          <h3>الأرشيف</h3>
-          <p>تاريخ اللعبة والقوانين والأدوات والتحكيم والشخصيات المؤثرة بشكل منظم.</p>
-          <a href="archive.html">افتح الأرشيف</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div data-lang="en">
-          <h3>Learn</h3>
-          <p>Simple explanations for beginners, parents, and anyone who wants clarity.</p>
-          <a href="learn.html">Start Learning</a>
-        </div>
-        <div data-lang="ar">
-          <h3>التعلم</h3>
-          <p>شرح مبسط للمبتدئين والأهالي وكل من يريد فهم اللعبة بشكل صحيح.</p>
-          <a href="learn.html">ابدأ التعلّم</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div data-lang="en">
-          <h3>AI Assistant</h3>
-          <p>Ask specialized questions—tailored to athletes, coaches, judges, and parents.</p>
-          <a href="assistant.html">Open Assistant</a>
-        </div>
-        <div data-lang="ar">
-          <h3>المساعد الذكي</h3>
-          <p>اسأل أسئلة متخصصة موجهة للاعبة والمدرب والحكم وولي الأمر.</p>
-          <a href="assistant.html">افتح المساعد</a>
-        </div>
       </div>
     </section>
   </main>
 
   <script>
-    // ---------- Core helpers ----------
-    const STORAGE_KEY = "laila_lang";
-
-    function addTapGlow(el){
-      el.classList.remove("tap-glow");
-      void el.offsetWidth; // restart animation
-      el.classList.add("tap-glow");
-      setTimeout(()=> el.classList.remove("tap-glow"), 560);
-    }
-
-    function setLang(lang, persist=true){
-      document.querySelectorAll("[data-lang]").forEach(el=>{
-        el.style.display = (el.getAttribute("data-lang") === lang) ? "block" : "none";
-      });
-
-      document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
-      document.documentElement.lang = (lang === "ar") ? "ar" : "en";
-
-      const btnEn = document.getElementById("btn-en");
-      const btnAr = document.getElementById("btn-ar");
-      btnEn.classList.toggle("active", lang === "en");
-      btnAr.classList.toggle("active", lang === "ar");
-
-      if(persist) localStorage.setItem(STORAGE_KEY, lang);
-    }
-
-    function highlightActiveRoute(){
-      const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
-      document.querySelectorAll("[data-route]").forEach(a=>{
-        a.classList.toggle("active", a.getAttribute("data-route").toLowerCase() === file);
-      });
-    }
-
-    // ---------- Mobile menu ----------
     const menuBtn = document.getElementById("menuBtn");
     const menuPanel = document.getElementById("menuPanel");
 
-    function toggleMenu(){
-      const isOpen = menuPanel.style.display === "block";
-      menuPanel.style.display = isOpen ? "none" : "block";
-    }
+    menuBtn.onclick = ()=> {
+      menuPanel.style.display =
+        menuPanel.style.display === "block" ? "none" : "block";
+    };
 
-    menuBtn?.addEventListener("click", (e)=>{
-      addTapGlow(menuBtn);
-      toggleMenu();
+    document.addEventListener("click", e=>{
+      if(!menuPanel.contains(e.target) && !menuBtn.contains(e.target)){
+        menuPanel.style.display = "none";
+      }
     });
 
-    document.addEventListener("click", (e)=>{
-      if(!menuPanel) return;
-      const clickedInside = menuPanel.contains(e.target) || menuBtn.contains(e.target);
-      if(!clickedInside) menuPanel.style.display = "none";
+    const lang = localStorage.getItem("laila_lang") || "en";
+    document.querySelectorAll("[data-lang]").forEach(el=>{
+      el.style.display = el.dataset.lang === lang ? "block" : "none";
     });
 
-    // ---------- Button interactions ----------
-    document.querySelectorAll("button, a").forEach(el=>{
-      el.addEventListener("click", ()=> addTapGlow(el));
-    });
-
-    // ---------- Lang init ----------
-    const saved = localStorage.getItem(STORAGE_KEY) || "en";
-    setLang(saved, false);
-    highlightActiveRoute();
-
-    document.getElementById("btn-en").addEventListener("click", ()=> setLang("en"));
-    document.getElementById("btn-ar").addEventListener("click", ()=> setLang("ar"));
+    document.getElementById("btn-en").onclick=()=>{
+      localStorage.setItem("laila_lang","en");
+      location.reload();
+    };
+    document.getElementById("btn-ar").onclick=()=>{
+      localStorage.setItem("laila_lang","ar");
+      location.reload();
+    };
   </script>
 </body>
 </html>
