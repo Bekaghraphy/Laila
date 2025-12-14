@@ -9,16 +9,12 @@
 
   <style>
     :root{
-      --bg-main:#0e0f14;
-      --bg-soft:#151722;
-      --accent:#8b8df8;
-      --accent-soft:#6f72e6;
-      --text:#ffffff;
-      --muted:rgba(255,255,255,0.74);
+      --bg-main:#0e0f14; --bg-soft:#151722;
+      --accent:#8b8df8; --accent-soft:#6f72e6;
+      --text:#ffffff; --muted:rgba(255,255,255,0.74);
       --border:rgba(255,255,255,0.08);
       --shadow:0 18px 60px rgba(0,0,0,0.45);
-      --radius:18px;
-      --radius-lg:22px;
+      --radius:18px; --radius-lg:22px;
       --ease:cubic-bezier(.2,.8,.2,1);
     }
 
@@ -30,20 +26,6 @@
       overflow-x:hidden;
     }
 
-    .bg-glow{
-      position:fixed;inset:-200px;
-      background:
-        radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 10% 20%/520px 520px,
-        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px;
-      pointer-events:none;z-index:-1;
-      animation:floatGlow 10s var(--ease) infinite alternate;
-    }
-    @keyframes floatGlow{
-      from{transform:translateY(0);}
-      to{transform:translateY(-16px);}
-    }
-
-    /* Header */
     header{
       position:sticky;top:0;z-index:50;
       display:flex;justify-content:space-between;align-items:center;
@@ -52,143 +34,85 @@
       background:rgba(14,15,20,0.7);
       backdrop-filter:blur(14px);
     }
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:2px;}
+
+    .brand{font-weight:700;letter-spacing:2px;display:flex;align-items:center;gap:10px;}
     .dot{
       width:10px;height:10px;border-radius:50%;
       background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      box-shadow:0 0 0 6px rgba(139,141,248,.12);
+      box-shadow:0 0 0 6px rgba(139,141,248,0.12);
     }
 
     nav{display:none;gap:18px;}
-    nav a{
-      color:var(--muted);
-      text-decoration:none;
-      padding:8px 12px;
-      border-radius:999px;
-      transition:all .18s var(--ease);
-    }
-    nav a:hover{
-      color:var(--text);
-      background:rgba(255,255,255,.04);
-      box-shadow:0 0 0 1px rgba(139,141,248,.14) inset;
-    }
-    nav a.active{
-      background:rgba(139,141,248,.1);
-      color:var(--text);
-    }
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:999px;}
+    nav a.active{color:var(--text);background:rgba(139,141,248,0.1);}
 
-    .right{display:flex;align-items:center;gap:10px;}
-    .lang button,.menu-btn{
+    .right{display:flex;gap:10px;}
+    .lang button{
       border:1px solid var(--border);
       background:rgba(255,255,255,.02);
       color:var(--text);
       padding:7px 12px;
       border-radius:999px;
       cursor:pointer;
-      transition:all .18s var(--ease);
     }
     .lang button.active{
       background:linear-gradient(135deg,var(--accent),var(--accent-soft));
       border:none;
     }
-    .lang button:hover,.menu-btn:hover{
-      box-shadow:0 0 0 1px rgba(139,141,248,.16) inset;
+
+    main{
+      max-width:900px;
+      margin:0 auto;
+      padding:60px 18px 90px;
     }
 
-    .menu-panel{
-      display:none;
-      position:fixed;top:68px;left:16px;right:16px;
-      background:rgba(21,23,34,.95);
-      border:1px solid var(--border);
-      border-radius:var(--radius-lg);
-      box-shadow:var(--shadow);
-      padding:12px;
-    }
-    .menu-panel a{
-      display:block;
-      padding:12px;
-      color:var(--muted);
-      text-decoration:none;
-      border-radius:14px;
-      transition:all .18s var(--ease);
-    }
-    .menu-panel a:hover{
-      background:rgba(255,255,255,.04);
-      color:var(--text);
-    }
+    .hero{text-align:center;margin-bottom:40px;}
+    .hero h1{font-size:2.4rem;margin-bottom:12px;}
+    .hero p{color:var(--muted);line-height:1.7;}
 
-    main{max-width:900px;margin:0 auto;padding:40px 18px 90px;}
-    .fade-in{animation:fade .5s var(--ease) both;}
-    @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;}}
-
-    /* Hero */
-    .hero{text-align:center;margin-bottom:28px;}
-    .hero h1{font-size:2rem;margin-bottom:12px;}
-    .hero p{color:var(--muted);font-size:.95rem;line-height:1.6;}
-
-    /* Roles */
-    .roles{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:14px;
-      margin-top:24px;
-    }
-    .role{
-      background:rgba(21,23,34,.85);
+    .search-box{
+      background:rgba(21,23,34,.9);
       border:1px solid var(--border);
       border-radius:var(--radius-lg);
       padding:18px;
-      cursor:pointer;
-      transition:all .18s var(--ease);
+      box-shadow:var(--shadow);
     }
-    .role:hover{
-      transform:translateY(-2px);
-      box-shadow:0 22px 70px rgba(0,0,0,.45);
-    }
-    .role.active{
-      border-color:rgba(139,141,248,.35);
-      background:rgba(139,141,248,.08);
-    }
-    .role h3{margin-bottom:6px;font-size:1rem;}
-    .role p{font-size:.85rem;color:var(--muted);}
 
-    /* Chat */
-    .chat{
-      margin-top:34px;
-    }
-    textarea{
+    .search-box input{
       width:100%;
-      min-height:100px;
-      background:rgba(21,23,34,.85);
+      padding:14px 16px;
+      border-radius:999px;
       border:1px solid var(--border);
-      border-radius:var(--radius-lg);
-      padding:16px;
+      background:rgba(255,255,255,0.03);
       color:var(--text);
-      font-size:.9rem;
-      resize:none;
+      outline:none;
+      font-size:0.95rem;
     }
-    textarea:focus{outline:none;border-color:rgba(139,141,248,.4);}
-    .chat button{
-      margin-top:14px;
-      padding:12px 26px;
+
+    .search-box button{
+      margin-top:12px;
+      width:100%;
+      padding:12px;
       border-radius:999px;
       border:none;
       background:linear-gradient(135deg,var(--accent),var(--accent-soft));
       color:#fff;
       cursor:pointer;
-      transition:all .18s var(--ease);
     }
-    .chat button:hover{
-      transform:translateY(-2px);
-      box-shadow:0 22px 70px rgba(139,141,248,.28);
+
+    .answer{
+      margin-top:28px;
+      background:rgba(21,23,34,.85);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      padding:22px;
+      line-height:1.7;
+      display:none;
     }
 
     @media(min-width:768px){
       nav{display:flex;}
-      .menu-btn{display:none;}
-      .menu-panel{display:none!important;}
-      .hero h1{font-size:2.6rem;}
-      .roles{grid-template-columns:repeat(2,1fr);}
+      .hero h1{font-size:2.8rem;}
     }
 
     [data-lang]{display:none;}
@@ -196,103 +120,110 @@
 </head>
 
 <body>
-  <div class="bg-glow"></div>
 
-  <header>
-    <div class="brand"><span class="dot"></span>LAILA</div>
+<header>
+  <div class="brand"><span class="dot"></span>LAILA</div>
 
-    <nav>
-      <a href="index.html" data-route="index.html">Home</a>
-      <a href="archive.html" data-route="archive.html">Archive</a>
-      <a href="learn.html" data-route="learn.html">Learn</a>
-      <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
-    </nav>
-
-    <div class="right">
-      <button class="menu-btn" id="menuBtn">Menu</button>
-      <div class="lang">
-        <button id="btn-en">EN</button>
-        <button id="btn-ar">AR</button>
-      </div>
-    </div>
-  </header>
-
-  <div class="menu-panel" id="menuPanel">
+  <nav>
     <a href="index.html">Home</a>
     <a href="archive.html">Archive</a>
     <a href="learn.html">Learn</a>
-    <a href="assistant.html">AI Assistant</a>
+    <a href="assistant.html" class="active">AI Assistant</a>
+  </nav>
+
+  <div class="lang">
+    <button id="btn-en">EN</button>
+    <button id="btn-ar">AR</button>
   </div>
+</header>
 
-  <main class="fade-in">
-    <section class="hero">
-      <div data-lang="en">
-        <h1>AI Rhythmic Gymnastics Assistant</h1>
-        <p>Choose who you are, then ask focused questions about rhythmic gymnastics.</p>
-      </div>
-      <div data-lang="ar">
-        <h1>المساعد الذكي للجمباز الإيقاعي</h1>
-        <p>اختر هويتك ثم اسأل أسئلة دقيقة عن الجمباز الإيقاعي.</p>
-      </div>
-    </section>
+<main>
 
-    <section class="roles">
-      <div class="role active" onclick="selectRole(this)">
-        <h3 data-lang="en">Athlete</h3>
-        <h3 data-lang="ar">لاعبة</h3>
-        <p data-lang="en">Skills, routines, development</p>
-        <p data-lang="ar">الحركات والروتين والتطور</p>
-      </div>
-      <div class="role" onclick="selectRole(this)">
-        <h3 data-lang="en">Coach</h3>
-        <h3 data-lang="ar">مدرب</h3>
-        <p data-lang="en">Training and rules</p>
-        <p data-lang="ar">التدريب والقوانين</p>
-      </div>
-      <div class="role" onclick="selectRole(this)">
-        <h3 data-lang="en">Judge</h3>
-        <h3 data-lang="ar">حكم</h3>
-        <p data-lang="en">Scoring and evaluation</p>
-        <p data-lang="ar">التحكيم والتقييم</p>
-      </div>
-      <div class="role" onclick="selectRole(this)">
-        <h3 data-lang="en">Parent</h3>
-        <h3 data-lang="ar">ولي أمر</h3>
-        <p data-lang="en">Understanding the sport</p>
-        <p data-lang="ar">فهم اللعبة</p>
-      </div>
-    </section>
+  <section class="hero">
+    <div data-lang="en">
+      <h1>Ask LAILA</h1>
+      <p>Search and ask questions based on the rhythmic gymnastics archive.</p>
+    </div>
+    <div data-lang="ar">
+      <h1>اسأل ليلى</h1>
+      <p>ابحث واسأل عن أي معلومة داخل أرشيف الجمباز الإيقاعي.</p>
+    </div>
+  </section>
 
-    <section class="chat">
-      <textarea data-lang="en" placeholder="Ask your question about rhythmic gymnastics..."></textarea>
-      <textarea data-lang="ar" placeholder="اكتب سؤالك عن الجمباز الإيقاعي..."></textarea>
-      <button data-lang="en">Ask LAILA</button>
-      <button data-lang="ar">اسأل ليلى</button>
-    </section>
-  </main>
+  <section class="search-box">
+    <input id="question" type="text" placeholder="Ask about rules, apparatus, gymnasts..." />
+    <button onclick="askLaila()">Ask</button>
+  </section>
 
-  <script>
-    const STORAGE_KEY="laila_lang";
-    function setLang(lang){
-      document.querySelectorAll("[data-lang]").forEach(e=>{
-        e.style.display=e.getAttribute("data-lang")===lang?"block":"none";
-      });
-      document.documentElement.dir=lang==="ar"?"rtl":"ltr";
-      document.documentElement.lang=lang;
-      document.getElementById("btn-en").classList.toggle("active",lang==="en");
-      document.getElementById("btn-ar").classList.toggle("active",lang==="ar");
-      localStorage.setItem(STORAGE_KEY,lang);
-    }
-    function selectRole(el){
-      document.querySelectorAll(".role").forEach(r=>r.classList.remove("active"));
-      el.classList.add("active");
-    }
-    document.getElementById("menuBtn").onclick=()=>{
-      const p=document.getElementById("menuPanel");
-      p.style.display=p.style.display==="block"?"none":"block";
-    };
-    const saved=localStorage.getItem(STORAGE_KEY)||"en";
-    setLang(saved);
-  </script>
+  <div class="answer" id="answerBox"></div>
+
+</main>
+
+<script>
+const STORAGE_KEY="laila_lang";
+
+/* === Archive Knowledge (Condensed) === */
+const archive = [
+  { key:["history","تاريخ"], answer:{
+    en:"Rhythmic gymnastics developed from expressive movement and dance, later becoming a competitive Olympic sport.",
+    ar:"تطور الجمباز الإيقاعي من حركات تعبيرية إلى رياضة تنافسية أولمبية."
+  }},
+  { key:["ribbon","شريط"], answer:{
+    en:"The ribbon emphasizes fluidity, continuity, and large expressive movements.",
+    ar:"يركز الشريط على السلاسة والاستمرارية والحركات التعبيرية الواسعة."
+  }},
+  { key:["difficulty","D","الصعوبة"], answer:{
+    en:"Difficulty score measures body and apparatus elements and their complexity.",
+    ar:"درجة الصعوبة تقيس عناصر الجسم والأداة وتعقيدها."
+  }},
+  { key:["execution","E","التنفيذ"], answer:{
+    en:"Execution score evaluates technique, accuracy, and control.",
+    ar:"درجة التنفيذ تقيم التكنيك والدقة والتحكم."
+  }},
+  { key:["artistry","الفني"], answer:{
+    en:"Artistry evaluates musical interpretation, expression, and choreography.",
+    ar:"الدرجة الفنية تقيم التفسير الموسيقي والتعبير والتكوين الحركي."
+  }},
+  { key:["leila","ليلى"], answer:{
+    en:"Leila Hesham Abdelhamid is a rhythmic gymnast from Al-Seid Club who achieved multiple local titles.",
+    ar:"ليلى هشام عبد الحميد لاعبة جمباز إيقاعي بنادي الصيد، حققت العديد من البطولات المحلية."
+  }}
+];
+
+function askLaila(){
+  const q=document.getElementById("question").value.toLowerCase();
+  const box=document.getElementById("answerBox");
+  let lang=localStorage.getItem(STORAGE_KEY)||"en";
+  let found=null;
+
+  archive.forEach(item=>{
+    item.key.forEach(k=>{
+      if(q.includes(k)) found=item.answer[lang];
+    });
+  });
+
+  box.style.display="block";
+  box.innerText = found || (lang==="en"
+    ? "This information is not available yet in the LAILA archive."
+    : "هذه المعلومة غير متوفرة حاليًا داخل أرشيف ليلى.");
+}
+
+/* === Language === */
+function setLang(lang){
+  document.querySelectorAll("[data-lang]").forEach(e=>{
+    e.style.display = e.getAttribute("data-lang")===lang ? "block":"none";
+  });
+  document.documentElement.dir = lang==="ar"?"rtl":"ltr";
+  document.getElementById("btn-en").classList.toggle("active",lang==="en");
+  document.getElementById("btn-ar").classList.toggle("active",lang==="ar");
+  localStorage.setItem(STORAGE_KEY,lang);
+}
+
+const saved=localStorage.getItem(STORAGE_KEY)||"en";
+setLang(saved);
+document.getElementById("btn-en").onclick=()=>setLang("en");
+document.getElementById("btn-ar").onclick=()=>setLang("ar");
+</script>
+
 </body>
 </html>
