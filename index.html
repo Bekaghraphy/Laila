@@ -1,240 +1,258 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <link rel="icon" type="image/svg+xml" href="favicon-home.svg">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LAILA | Rhythmic Gymnastics Intelligence</title>
 
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg-main:#0e0f14;
-      --bg-soft:#151722;
-      --accent:#8b8df8;
-      --accent-soft:#6f72e6;
-      --text:#ffffff;
-      --muted:rgba(255,255,255,0.74);
-      --border:rgba(255,255,255,0.08);
-      --shadow: 0 18px 60px rgba(0,0,0,0.45);
-      --radius:18px;
-      --radius-lg:22px;
-      --ease:cubic-bezier(.2,.8,.2,1);
+    :root {
+      --bg-main: #0e0f14;
+      --bg-soft: #151722;
+      --accent: #8b8df8;
+      --accent-soft: #6f72e6;
+      --text-main: #ffffff;
+      --text-muted: rgba(255,255,255,0.75);
+      --border-soft: rgba(255,255,255,0.08);
     }
 
-    *{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
-    body{
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    body {
       background: radial-gradient(circle at top, #1a1c2d, var(--bg-main));
-      color:var(--text);
-      min-height:100vh;
-      overflow-x:hidden;
+      color: var(--text-main);
+      min-height: 100vh;
     }
 
-    .bg-glow{
-      position:fixed; inset:-200px;
-      background:
-        radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 10% 20%/520px 520px,
-        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px,
-        radial-gradient(closest-side, rgba(139,141,248,0.08), transparent 60%) 50% 95%/620px 620px;
-      pointer-events:none;
-      z-index:-1;
-      animation: floatGlow 10s var(--ease) infinite alternate;
+    /* NAVBAR */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border-soft);
     }
 
-    @keyframes floatGlow{
-      from{transform:translateY(0)}
-      to{transform:translateY(-18px)}
+    .logo {
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 1.1rem;
     }
 
-    header{
-      position:sticky; top:0; z-index:50;
-      display:flex; justify-content:space-between; align-items:center;
-      padding:16px 18px;
-      background:rgba(14,15,20,.7);
-      backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--border);
+    nav {
+      display: none;
     }
 
-    .brand{display:flex;gap:10px;align-items:center;font-weight:700;letter-spacing:2px}
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      box-shadow:0 0 0 6px rgba(139,141,248,.12);
+    .lang-toggle button {
+      background: transparent;
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-left: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
     }
 
-    nav{display:none;gap:18px}
-    nav a{
-      color:var(--muted);
-      text-decoration:none;
-      padding:10px;
-      border-radius:999px;
-    }
-    nav a.active{
-      color:#fff;
-      background:rgba(139,141,248,.1);
+    .lang-toggle button.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      border: none;
     }
 
-    .right{display:flex;gap:10px}
-
-    .menu-btn,.lang button{
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--border);
-      color:#fff;
-      padding:8px 12px;
-      border-radius:999px;
-      cursor:pointer;
+    /* HERO */
+    .hero {
+      padding: 70px 20px 90px;
+      text-align: center;
+      max-width: 900px;
+      margin: auto;
     }
 
-    .lang button.active{
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      border:none;
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 18px;
     }
 
-    .menu-panel{
-      display:none;
-      position:fixed;
-      top:68px; left:16px; right:16px;
-      background:rgba(21,23,34,.95);
-      border-radius:22px;
-      padding:12px;
-      z-index:40;
+    .hero p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: auto;
     }
 
-    .menu-panel a{
-      display:block;
-      padding:12px;
-      text-decoration:none;
-      color:var(--muted);
-      border-radius:14px;
+    .hero button {
+      margin-top: 32px;
+      padding: 14px 34px;
+      border-radius: 30px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
     }
 
-    main{max-width:1100px;margin:auto;padding:42px 18px}
-
-    .hero{text-align:center}
-    .hero h1{font-size:2.1rem;margin-bottom:14px}
-    .hero p{color:var(--muted);max-width:720px;margin:auto}
-
-    .cta{margin-top:24px;display:flex;gap:12px;justify-content:center}
-
-    .btn{
-      padding:13px 18px;
-      border-radius:999px;
-      border:none;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      color:#fff;
-      cursor:pointer;
-    }
-    .btn.secondary{
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--border);
+    /* CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      padding: 0 20px 80px;
+      max-width: 1000px;
+      margin: auto;
     }
 
-    .grid{display:grid;gap:14px;margin-top:30px}
-    .card{
-      background:rgba(21,23,34,.86);
-      border:1px solid var(--border);
-      border-radius:22px;
-      padding:20px;
+    .card {
+      background: var(--bg-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 28px 24px;
+      text-align: center;
     }
 
-    @media(min-width:768px){
-      nav{display:flex}
-      .menu-btn{display:none}
-      .menu-panel{display:none!important}
-      .grid{grid-template-columns:repeat(3,1fr)}
-      .hero h1{font-size:3rem}
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
     }
 
-    [data-lang]{display:none;}
+    .card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* DESKTOP */
+    @media (min-width: 768px) {
+      nav {
+        display: flex;
+        gap: 25px;
+      }
+
+      nav a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+      }
+
+      .cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    [data-lang] {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
 
-<div class="bg-glow"></div>
+  <!-- NAV -->
+  <header>
+    <div class="logo">LAILA</div>
 
-<header>
-  <div class="brand">
-    <span class="dot"></span><span>LAILA</span>
-  </div>
+    <nav>
+      <a href="#">Archive</a>
+      <a href="#">AI Assistant</a>
+    </nav>
 
-  <nav>
-    <a href="index.html" data-route="index.html">Home</a>
-    <a href="archive.html" data-route="archive.html">Archive</a>
-    <a href="learn.html" data-route="learn.html">Learn</a>
-    <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
-  </nav>
-
-  <div class="right">
-    <button class="menu-btn" id="menuBtn">Menu</button>
-    <div class="lang">
-      <button id="btn-en">EN</button>
-      <button id="btn-ar">AR</button>
+    <div class="lang-toggle">
+      <button id="btn-en" onclick="setLang('en')" class="active">EN</button>
+      <button id="btn-ar" onclick="setLang('ar')">AR</button>
     </div>
-  </div>
-</header>
+  </header>
 
-<div class="menu-panel" id="menuPanel">
-  <a href="index.html">Home</a>
-  <a href="archive.html">Archive</a>
-  <a href="learn.html">Learn</a>
-  <a href="assistant.html">AI Assistant</a>
-</div>
-
-<main>
+  <!-- HERO -->
   <section class="hero">
+
     <div data-lang="en">
       <h1>Rhythmic Gymnastics Intelligence</h1>
-      <p>An AI-powered archive and learning platform dedicated to rhythmic gymnastics.</p>
-      <div class="cta">
-        <button class="btn">Explore the Archive</button>
-        <button class="btn secondary">Ask the Assistant</button>
-      </div>
+      <p>
+        An AI-powered archive and learning platform dedicated to rhythmic gymnastics.
+        Designed for athletes, coaches, judges, and parents.
+      </p>
+      <button>Explore the Archive</button>
     </div>
 
     <div data-lang="ar">
       <h1>منصة ذكية للجمباز الإيقاعي</h1>
-      <p>منصة تعتمد على الذكاء الاصطناعي لتوثيق وتعليم رياضة الجمباز الإيقاعي.</p>
-      <div class="cta">
-        <button class="btn">تصفح الأرشيف</button>
-        <button class="btn secondary">اسأل المساعد</button>
-      </div>
+      <p>
+        منصة تعتمد على الذكاء الاصطناعي لتوثيق وتعليم رياضة الجمباز الإيقاعي،
+        موجهة للاعبات والمدربين والحكام وأولياء الأمور.
+      </p>
+      <button>تصفح الأرشيف</button>
     </div>
+
   </section>
-</main>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const STORAGE_KEY = "laila_lang";
+  <!-- CARDS -->
+  <section class="cards">
 
-  function setLang(lang){
-    document.querySelectorAll("[data-lang]").forEach(el=>{
-      el.style.display = el.dataset.lang === lang ? "block" : "none";
-    });
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-    btnEn.classList.toggle("active", lang==="en");
-    btnAr.classList.toggle("active", lang==="ar");
-    localStorage.setItem(STORAGE_KEY, lang);
-  }
+    <div class="card" data-lang="en">
+      <h3>The Archive</h3>
+      <p>A structured historical archive covering rules, apparatus, and evolution.</p>
+    </div>
 
-  const btnEn = document.getElementById("btn-en");
-  const btnAr = document.getElementById("btn-ar");
-  const menuBtn = document.getElementById("menuBtn");
-  const menuPanel = document.getElementById("menuPanel");
+    <div class="card" data-lang="en">
+      <h3>Learn</h3>
+      <p>Clear explanations of movements, scoring systems, and common questions.</p>
+    </div>
 
-  menuBtn.onclick = ()=> {
-    menuPanel.style.display =
-      menuPanel.style.display === "block" ? "none" : "block";
-  };
+    <div class="card" data-lang="en">
+      <h3>AI Assistant</h3>
+      <p>Ask specialized questions and get accurate rhythmic gymnastics answers.</p>
+    </div>
 
-  btnEn.onclick = ()=> setLang("en");
-  btnAr.onclick = ()=> setLang("ar");
+    <div class="card" data-lang="ar">
+      <h3>الأرشيف</h3>
+      <p>أرشيف منظم يشمل تاريخ اللعبة، القوانين، والأدوات.</p>
+    </div>
 
-  setLang(localStorage.getItem(STORAGE_KEY) || "en");
-});
-</script>
+    <div class="card" data-lang="ar">
+      <h3>التعلم</h3>
+      <p>شرح مبسط للحركات ونظام التحكيم والإجابات الشائعة.</p>
+    </div>
+
+    <div class="card" data-lang="ar">
+      <h3>المساعد الذكي</h3>
+      <p>اسأل أسئلة متخصصة واحصل على إجابات دقيقة في الجمباز الإيقاعي.</p>
+    </div>
+
+  </section>
+
+  <!-- SCRIPT -->
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll("[data-lang]").forEach(el => {
+        el.style.display = el.getAttribute("data-lang") === lang ? "block" : "none";
+      });
+
+      document.getElementById("btn-en").classList.remove("active");
+      document.getElementById("btn-ar").classList.remove("active");
+      document.getElementById("btn-" + lang).classList.add("active");
+
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    }
+
+    setLang("en");
+  </script>
 
 </body>
 </html>
