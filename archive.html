@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LAILA | Rhythmic Gymnastics Archive</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #0e0f14;
+      --bg-soft: #151722;
+      --accent: #8b8df8;
+      --accent-soft: #6f72e6;
+      --text-main: #ffffff;
+      --text-muted: rgba(255,255,255,0.75);
+      --border-soft: rgba(255,255,255,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1a1c2d, var(--bg-main));
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      display: none;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .lang-toggle button {
+      background: transparent;
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-left: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .lang-toggle button.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      border: none;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 60px 20px 40px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* GRID */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      padding: 20px 20px 80px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .archive-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 26px 24px;
+    }
+
+    .archive-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .archive-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* DESKTOP */
+    @media (min-width: 768px) {
+      nav {
+        display: flex;
+        gap: 25px;
+      }
+
+      .hero h1 {
+        font-size: 2.6rem;
+      }
+
+      .archive-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .archive-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    [data-lang] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <header>
+    <div class="logo">LAILA</div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="assistant.html">AI Assistant</a>
+    </nav>
+
+    <div class="lang-toggle">
+      <button id="btn-en" onclick="setLang('en')" class="active">EN</button>
+      <button id="btn-ar" onclick="setLang('ar')">AR</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div data-lang="en">
+      <h1>Rhythmic Gymnastics Archive</h1>
+      <p>
+        A curated archive covering the history, rules, apparatus, and key figures
+        of rhythmic gymnastics — structured for learning and reference.
+      </p>
+    </div>
+
+    <div data-lang="ar">
+      <h1>أرشيف الجمباز الإيقاعي</h1>
+      <p>
+        أرشيف منظم يشمل تاريخ رياضة الجمباز الإيقاعي، تطور القوانين،
+        الأدوات، وأهم الشخصيات المؤثرة في اللعبة.
+      </p>
+    </div>
+  </section>
+
+  <!-- ARCHIVE GRID -->
+  <section class="archive-grid">
+
+    <!-- EN -->
+    <div class="archive-card" data-lang="en">
+      <h3>History of the Sport</h3>
+      <p>Origins, evolution, and key milestones of rhythmic gymnastics worldwide.</p>
+    </div>
+
+    <div class="archive-card" data-lang="en">
+      <h3>Apparatus Guide</h3>
+      <p>Ribbon, hoop, ball, clubs, and rope explained with usage and rules.</p>
+    </div>
+
+    <div class="archive-card" data-lang="en">
+      <h3>Evolution of Rules</h3>
+      <p>How the Code of Points has changed across different eras.</p>
+    </div>
+
+    <div class="archive-card" data-lang="en">
+      <h3>Judging System</h3>
+      <p>Understanding difficulty, execution, artistry, and penalties.</p>
+    </div>
+
+    <div class="archive-card" data-lang="en">
+      <h3>Famous Gymnasts</h3>
+      <p>Influential athletes who shaped the sport through generations.</p>
+    </div>
+
+    <!-- AR -->
+    <div class="archive-card" data-lang="ar">
+      <h3>تاريخ اللعبة</h3>
+      <p>نشأة وتطور رياضة الجمباز الإيقاعي وأهم محطاتها.</p>
+    </div>
+
+    <div class="archive-card" data-lang="ar">
+      <h3>أدوات اللعب</h3>
+      <p>شرح الشريط والطوق والكرة والصولجان والحبل واستخداماتهم.</p>
+    </div>
+
+    <div class="archive-card" data-lang="ar">
+      <h3>تطور القوانين</h3>
+      <p>كيف تغير قانون التحكيم عبر السنوات.</p>
+    </div>
+
+    <div class="archive-card" data-lang="ar">
+      <h3>نظام التحكيم</h3>
+      <p>فهم درجات الصعوبة والتنفيذ والجانب الفني والخصومات.</p>
+    </div>
+
+    <div class="archive-card" data-lang="ar">
+      <h3>لاعبات مؤثرات</h3>
+      <p>شخصيات تركت بصمة واضحة في تاريخ اللعبة.</p>
+    </div>
+
+  </section>
+
+  <!-- SCRIPT -->
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll("[data-lang]").forEach(el => {
+        el.style.display = el.getAttribute("data-lang") === lang ? "block" : "none";
+      });
+
+      document.getElementById("btn-en").classList.remove("active");
+      document.getElementById("btn-ar").classList.remove("active");
+      document.getElementById("btn-" + lang).classList.add("active");
+
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    }
+
+    setLang("en");
+  </script>
+
+</body>
+</html>
