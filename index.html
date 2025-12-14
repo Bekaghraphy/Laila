@@ -1,258 +1,463 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
+  <link rel="icon" type="image/svg+xml" href="favicon-home.svg">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LAILA | Rhythmic Gymnastics Intelligence</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-main: #0e0f14;
-      --bg-soft: #151722;
-      --accent: #8b8df8;
-      --accent-soft: #6f72e6;
-      --text-main: #ffffff;
-      --text-muted: rgba(255,255,255,0.75);
-      --border-soft: rgba(255,255,255,0.08);
+    :root{
+      --bg-main:#0e0f14;
+      --bg-soft:#151722;
+      --accent:#8b8df8;
+      --accent-soft:#6f72e6;
+      --text:#ffffff;
+      --muted:rgba(255,255,255,0.74);
+      --border:rgba(255,255,255,0.08);
+      --shadow: 0 18px 60px rgba(0,0,0,0.45);
+      --radius:18px;
+      --radius-lg:22px;
+      --ease:cubic-bezier(.2,.8,.2,1);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Montserrat", sans-serif;
-    }
-
-    body {
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
+    body{
       background: radial-gradient(circle at top, #1a1c2d, var(--bg-main));
-      color: var(--text-main);
-      min-height: 100vh;
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
     }
 
-    /* NAVBAR */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--border-soft);
+    /* Subtle background sparkle */
+    .bg-glow{
+      position:fixed; inset:-200px;
+      background:
+        radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 10% 20%/520px 520px,
+        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px,
+        radial-gradient(closest-side, rgba(139,141,248,0.08), transparent 60%) 50% 95%/620px 620px;
+      filter: blur(0px);
+      pointer-events:none;
+      z-index:-1;
+      animation: floatGlow 10s var(--ease) infinite alternate;
+      opacity:0.9;
+    }
+    @keyframes floatGlow{
+      from{transform:translate3d(0,0,0) scale(1);}
+      to{transform:translate3d(0,-18px,0) scale(1.03);}
     }
 
-    .logo {
-      font-weight: 700;
-      letter-spacing: 2px;
-      font-size: 1.1rem;
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 18px;
+      border-bottom:1px solid var(--border);
+      background: rgba(14,15,20,0.70);
+      backdrop-filter: blur(14px);
     }
-
-    nav {
-      display: none;
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700; letter-spacing:2px; font-size:1.05rem;
+      user-select:none;
     }
-
-    .lang-toggle button {
-      background: transparent;
-      border: 1px solid var(--border-soft);
-      color: var(--text-main);
-      padding: 6px 14px;
-      border-radius: 20px;
-      margin-left: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-
-    .lang-toggle button.active {
+    .brand .dot{
+      width:10px;height:10px;border-radius:50%;
       background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      border: none;
+      box-shadow: 0 0 0 6px rgba(139,141,248,0.12), 0 0 26px rgba(139,141,248,0.35);
     }
 
-    /* HERO */
-    .hero {
-      padding: 70px 20px 90px;
-      text-align: center;
-      max-width: 900px;
-      margin: auto;
+    nav{display:none; align-items:center; gap:18px;}
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:0.92rem;
+      padding:10px 10px;
+      border-radius:999px;
+      position:relative;
+      transition: transform .18s var(--ease), color .18s var(--ease), background .18s var(--ease);
+    }
+    nav a:hover{
+      color:var(--text);
+      background: rgba(255,255,255,0.04);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.14) inset;
+    }
+    nav a.active{
+      color:var(--text);
+      background: rgba(139,141,248,0.10);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.22) inset, 0 14px 38px rgba(0,0,0,0.35);
     }
 
-    .hero h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 18px;
+    .right{
+      display:flex; align-items:center; gap:10px;
     }
 
-    .hero p {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: var(--text-muted);
-      max-width: 650px;
-      margin: auto;
+    .lang button, .menu-btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:0.82rem;
+      cursor:pointer;
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+      position:relative;
+      overflow:hidden;
     }
-
-    .hero button {
-      margin-top: 32px;
-      padding: 14px 34px;
-      border-radius: 30px;
-      border: none;
+    .lang button.active{
+      border-color: transparent;
       background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      color: #fff;
-      font-size: 0.95rem;
-      cursor: pointer;
+      box-shadow: 0 16px 50px rgba(139,141,248,0.22);
+    }
+    .lang button:hover, .menu-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.16) inset, 0 18px 60px rgba(0,0,0,0.35);
+    }
+    .tap-glow::after{
+      content:"";
+      position:absolute; inset:-60%;
+      background: radial-gradient(circle, rgba(139,141,248,0.55), transparent 60%);
+      transform: scale(0.2);
+      opacity:0;
+      animation: tap 520ms var(--ease) forwards;
+      pointer-events:none;
+    }
+    @keyframes tap{
+      0%{opacity:0; transform:scale(0.15);}
+      35%{opacity:0.65; transform:scale(0.55);}
+      100%{opacity:0; transform:scale(1.05);}
     }
 
-    /* CARDS */
-    .cards {
-      display: grid;
+    /* Mobile menu */
+    .menu-btn{display:inline-flex; align-items:center; gap:8px;}
+    .menu-panel{
+      position:fixed; top:68px; left:16px; right:16px;
+      background: rgba(21,23,34,0.92);
+      border:1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding:12px;
+      display:none;
+      backdrop-filter: blur(16px);
+    }
+    .menu-panel a{
+      display:block;
+      padding:12px 12px;
+      border-radius:14px;
+      color:var(--muted);
+      text-decoration:none;
+      transition: background .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
+    }
+    .menu-panel a:hover{
+      background: rgba(255,255,255,0.04);
+      color:var(--text);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.14) inset;
+    }
+    .menu-panel a.active{
+      color:var(--text);
+      background: rgba(139,141,248,0.10);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.22) inset;
+    }
+
+    /* Main */
+    main{max-width:1100px; margin:0 auto; padding:42px 18px 80px;}
+    .fade-in{animation: fadeIn 520ms var(--ease) both;}
+    @keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+    .hero{
+      text-align:center;
+      padding:42px 10px 26px;
+      max-width:900px;
+      margin:0 auto;
+    }
+    .hero h1{
+      font-size:2.05rem;
+      line-height:1.25;
+      letter-spacing:0.2px;
+      margin-bottom:14px;
+    }
+    .hero p{
+      color:var(--muted);
+      font-size:0.98rem;
+      line-height:1.75;
+      margin:0 auto;
+      max-width:720px;
+    }
+
+    .cta{
+      margin-top:24px;
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:none;
+      cursor:pointer;
+      padding:13px 18px;
+      border-radius:999px;
+      font-size:0.92rem;
+      color:#fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      box-shadow: 0 16px 54px rgba(139,141,248,0.22);
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), filter .18s var(--ease);
+      position:relative;
+      overflow:hidden;
+      min-width: 170px;
+    }
+    .btn.secondary{
+      background: rgba(255,255,255,0.03);
+      border:1px solid var(--border);
+      color:var(--text);
+      box-shadow:none;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 22px 70px rgba(139,141,248,0.28);
+      filter:saturate(1.05);
+    }
+    .btn.secondary:hover{
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.16) inset, 0 18px 60px rgba(0,0,0,0.35);
+    }
+
+    .grid{
+      display:grid;
       grid-template-columns: 1fr;
-      gap: 18px;
-      padding: 0 20px 80px;
-      max-width: 1000px;
-      margin: auto;
+      gap:14px;
+      margin-top:26px;
+    }
+    .card{
+      background: rgba(21,23,34,0.86);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding:20px 18px;
+      text-align:left;
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease);
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-60% -30%;
+      background: radial-gradient(circle at 30% 30%, rgba(139,141,248,0.18), transparent 55%);
+      opacity:0;
+      transition: opacity .18s var(--ease);
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(139,141,248,0.18);
+      box-shadow: 0 26px 80px rgba(0,0,0,0.45);
+    }
+    .card:hover::before{opacity:1;}
+    .card h3{font-size:1.05rem; margin-bottom:8px;}
+    .card p{color:var(--muted); font-size:0.88rem; line-height:1.6; margin-bottom:14px;}
+    .card a{
+      color: var(--text);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:0.9rem;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease);
+    }
+    .card a:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.16) inset, 0 18px 60px rgba(0,0,0,0.35);
+      background: rgba(139,141,248,0.08);
     }
 
-    .card {
-      background: var(--bg-soft);
-      border: 1px solid var(--border-soft);
-      border-radius: 18px;
-      padding: 28px 24px;
-      text-align: center;
+    /* Responsive */
+    @media(min-width:768px){
+      header{padding:16px 26px;}
+      nav{display:flex;}
+      .menu-btn{display:none;}
+      .menu-panel{display:none !important;}
+      main{padding:52px 26px 90px;}
+      .hero h1{font-size:3rem;}
+      .grid{grid-template-columns: repeat(3, 1fr); gap:16px;}
+      .card{padding:22px 20px;}
     }
 
-    .card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-    }
-
-    .card p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* DESKTOP */
-    @media (min-width: 768px) {
-      nav {
-        display: flex;
-        gap: 25px;
-      }
-
-      nav a {
-        color: var(--text-muted);
-        text-decoration: none;
-        font-size: 0.9rem;
-      }
-
-      .hero h1 {
-        font-size: 3rem;
-      }
-
-      .hero p {
-        font-size: 1.05rem;
-      }
-
-      .cards {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    [data-lang] {
-      display: none;
-    }
+    /* Language blocks */
+    [data-lang]{display:none;}
   </style>
 </head>
 
 <body>
+  <div class="bg-glow"></div>
 
-  <!-- NAV -->
   <header>
-    <div class="logo">LAILA</div>
+    <div class="brand">
+      <span class="dot"></span>
+      <span>LAILA</span>
+    </div>
 
-    <nav>
-      <a href="#">Archive</a>
-      <a href="#">AI Assistant</a>
+    <nav id="desktopNav">
+      <a href="index.html" data-route="index.html">Home</a>
+      <a href="archive.html" data-route="archive.html">Archive</a>
+      <a href="learn.html" data-route="learn.html">Learn</a>
+      <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
     </nav>
 
-    <div class="lang-toggle">
-      <button id="btn-en" onclick="setLang('en')" class="active">EN</button>
-      <button id="btn-ar" onclick="setLang('ar')">AR</button>
+    <div class="right">
+      <button class="menu-btn" id="menuBtn" type="button">Menu</button>
+      <div class="lang">
+        <button id="btn-en" type="button">EN</button>
+        <button id="btn-ar" type="button">AR</button>
+      </div>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
+  <div class="menu-panel" id="menuPanel">
+    <a href="index.html" data-route="index.html">Home</a>
+    <a href="archive.html" data-route="archive.html">Archive</a>
+    <a href="learn.html" data-route="learn.html">Learn</a>
+    <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
+  </div>
 
-    <div data-lang="en">
-      <h1>Rhythmic Gymnastics Intelligence</h1>
-      <p>
-        An AI-powered archive and learning platform dedicated to rhythmic gymnastics.
-        Designed for athletes, coaches, judges, and parents.
-      </p>
-      <button>Explore the Archive</button>
-    </div>
+  <main class="fade-in">
+    <section class="hero">
+      <div data-lang="en">
+        <h1>Rhythmic Gymnastics Intelligence</h1>
+        <p>
+          An AI-powered archive and learning platform dedicated to rhythmic gymnastics.
+          Designed for athletes, coaches, judges, and parents.
+        </p>
+        <div class="cta">
+          <button class="btn" onclick="location.href='archive.html'">Explore the Archive</button>
+          <button class="btn secondary" onclick="location.href='assistant.html'">Ask the Assistant</button>
+        </div>
+      </div>
 
-    <div data-lang="ar">
-      <h1>منصة ذكية للجمباز الإيقاعي</h1>
-      <p>
-        منصة تعتمد على الذكاء الاصطناعي لتوثيق وتعليم رياضة الجمباز الإيقاعي،
-        موجهة للاعبات والمدربين والحكام وأولياء الأمور.
-      </p>
-      <button>تصفح الأرشيف</button>
-    </div>
+      <div data-lang="ar">
+        <h1>منصة ذكية للجمباز الإيقاعي</h1>
+        <p>
+          منصة تعتمد على الذكاء الاصطناعي لتوثيق وتعليم رياضة الجمباز الإيقاعي،
+          موجهة للاعبات والمدربين والحكام وأولياء الأمور.
+        </p>
+        <div class="cta">
+          <button class="btn" onclick="location.href='archive.html'">تصفح الأرشيف</button>
+          <button class="btn secondary" onclick="location.href='assistant.html'">اسأل المساعد</button>
+        </div>
+      </div>
+    </section>
 
-  </section>
+    <section class="grid">
+      <div class="card">
+        <div data-lang="en">
+          <h3>The Archive</h3>
+          <p>History, rules, apparatus, judging, and key figures—organized for reference.</p>
+          <a href="archive.html">Open Archive</a>
+        </div>
+        <div data-lang="ar">
+          <h3>الأرشيف</h3>
+          <p>تاريخ اللعبة والقوانين والأدوات والتحكيم والشخصيات المؤثرة بشكل منظم.</p>
+          <a href="archive.html">افتح الأرشيف</a>
+        </div>
+      </div>
 
-  <!-- CARDS -->
-  <section class="cards">
+      <div class="card">
+        <div data-lang="en">
+          <h3>Learn</h3>
+          <p>Simple explanations for beginners, parents, and anyone who wants clarity.</p>
+          <a href="learn.html">Start Learning</a>
+        </div>
+        <div data-lang="ar">
+          <h3>التعلم</h3>
+          <p>شرح مبسط للمبتدئين والأهالي وكل من يريد فهم اللعبة بشكل صحيح.</p>
+          <a href="learn.html">ابدأ التعلّم</a>
+        </div>
+      </div>
 
-    <div class="card" data-lang="en">
-      <h3>The Archive</h3>
-      <p>A structured historical archive covering rules, apparatus, and evolution.</p>
-    </div>
+      <div class="card">
+        <div data-lang="en">
+          <h3>AI Assistant</h3>
+          <p>Ask specialized questions—tailored to athletes, coaches, judges, and parents.</p>
+          <a href="assistant.html">Open Assistant</a>
+        </div>
+        <div data-lang="ar">
+          <h3>المساعد الذكي</h3>
+          <p>اسأل أسئلة متخصصة موجهة للاعبة والمدرب والحكم وولي الأمر.</p>
+          <a href="assistant.html">افتح المساعد</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <div class="card" data-lang="en">
-      <h3>Learn</h3>
-      <p>Clear explanations of movements, scoring systems, and common questions.</p>
-    </div>
-
-    <div class="card" data-lang="en">
-      <h3>AI Assistant</h3>
-      <p>Ask specialized questions and get accurate rhythmic gymnastics answers.</p>
-    </div>
-
-    <div class="card" data-lang="ar">
-      <h3>الأرشيف</h3>
-      <p>أرشيف منظم يشمل تاريخ اللعبة، القوانين، والأدوات.</p>
-    </div>
-
-    <div class="card" data-lang="ar">
-      <h3>التعلم</h3>
-      <p>شرح مبسط للحركات ونظام التحكيم والإجابات الشائعة.</p>
-    </div>
-
-    <div class="card" data-lang="ar">
-      <h3>المساعد الذكي</h3>
-      <p>اسأل أسئلة متخصصة واحصل على إجابات دقيقة في الجمباز الإيقاعي.</p>
-    </div>
-
-  </section>
-
-  <!-- SCRIPT -->
   <script>
-    function setLang(lang) {
-      document.querySelectorAll("[data-lang]").forEach(el => {
-        el.style.display = el.getAttribute("data-lang") === lang ? "block" : "none";
-      });
+    // ---------- Core helpers ----------
+    const STORAGE_KEY = "laila_lang";
 
-      document.getElementById("btn-en").classList.remove("active");
-      document.getElementById("btn-ar").classList.remove("active");
-      document.getElementById("btn-" + lang).classList.add("active");
-
-      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    function addTapGlow(el){
+      el.classList.remove("tap-glow");
+      void el.offsetWidth; // restart animation
+      el.classList.add("tap-glow");
+      setTimeout(()=> el.classList.remove("tap-glow"), 560);
     }
 
-    setLang("en");
-  </script>
+    function setLang(lang, persist=true){
+      document.querySelectorAll("[data-lang]").forEach(el=>{
+        el.style.display = (el.getAttribute("data-lang") === lang) ? "block" : "none";
+      });
 
+      document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
+      document.documentElement.lang = (lang === "ar") ? "ar" : "en";
+
+      const btnEn = document.getElementById("btn-en");
+      const btnAr = document.getElementById("btn-ar");
+      btnEn.classList.toggle("active", lang === "en");
+      btnAr.classList.toggle("active", lang === "ar");
+
+      if(persist) localStorage.setItem(STORAGE_KEY, lang);
+    }
+
+    function highlightActiveRoute(){
+      const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+      document.querySelectorAll("[data-route]").forEach(a=>{
+        a.classList.toggle("active", a.getAttribute("data-route").toLowerCase() === file);
+      });
+    }
+
+    // ---------- Mobile menu ----------
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+
+    function toggleMenu(){
+      const isOpen = menuPanel.style.display === "block";
+      menuPanel.style.display = isOpen ? "none" : "block";
+    }
+
+    menuBtn?.addEventListener("click", (e)=>{
+      addTapGlow(menuBtn);
+      toggleMenu();
+    });
+
+    document.addEventListener("click", (e)=>{
+      if(!menuPanel) return;
+      const clickedInside = menuPanel.contains(e.target) || menuBtn.contains(e.target);
+      if(!clickedInside) menuPanel.style.display = "none";
+    });
+
+    // ---------- Button interactions ----------
+    document.querySelectorAll("button, a").forEach(el=>{
+      el.addEventListener("click", ()=> addTapGlow(el));
+    });
+
+    // ---------- Lang init ----------
+    const saved = localStorage.getItem(STORAGE_KEY) || "en";
+    setLang(saved, false);
+    highlightActiveRoute();
+
+    document.getElementById("btn-en").addEventListener("click", ()=> setLang("en"));
+    document.getElementById("btn-ar").addEventListener("click", ()=> setLang("ar"));
+  </script>
 </body>
 </html>
