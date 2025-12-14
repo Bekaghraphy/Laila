@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LAILA | Famous Rhythmic Gymnasts</title>
+  <title>LAILA | Rhythmic Gymnasts</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -17,7 +17,6 @@
       --muted:rgba(255,255,255,0.74);
       --border:rgba(255,255,255,0.08);
       --shadow:0 18px 60px rgba(0,0,0,0.45);
-      --radius:18px;
       --radius-lg:22px;
       --ease:cubic-bezier(.2,.8,.2,1);
     }
@@ -27,123 +26,58 @@
       background:radial-gradient(circle at top,#1a1c2d,var(--bg-main));
       color:var(--text);
       min-height:100vh;
-      overflow-x:hidden;
     }
 
-    .bg-glow{
-      position:fixed;inset:-200px;
-      background:
-        radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 20% 20%/520px 520px,
-        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 80% 30%/560px 560px;
-      pointer-events:none;z-index:-1;
-      animation:floatGlow 10s var(--ease) infinite alternate;
-    }
-    @keyframes floatGlow{from{transform:translateY(0);}to{transform:translateY(-16px);} }
-
-    /* Header */
     header{
       position:sticky;top:0;z-index:50;
       display:flex;justify-content:space-between;align-items:center;
       padding:16px 18px;
       border-bottom:1px solid var(--border);
-      background:rgba(14,15,20,0.7);
+      background:rgba(14,15,20,0.75);
       backdrop-filter:blur(14px);
     }
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:2px;}
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      box-shadow:0 0 0 6px rgba(139,141,248,.12);
-    }
 
-    nav{display:none;gap:18px;}
+    .brand{font-weight:700;letter-spacing:2px;}
     nav a{
       color:var(--muted);
       text-decoration:none;
-      padding:8px 12px;
-      border-radius:999px;
-      transition:all .18s var(--ease);
+      margin-left:16px;
     }
-    nav a:hover{
-      color:var(--text);
-      background:rgba(255,255,255,.04);
-      box-shadow:0 0 0 1px rgba(139,141,248,.14) inset;
-    }
-    nav a.active{
-      background:rgba(139,141,248,.1);
-      color:var(--text);
+    nav a.active{color:var(--text);}
+
+    main{max-width:1100px;margin:0 auto;padding:42px 18px 90px;}
+    .hero{text-align:center;margin-bottom:40px;}
+    .hero h1{font-size:2.4rem;margin-bottom:10px;}
+    .hero p{color:var(--muted);line-height:1.7;}
+
+    h2.section-title{
+      margin:40px 0 18px;
+      font-size:1.4rem;
+      letter-spacing:1px;
     }
 
-    .right{display:flex;align-items:center;gap:10px;}
-    .lang button,.menu-btn{
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.02);
-      color:var(--text);
-      padding:7px 12px;
-      border-radius:999px;
-      cursor:pointer;
-      transition:all .18s var(--ease);
-    }
-    .lang button.active{
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      border:none;
-    }
-
-    .menu-panel{
-      display:none;
-      position:fixed;top:68px;left:16px;right:16px;
-      background:rgba(21,23,34,.95);
-      border:1px solid var(--border);
-      border-radius:var(--radius-lg);
-      box-shadow:var(--shadow);
-      padding:12px;
-    }
-    .menu-panel a{
-      display:block;
-      padding:12px;
-      color:var(--muted);
-      text-decoration:none;
-      border-radius:14px;
-      transition:all .18s var(--ease);
-    }
-    .menu-panel a:hover{
-      background:rgba(255,255,255,.04);
-      color:var(--text);
-    }
-
-    main{max-width:1000px;margin:0 auto;padding:40px 18px 90px;}
-    .fade-in{animation:fade .5s var(--ease) both;}
-    @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;}}
-
-    .hero{text-align:center;margin-bottom:36px;}
-    .hero h1{font-size:2rem;margin-bottom:12px;}
-    .hero p{color:var(--muted);font-size:.95rem;line-height:1.7;}
-
-    /* Gymnasts grid */
     .grid{
       display:grid;
       grid-template-columns:1fr;
-      gap:16px;
+      gap:18px;
     }
+
     .card{
       background:rgba(21,23,34,.85);
       border:1px solid var(--border);
       border-radius:var(--radius-lg);
       padding:22px;
-      transition:all .18s var(--ease);
+      transition:all .2s var(--ease);
     }
     .card:hover{
       transform:translateY(-2px);
       box-shadow:0 22px 70px rgba(0,0,0,.45);
     }
-    .card h2{
-      font-size:1.05rem;
-      margin-bottom:6px;
-    }
+    .card h3{margin-bottom:6px;}
     .card span{
-      display:block;
       font-size:.8rem;
       color:var(--accent);
+      display:block;
       margin-bottom:10px;
     }
     .card p{
@@ -153,10 +87,6 @@
     }
 
     @media(min-width:768px){
-      nav{display:flex;}
-      .menu-btn{display:none;}
-      .menu-panel{display:none!important;}
-      .hero h1{font-size:2.6rem;}
       .grid{grid-template-columns:repeat(2,1fr);}
     }
 
@@ -165,133 +95,114 @@
 </head>
 
 <body>
-  <div class="bg-glow"></div>
 
-  <header>
-    <div class="brand"><span class="dot"></span>LAILA</div>
-
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="archive.html" class="active">Archive</a>
-      <a href="learn.html">Learn</a>
-      <a href="assistant.html">AI Assistant</a>
-    </nav>
-
-    <div class="right">
-      <button class="menu-btn" id="menuBtn">Menu</button>
-      <div class="lang">
-        <button id="btn-en">EN</button>
-        <button id="btn-ar">AR</button>
-      </div>
-    </div>
-  </header>
-
-  <div class="menu-panel" id="menuPanel">
+<header>
+  <div class="brand">LAILA</div>
+  <nav>
     <a href="index.html">Home</a>
-    <a href="archive.html">Archive</a>
+    <a href="archive.html" class="active">Archive</a>
     <a href="learn.html">Learn</a>
     <a href="assistant.html">AI Assistant</a>
-  </div>
+  </nav>
+</header>
 
-  <main class="fade-in">
+<main>
 
-    <section class="hero">
-      <div data-lang="en">
-        <h1>Famous Rhythmic Gymnasts</h1>
-        <p>
-          Legendary athletes who shaped rhythmic gymnastics through talent,
-          innovation, and artistic expression.
-        </p>
-      </div>
-      <div data-lang="ar">
-        <h1>لاعبات جمباز إيقاعي مؤثرات</h1>
-        <p>
-          لاعبات تركن بصمة واضحة في تاريخ الجمباز الإيقاعي
-          بفضل الموهبة والابتكار والتعبير الفني.
-        </p>
-      </div>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div data-lang="en">
+      <h1>Rhythmic Gymnasts</h1>
+      <p>
+        Legendary international champions and influential Arab gymnasts
+        who contributed to the development of rhythmic gymnastics.
+      </p>
+    </div>
+    <div data-lang="ar">
+      <h1>لاعبات الجمباز الإيقاعي</h1>
+      <p>
+        بطلات عالميات ولاعبات عربيات تركن أثرًا واضحًا
+        في تطور رياضة الجمباز الإيقاعي.
+      </p>
+    </div>
+  </section>
 
-    <section class="grid">
+  <!-- INTERNATIONAL -->
+  <h2 class="section-title" data-lang="en">International Legends</h2>
+  <h2 class="section-title" data-lang="ar">أساطير عالميات</h2>
 
-      <div class="card">
-        <h2 data-lang="en">Alina Kabaeva</h2>
-        <h2 data-lang="ar">ألينا كاباييفا</h2>
-        <span>Russia</span>
-        <p data-lang="en">
-          One of the most influential gymnasts in history, known for elegance,
-          flexibility, and redefining artistic performance.
-        </p>
-        <p data-lang="ar">
-          من أكثر اللاعبات تأثيرًا في تاريخ اللعبة،
-          عُرفت بالأناقة والمرونة وإعادة تعريف الأداء الفني.
-        </p>
-      </div>
+  <section class="grid">
 
-      <div class="card">
-        <h2 data-lang="en">Evgenia Kanaeva</h2>
-        <h2 data-lang="ar">يفغينيا كاناييفا</h2>
-        <span>Russia</span>
-        <p data-lang="en">
-          The only rhythmic gymnast to win two Olympic all-around gold medals,
-          admired for precision and consistency.
-        </p>
-        <p data-lang="ar">
-          اللاعبة الوحيدة التي فازت بذهبية الفردي مرتين أولمبيًا،
-          واشتهرت بالدقة والثبات.
-        </p>
-      </div>
+    <div class="card">
+      <h3 data-lang="en">Evgenia Kanaeva</h3>
+      <h3 data-lang="ar">يفغينيا كاناييفا</h3>
+      <span>Russia</span>
+      <p data-lang="en">
+        The only rhythmic gymnast to win Olympic all-around gold twice,
+        known for precision and consistency.
+      </p>
+      <p data-lang="ar">
+        اللاعبة الوحيدة التي فازت بذهبية الفردي الأولمبي مرتين،
+        واشتهرت بالدقة والثبات.
+      </p>
+    </div>
 
-      <div class="card">
-        <h2 data-lang="en">Margarita Mamun</h2>
-        <h2 data-lang="ar">مارغريتا مامون</h2>
-        <span>Russia</span>
-        <p data-lang="en">
-          Known for emotional depth and expressive choreography,
-          Olympic champion in Rio 2016.
-        </p>
-        <p data-lang="ar">
-          اشتهرت بالعمق العاطفي والتكوين الفني،
-          وتُوجت بذهبية أولمبياد ريو 2016.
-        </p>
-      </div>
+    <div class="card">
+      <h3 data-lang="en">Margarita Mamun</h3>
+      <h3 data-lang="ar">مارغريتا مامون</h3>
+      <span>Russia</span>
+      <p data-lang="en">
+        Olympic champion recognized for emotional depth
+        and expressive choreography.
+      </p>
+      <p data-lang="ar">
+        بطلة أولمبية تميزت بالعمق العاطفي
+        والتكوين الفني المؤثر.
+      </p>
+    </div>
 
-      <div class="card">
-        <h2 data-lang="en">Yana Kudryavtseva</h2>
-        <h2 data-lang="ar">يانا كودريافتسيفا</h2>
-        <span>Russia</span>
-        <p data-lang="en">
-          Renowned for exceptional control and technical difficulty,
-          multiple-time world champion.
-        </p>
-        <p data-lang="ar">
-          عُرفت بتحكم استثنائي وصعوبات تقنية عالية،
-          وبطلة عالم عدة مرات.
-        </p>
-      </div>
+  </section>
 
-    </section>
+  <!-- ARAB GYMNASTS -->
+  <h2 class="section-title" data-lang="en">Arab Gymnasts</h2>
+  <h2 class="section-title" data-lang="ar">لاعبات عربيات</h2>
 
-  </main>
+  <section class="grid">
 
-  <script>
-    const STORAGE_KEY="laila_lang";
-    function setLang(lang){
-      document.querySelectorAll("[data-lang]").forEach(e=>{
-        e.style.display=e.getAttribute("data-lang")===lang?"block":"none";
-      });
-      document.documentElement.dir=lang==="ar"?"rtl":"ltr";
-      document.documentElement.lang=lang;
-      document.getElementById("btn-en").classList.toggle("active",lang==="en");
-      document.getElementById("btn-ar").classList.toggle("active",lang==="ar");
-      localStorage.setItem(STORAGE_KEY,lang);
-    }
-    document.getElementById("menuBtn").onclick=()=>{
-      const p=document.getElementById("menuPanel");
-      p.style.display=p.style.display==="block"?"none":"block";
-    };
-    const saved=localStorage.getItem(STORAGE_KEY)||"en";
-    setLang(saved);
-  </script>
+    <div class="card">
+      <h3 data-lang="en">Leila Hesham Abdelhamid</h3>
+      <h3 data-lang="ar">ليلى هشام عبد الحميد</h3>
+      <span data-lang="en">Egypt – Al-Seid Club</span>
+      <span data-lang="ar">مصر – نادي الصيد</span>
+
+      <p data-lang="en">
+        A rhythmic gymnast from Al-Seid Club who achieved multiple titles
+        and awards in local competitions, representing a promising generation
+        of Arab rhythmic gymnasts.
+      </p>
+
+      <p data-lang="ar">
+        لاعبة جمباز إيقاعي بنادي الصيد،
+        حققت العديد من البطولات والجوائز على المستوى المحلي،
+        وتمثل جيلًا واعدًا من لاعبات الجمباز الإيقاعي العربيات.
+      </p>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+  const STORAGE_KEY="laila_lang";
+  function setLang(lang){
+    document.querySelectorAll("[data-lang]").forEach(e=>{
+      e.style.display=e.getAttribute("data-lang")===lang?"block":"none";
+    });
+    document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+    document.documentElement.lang=lang;
+    localStorage.setItem(STORAGE_KEY,lang);
+  }
+  setLang(localStorage.getItem(STORAGE_KEY)||"ar");
+</script>
+
 </body>
 </html>
