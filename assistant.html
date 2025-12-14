@@ -8,6 +8,75 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+  /* ===== TOP NAV ===== */
+.top-nav{
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+  background:rgba(8,10,18,.55);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+/* LEFT */
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#8b8df8;
+}
+
+.logo-text{
+  font-weight:700;
+  letter-spacing:2px;
+  font-size:.9rem;
+}
+
+/* CENTER */
+.nav-center{
+  display:flex;
+  gap:8px;
+  background:rgba(255,255,255,.04);
+  padding:6px;
+  border-radius:999px;
+}
+
+.nav-item{
+  text-decoration:none;
+  color:rgba(255,255,255,.65);
+  font-size:.8rem;
+  padding:8px 18px;
+  border-radius:999px;
+  transition:.25s ease;
+}
+
+.nav-item:hover{
+  color:#fff;
+}
+
+.nav-item.active{
+  background:rgba(255,255,255,.12);
+  color:#fff;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .top-nav{
+    justify-content:center;
+  }
+  .nav-left{
+    display:none;
+  }
+}
+
 :root{
   --bg:#0e0f14;
   --panel:rgba(21,23,34,.65);
@@ -71,6 +140,10 @@ body{
   height:100vh;
   display:flex;
   flex-direction:column;
+}
+
+.assistant{
+  flex:1;
 }
 
 /* ===== NAV (centered like laila.one) ===== */
@@ -223,13 +296,19 @@ body.rtl{
 <div class="wrapper">
 
   <!-- NAV -->
-  <nav>
-    <a href="index.html">HOME</a>
-    <a href="archive.html">ARCHIVE</a>
-    <a href="learn.html">LEARN</a>
-    <a href="assistant.html" class="active">AI</a>
-  </nav>
+ <header class="top-nav">
+  <div class="nav-left">
+    <span class="logo-dot"></span>
+    <span class="logo-text">LAILA</span>
+  </div>
 
+  <nav class="nav-center">
+    <a href="index.html" class="nav-item active">Home</a>
+    <a href="archive.html" class="nav-item">Archive</a>
+    <a href="learn.html" class="nav-item">Learn</a>
+    <a href="assistant.html" class="nav-item">AI Assistant</a>
+  </nav>
+</header>
   <!-- ASSISTANT -->
   <section class="assistant">
     <div class="panel">
