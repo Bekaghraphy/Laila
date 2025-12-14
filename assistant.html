@@ -16,448 +16,257 @@
       --shadow: 0 18px 60px rgba(0,0,0,0.45);
       --radius:18px; --radius-lg:22px;
       --ease:cubic-bezier(.2,.8,.2,1);
-      --good:#46e6a5;
-      --warn:#ffd56a;
-      --bad:#ff6b86;
     }
-
     *{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
     body{
       background:radial-gradient(circle at top,#1a1c2d,var(--bg-main));
       color:var(--text);
-      min-height:100vh;
-      overflow-x:hidden;
+      min-height:100vh;overflow-x:hidden;
     }
-
-    /* Ambient glow */
     .bg-glow{
-      position:fixed;inset:-220px;
-      background:
-        radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 12% 18%/520px 520px,
-        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 88% 30%/560px 560px,
-        radial-gradient(closest-side, rgba(139,141,248,0.08), transparent 60%) 55% 95%/620px 620px;
-      pointer-events:none;
-      z-index:-3;
-      animation:floatGlow 10s var(--ease) infinite alternate;
-      opacity:.9;
+      position:fixed;inset:-200px;background:
+      radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 10% 20%/520px 520px,
+      radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px,
+      radial-gradient(closest-side, rgba(139,141,248,0.08), transparent 60%) 50% 95%/620px 620px;
+      pointer-events:none;z-index:-1;animation:floatGlow 10s var(--ease) infinite alternate;opacity:.9;
     }
     @keyframes floatGlow{from{transform:translate3d(0,0,0) scale(1);}to{transform:translate3d(0,-18px,0) scale(1.03);}}
 
-    /* Subtle gymnastic ribbons + hoops animation (pure CSS) */
-    .gym-bg{
-      position:fixed; inset:0;
-      pointer-events:none; z-index:-2;
-      overflow:hidden;
-      opacity:0.95;
-    }
-
-    .ribbon{
-      position:absolute;
-      width:520px; height:220px;
-      border-radius:999px;
-      filter:blur(0.2px);
-      opacity:.18;
-      border:1px solid rgba(139,141,248,0.22);
-      background:
-        radial-gradient(circle at 30% 40%, rgba(139,141,248,0.35), transparent 60%),
-        radial-gradient(circle at 70% 60%, rgba(111,114,230,0.25), transparent 62%);
-      transform:rotate(18deg);
-      animation:ribbonFloat 9.5s var(--ease) infinite;
-    }
-    .ribbon::after{
-      content:"";
-      position:absolute; inset:18px;
-      border-radius:999px;
-      border:1px dashed rgba(255,255,255,0.10);
-      opacity:.55;
-    }
-    @keyframes ribbonFloat{
-      0%{transform:translate3d(-10%, -10%, 0) rotate(16deg) scale(1);}
-      50%{transform:translate3d(6%, 8%, 0) rotate(22deg) scale(1.03);}
-      100%{transform:translate3d(-4%, 14%, 0) rotate(18deg) scale(1.01);}
-    }
-
-    .hoop{
-      position:absolute;
-      width:360px; height:360px;
-      border-radius:50%;
-      border:1px solid rgba(139,141,248,0.22);
-      box-shadow:0 0 0 10px rgba(139,141,248,0.05) inset;
-      opacity:.14;
-      animation:hoopDrift 12s var(--ease) infinite alternate;
-    }
-    .hoop::before{
-      content:"";
-      position:absolute; inset:26px;
-      border-radius:50%;
-      border:1px solid rgba(111,114,230,0.18);
-      opacity:.8;
-    }
-    @keyframes hoopDrift{
-      from{transform:translate3d(0,0,0) rotate(0deg) scale(1);}
-      to{transform:translate3d(18px,-14px,0) rotate(14deg) scale(1.02);}
-    }
-
-    /* Header (same style) */
     header{
-      position:sticky;top:0;z-index:50;
-      display:flex;align-items:center;justify-content:space-between;
-      padding:16px 18px;
-      border-bottom:1px solid var(--border);
-      background:rgba(14,15,20,0.70);
-      backdrop-filter:blur(14px);
+      position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+      padding:16px 18px;border-bottom:1px solid var(--border);
+      background:rgba(14,15,20,0.70);backdrop-filter:blur(14px);
     }
     .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:2px;font-size:1.05rem;user-select:none;}
-    .brand .dot{
-      width:10px;height:10px;border-radius:50%;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      box-shadow:0 0 0 6px rgba(139,141,248,0.12),0 0 26px rgba(139,141,248,0.35);
-    }
-
+    .brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      box-shadow:0 0 0 6px rgba(139,141,248,0.12),0 0 26px rgba(139,141,248,0.35);}
     nav{display:none;align-items:center;gap:18px;}
-    nav a{
-      color:var(--muted);text-decoration:none;font-size:0.92rem;padding:10px 10px;border-radius:999px;
-      transition:transform .18s var(--ease),color .18s var(--ease),background .18s var(--ease);
-    }
-    nav a:hover{
-      color:var(--text);background:rgba(255,255,255,0.04);transform:translateY(-1px);
-      box-shadow:0 0 0 1px rgba(139,141,248,0.14) inset;
-    }
-    nav a.active{
-      color:var(--text);background:rgba(139,141,248,0.10);
-      box-shadow:0 0 0 1px rgba(139,141,248,0.22) inset,0 14px 38px rgba(0,0,0,0.35);
-    }
+    nav a{color:var(--muted);text-decoration:none;font-size:0.92rem;padding:10px 10px;border-radius:999px;
+      transition:transform .18s var(--ease),color .18s var(--ease),background .18s var(--ease);}
+    nav a:hover{color:var(--text);background:rgba(255,255,255,0.04);transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.14) inset;}
+    nav a.active{color:var(--text);background:rgba(139,141,248,0.10);box-shadow:0 0 0 1px rgba(139,141,248,0.22) inset,0 14px 38px rgba(0,0,0,0.35);}
 
     .right{display:flex;align-items:center;gap:10px;}
     .lang button,.menu-btn{
-      border:1px solid var(--border);
-      background:rgba(255,255,255,0.02);
-      color:var(--text);
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:0.82rem;
-      cursor:pointer;
-      position:relative;overflow:hidden;
+      border:1px solid var(--border);background:rgba(255,255,255,0.02);color:var(--text);
+      padding:8px 12px;border-radius:999px;font-size:0.82rem;cursor:pointer;position:relative;overflow:hidden;
       transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease);
     }
-    .lang button.active{
-      border-color:transparent;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      box-shadow:0 16px 50px rgba(139,141,248,0.22);
-    }
-    .lang button:hover,.menu-btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 0 0 1px rgba(139,141,248,0.16) inset,0 18px 60px rgba(0,0,0,0.35);
-    }
+    .lang button.active{border-color:transparent;background:linear-gradient(135deg,var(--accent),var(--accent-soft));box-shadow:0 16px 50px rgba(139,141,248,0.22);}
+    .lang button:hover,.menu-btn:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.16) inset,0 18px 60px rgba(0,0,0,0.35);}
+
     .tap-glow::after{
-      content:"";position:absolute;inset:-60%;
-      background:radial-gradient(circle,rgba(139,141,248,0.55),transparent 60%);
-      transform:scale(0.2);opacity:0;
-      animation:tap 520ms var(--ease) forwards;
-      pointer-events:none;
+      content:"";position:absolute;inset:-60%;background:radial-gradient(circle,rgba(139,141,248,0.55),transparent 60%);
+      transform:scale(0.2);opacity:0;animation:tap 520ms var(--ease) forwards;pointer-events:none;
     }
-    @keyframes tap{
-      0%{opacity:0;transform:scale(0.15);}
-      35%{opacity:0.65;transform:scale(0.55);}
-      100%{opacity:0;transform:scale(1.05);}
-    }
+    @keyframes tap{0%{opacity:0;transform:scale(0.15);}35%{opacity:0.65;transform:scale(0.55);}100%{opacity:0;transform:scale(1.05);}}
 
     .menu-btn{display:inline-flex;align-items:center;gap:8px;}
     .menu-panel{
-      position:fixed;top:68px;left:16px;right:16px;
-      background:rgba(21,23,34,0.92);
-      border:1px solid var(--border);
-      border-radius:var(--radius-lg);
-      box-shadow:var(--shadow);
-      padding:12px;
-      display:none;
-      backdrop-filter:blur(16px);
-      z-index:60;
+      position:fixed;top:68px;left:16px;right:16px;background:rgba(21,23,34,0.92);border:1px solid var(--border);
+      border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:12px;display:none;backdrop-filter:blur(16px);
     }
-    .menu-panel a{
-      display:block;padding:12px 12px;border-radius:14px;color:var(--muted);text-decoration:none;
-      transition:background .18s var(--ease),color .18s var(--ease),transform .18s var(--ease);
-    }
-    .menu-panel a:hover{
-      background:rgba(255,255,255,0.04);color:var(--text);transform:translateY(-1px);
-      box-shadow:0 0 0 1px rgba(139,141,248,0.14) inset;
-    }
-    .menu-panel a.active{
-      color:var(--text);background:rgba(139,141,248,0.10);
-      box-shadow:0 0 0 1px rgba(139,141,248,0.22) inset;
-    }
+    .menu-panel a{display:block;padding:12px 12px;border-radius:14px;color:var(--muted);text-decoration:none;
+      transition:background .18s var(--ease),color .18s var(--ease),transform .18s var(--ease);}
+    .menu-panel a:hover{background:rgba(255,255,255,0.04);color:var(--text);transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.14) inset;}
+    .menu-panel a.active{color:var(--text);background:rgba(139,141,248,0.10);box-shadow:0 0 0 1px rgba(139,141,248,0.22) inset;}
 
-    main{max-width:1150px;margin:0 auto;padding:42px 18px 84px;}
+    main{max-width:1180px;margin:0 auto;padding:26px 18px 80px;}
     .fade-in{animation:fadeIn 520ms var(--ease) both;}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 
-    /* Hero */
-    .hero{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:14px;
-      max-width:1000px;
-      margin:0 auto 16px;
-      text-align:center;
-    }
-    .hero h1{
-      font-size:2.05rem;
-      line-height:1.25;
-      margin-bottom:8px;
-    }
-    .hero p{
-      color:var(--muted);
-      font-size:0.98rem;
-      line-height:1.75;
-      max-width:780px;
-      margin:0 auto;
-    }
-
-    /* Layout */
-    .layout{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:14px;
-      margin-top:18px;
-    }
-
+    .layout{display:grid;grid-template-columns:1fr;gap:14px;align-items:start;}
     .panel{
       background:rgba(21,23,34,0.86);
       border:1px solid var(--border);
       border-radius:var(--radius-lg);
-      box-shadow:0 26px 80px rgba(0,0,0,0.25);
+      box-shadow:var(--shadow);
       overflow:hidden;
-      position:relative;
     }
-    .panel::before{
-      content:"";
-      position:absolute;inset:-60% -30%;
-      background:radial-gradient(circle at 30% 30%, rgba(139,141,248,0.18), transparent 55%);
-      opacity:.75;
-      pointer-events:none;
-    }
-
-    /* Chat Header */
-    .chat-head{
-      position:relative;
-      padding:16px 16px 14px;
+    .panel-header{
+      padding:16px 16px 12px;
       border-bottom:1px solid rgba(255,255,255,0.06);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
+      display:flex;gap:10px;align-items:center;justify-content:space-between;
     }
-    .chat-title{
-      display:flex;flex-direction:column;gap:4px;
-    }
-    .chat-title strong{font-size:1rem; letter-spacing:.3px;}
-    .chat-title span{font-size:0.86rem; color:var(--muted); line-height:1.45;}
+    .panel-title{font-weight:700;letter-spacing:.6px;}
+    .panel-sub{color:var(--muted);font-size:.88rem;margin-top:6px;line-height:1.6;}
+    .panel-body{padding:14px 16px;}
 
-    .status{
-      display:inline-flex;align-items:center;gap:8px;
-      font-size:0.82rem;
-      color:var(--muted);
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.08);
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+    .chip{
+      border:1px solid var(--border);
       background:rgba(255,255,255,0.02);
-      position:relative;
+      color:var(--text);
+      padding:8px 12px;border-radius:999px;
+      cursor:pointer;font-size:.85rem;
+      transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease);
+      user-select:none;
     }
-    .status-dot{
-      width:8px;height:8px;border-radius:50%;
-      background:rgba(255,255,255,0.20);
-      box-shadow:0 0 0 4px rgba(255,255,255,0.05);
-    }
-    .status-dot.good{background:var(--good); box-shadow:0 0 0 5px rgba(70,230,165,0.10), 0 0 24px rgba(70,230,165,0.28);}
-    .status-dot.warn{background:var(--warn); box-shadow:0 0 0 5px rgba(255,213,106,0.10), 0 0 24px rgba(255,213,106,0.28);}
-    .status-dot.bad{background:var(--bad); box-shadow:0 0 0 5px rgba(255,107,134,0.10), 0 0 24px rgba(255,107,134,0.28);}
+    .chip:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.16) inset,0 18px 60px rgba(0,0,0,0.35);background:rgba(139,141,248,0.08);}
 
-    /* Messages */
-    .chat-body{
-      position:relative;
-      padding:16px;
-      height:min(58vh, 560px);
+    .chat{
+      height:520px;
       overflow:auto;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+      padding:14px 14px 8px;
       scroll-behavior:smooth;
     }
-
-    .msg{
-      max-width:92%;
-      border-radius:18px;
-      padding:12px 12px;
-      border:1px solid rgba(255,255,255,0.08);
-      background:rgba(255,255,255,0.03);
-      line-height:1.7;
-      font-size:0.95rem;
-      position:relative;
-      overflow:hidden;
-      animation:pop 320ms var(--ease) both;
-    }
-    @keyframes pop{from{opacity:0;transform:translateY(6px) scale(0.99);}to{opacity:1;transform:none;}}
-    .msg small{
-      display:block;
-      margin-top:8px;
-      color:rgba(255,255,255,0.55);
-      font-size:0.78rem;
-    }
-
-    .msg.user{
-      margin-left:auto;
-      background:linear-gradient(135deg, rgba(139,141,248,0.18), rgba(111,114,230,0.12));
-      border-color:rgba(139,141,248,0.20);
-      box-shadow:0 16px 44px rgba(0,0,0,0.22);
-    }
-    .msg.ai{
-      margin-right:auto;
-      background:rgba(255,255,255,0.03);
-    }
-    .msg.ai::before{
-      content:"";
-      position:absolute; inset:-60% -40%;
-      background:radial-gradient(circle at 25% 35%, rgba(139,141,248,0.16), transparent 58%);
-      opacity:.55;
-      pointer-events:none;
-    }
-
-    /* Input */
-    .chat-foot{
-      position:relative;
-      padding:14px 14px;
-      border-top:1px solid rgba(255,255,255,0.06);
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:10px;
-      align-items:center;
-    }
-    .input{
-      width:100%;
-      border:1px solid rgba(255,255,255,0.08);
-      background:rgba(255,255,255,0.02);
-      color:var(--text);
-      border-radius:16px;
-      padding:12px 12px;
-      outline:none;
-      font-size:0.95rem;
-      transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
-    }
-    .input:focus{
-      border-color:rgba(139,141,248,0.25);
-      box-shadow:0 0 0 1px rgba(139,141,248,0.18) inset, 0 16px 50px rgba(0,0,0,0.25);
-    }
-
-    .btn{
+    .msg{display:flex;margin:10px 0;}
+    .msg.user{justify-content:flex-end;}
+    .bubble{
+      max-width:82%;
       border:1px solid var(--border);
       background:rgba(255,255,255,0.03);
-      color:var(--text);
-      padding:12px 14px;
-      border-radius:999px;
-      cursor:pointer;
-      font-size:0.9rem;
-      min-width:112px;
-      transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease);
-      position:relative; overflow:hidden;
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    }
-    .btn.primary{
-      border-color:transparent;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      box-shadow:0 16px 50px rgba(139,141,248,0.18);
-    }
-    .btn:hover{transform:translateY(-1px); box-shadow:0 0 0 1px rgba(139,141,248,0.14) inset,0 18px 60px rgba(0,0,0,0.35);}
-    .btn:disabled{opacity:.55; cursor:not-allowed; transform:none; box-shadow:none;}
-
-    /* Quick chips */
-    .chips{
-      display:flex; flex-wrap:wrap; gap:8px;
-      padding:12px 14px 0;
-      position:relative;
-      z-index:1;
-    }
-    .chip{
-      border:1px solid rgba(255,255,255,0.08);
-      background:rgba(255,255,255,0.02);
-      color:rgba(255,255,255,0.82);
-      padding:8px 10px;
-      border-radius:999px;
-      font-size:0.84rem;
-      cursor:pointer;
-      transition:transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
-      position:relative; overflow:hidden;
-    }
-    .chip:hover{
-      transform:translateY(-1px);
-      background:rgba(139,141,248,0.08);
-      border-color:rgba(139,141,248,0.18);
-    }
-
-    /* Sidebar info panel */
-    .side{
-      padding:16px;
-    }
-    .side h3{font-size:1.02rem;margin-bottom:8px;}
-    .side p{color:var(--muted);font-size:0.9rem;line-height:1.7;margin-bottom:12px;}
-    .side .mini{
-      display:grid; gap:10px;
-    }
-    .mini-card{
-      border:1px solid rgba(255,255,255,0.08);
-      background:rgba(255,255,255,0.02);
-      border-radius:16px;
+      border-radius:18px;
       padding:12px 12px;
-      transition:transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease);
+      line-height:1.75;
+      box-shadow:0 12px 40px rgba(0,0,0,0.22);
+      position:relative;
+      overflow:hidden;
     }
-    .mini-card:hover{
-      transform:translateY(-1px);
-      border-color:rgba(139,141,248,0.18);
-      box-shadow:0 18px 60px rgba(0,0,0,0.30);
+    .msg.user .bubble{
+      background:rgba(139,141,248,0.10);
+      border-color:rgba(139,141,248,0.20);
     }
-    .mini-card strong{display:block; font-size:0.92rem; margin-bottom:6px;}
-    .mini-card span{display:block; color:var(--muted); font-size:0.86rem; line-height:1.6;}
+    .meta-row{
+      margin-top:10px;
+      display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    }
+    .badge{
+      font-size:.78rem;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      color:var(--muted);
+    }
+    .badge.strong{color:var(--text);border-color:rgba(139,141,248,0.22);background:rgba(139,141,248,0.08);}
+    .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+    .alink{
+      display:inline-flex;gap:8px;align-items:center;
+      text-decoration:none;color:var(--text);
+      border:1px solid rgba(139,141,248,0.20);
+      background:rgba(139,141,248,0.08);
+      padding:8px 10px;border-radius:14px;
+      transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+      font-size:.85rem;
+    }
+    .alink:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.16) inset,0 18px 60px rgba(0,0,0,0.35);}
 
-    /* Loader typing dots */
-    .typing{
-      display:inline-flex; gap:6px; align-items:center;
+    .composer{
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding:12px;
+      display:flex;gap:10px;align-items:center;
+      background:rgba(14,15,20,0.35);
+      backdrop-filter:blur(12px);
     }
-    .dot{
-      width:8px;height:8px;border-radius:50%;
-      background:rgba(255,255,255,0.45);
-      animation:bounce 900ms var(--ease) infinite;
+    .input{
+      flex:1;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      padding:12px 12px;
+      border-radius:999px;
+      outline:none;
+      font-size:.95rem;
     }
-    .dot:nth-child(2){animation-delay:120ms;}
-    .dot:nth-child(3){animation-delay:240ms;}
-    @keyframes bounce{
-      0%,100%{transform:translateY(0);opacity:.55}
-      50%{transform:translateY(-5px);opacity:1}
+    .btn{
+      border:1px solid var(--border);
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      color:var(--text);
+      padding:12px 18px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+      transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+      min-width:108px;
+      position:relative;
+      overflow:hidden;
     }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.16) inset,0 18px 60px rgba(0,0,0,0.35);}
 
-    /* Responsive */
-    @media(min-width:900px){
+    /* Gymnast Loader */
+    .loaderWrap{
+      display:none;
+      margin-top:10px;
+      padding:10px 12px;
+      border:1px solid rgba(139,141,248,0.18);
+      background:rgba(139,141,248,0.06);
+      border-radius:16px;
+    }
+    .loaderRow{display:flex;gap:12px;align-items:center;}
+    .gymLoader{
+      width:42px;height:42px;border-radius:14px;
+      position:relative;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
+      overflow:hidden;
+    }
+    .gymLoader::before{
+      content:"";
+      position:absolute;left:50%;top:50%;
+      width:10px;height:10px;border-radius:50%;
+      background:rgba(139,141,248,0.95);
+      transform:translate(-50%,-50%);
+      animation:dotSpin 1.1s linear infinite;
+      box-shadow:0 0 20px rgba(139,141,248,0.45);
+    }
+    .gymLoader::after{
+      content:"";
+      position:absolute;inset:-30%;
+      background:conic-gradient(from 90deg, rgba(139,141,248,0.0), rgba(139,141,248,0.35), rgba(139,141,248,0.0));
+      animation:ribbon 1.1s linear infinite;
+      opacity:.9;
+    }
+    @keyframes dotSpin{
+      0%{transform:translate(-50%,-50%) rotate(0deg) translateX(12px) rotate(0deg);}
+      100%{transform:translate(-50%,-50%) rotate(360deg) translateX(12px) rotate(-360deg);}
+    }
+    @keyframes ribbon{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+    .loaderText{color:var(--muted);font-size:.92rem;line-height:1.6}
+
+    .tinyToggle{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:.85rem;
+      cursor:pointer;
+      user-select:none;
+    }
+    .tinyToggle:hover{color:var(--text);}
+
+    .miniSearch{
+      display:flex;gap:10px;align-items:center;margin-top:10px;
+    }
+    .miniSearch input{
+      flex:1;border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      padding:10px 12px;border-radius:999px;outline:none;
+      font-size:.9rem;
+    }
+    .miniList{margin-top:10px;display:flex;flex-direction:column;gap:8px;}
+    .miniItem{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      padding:10px 12px;border-radius:14px;
+      color:var(--muted);
+      display:flex;justify-content:space-between;gap:10px;align-items:center;
+    }
+    .miniItem a{color:var(--text);text-decoration:none}
+    .miniItem a:hover{text-decoration:underline;}
+
+    @media(min-width:980px){
       header{padding:16px 26px;}
       nav{display:flex;}
       .menu-btn{display:none;}
       .menu-panel{display:none !important;}
-      main{padding:52px 26px 96px;}
-      .hero h1{font-size:2.75rem;}
-      .layout{grid-template-columns: 1.45fr .9fr; gap:16px;}
-      .chat-body{height:min(62vh, 620px);}
+      main{padding:28px 26px 90px;}
+      .layout{grid-template-columns: 1fr 1.6fr;}
+      .chat{height:600px;}
     }
-
-    [data-lang]{display:none;}
   </style>
 </head>
 
 <body>
   <div class="bg-glow"></div>
-
-  <div class="gym-bg" aria-hidden="true">
-    <div class="ribbon" style="top:8%; left:-6%;"></div>
-    <div class="ribbon" style="top:52%; left:62%; width:560px; height:240px; opacity:.14; animation-duration:11.5s;"></div>
-    <div class="hoop" style="top:18%; left:74%;"></div>
-    <div class="hoop" style="top:64%; left:10%; width:300px; height:300px; opacity:.12; animation-duration:14s;"></div>
-  </div>
 
   <header>
     <div class="brand"><span class="dot"></span><span>LAILA</span></div>
@@ -486,125 +295,126 @@
   </div>
 
   <main class="fade-in">
+    <div class="layout">
 
-    <section class="hero">
-      <div data-lang="en">
-        <h1>Ask LAILA</h1>
-        <p>
-          Your rhythmic gymnastics assistant — built on the Archive. Ask anything about apparatus, rules evolution,
-          judging, and training basics. Clear answers. Modern UI. Fast.
-        </p>
-      </div>
-
-      <div data-lang="ar">
-        <h1>اسأل ليلى</h1>
-        <p>
-          مساعدك في الجمباز الإيقاعي — مبني على الأرشيف. اسأل عن الأدوات، تطور القوانين،
-          التحكيم، وأساسيات التدريب. إجابات واضحة. تجربة حديثة. سريعة.
-        </p>
-      </div>
-    </section>
-
-    <section class="layout">
-
-      <!-- CHAT -->
-      <div class="panel">
-        <div class="chat-head">
-          <div class="chat-title">
-            <strong data-lang="en">Rhythmic Gymnastics Intelligence</strong>
-            <strong data-lang="ar">ذكاء الجمباز الإيقاعي</strong>
-            <span data-lang="en">Ask naturally — LAILA understands different phrasing and synonyms.</span>
-            <span data-lang="ar">اسأل بطريقتك — ليلى بتفهم صيغ مختلفة ومرادفات.</span>
-          </div>
-
-          <div class="status" id="statusPill" title="API status">
-            <span class="status-dot" id="statusDot"></span>
-            <span id="statusText">Connecting…</span>
-          </div>
-        </div>
-
-        <div class="chips" id="chipsRow">
-          <button class="chip" type="button" data-q-en="Explain the judging system in rhythmic gymnastics." data-q-ar="اشرح نظام التحكيم في الجمباز الإيقاعي.">Judging / التحكيم</button>
-          <button class="chip" type="button" data-q-en="What are the five apparatus and how are they used?" data-q-ar="إيه هي أدوات الجمباز الإيقاعي الخمسة وبتستخدم إزاي؟">Apparatus / الأدوات</button>
-          <button class="chip" type="button" data-q-en="What is the difference between Difficulty and Execution?" data-q-ar="إيه الفرق بين الصعوبة والتنفيذ؟">D vs E</button>
-          <button class="chip" type="button" data-q-en="Give a simple training plan for a beginner rhythmic gymnast." data-q-ar="اديني خطة تدريب بسيطة لمبتدئة جمباز إيقاعي.">Training / تدريب</button>
-        </div>
-
-        <div class="chat-body" id="chatBody" aria-live="polite">
-          <!-- Initial message -->
-          <div class="msg ai" id="welcomeMsg">
-            <div data-lang="en">
-              Hello — I’m LAILA. Ask me anything about rhythmic gymnastics. I will answer using the Archive.
-              <small>Tip: try “How is a routine scored?”</small>
+      <!-- LEFT PANEL -->
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title" id="leftTitle">How LAILA helps</div>
+            <div class="panel-sub" id="leftSub">
+              Ask in your own words — LAILA will answer using the archive, with level + era + internal sources.
             </div>
-            <div data-lang="ar">
-              أهلًا — أنا ليلى. اسألني أي حاجة عن الجمباز الإيقاعي. هجاوبك اعتمادًا على الأرشيف.
-              <small>جرب: "إزاي بيتحسب تقييم الجملة؟"</small>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="chips" id="chips"></div>
+
+          <div class="miniSearch">
+            <input id="archiveSearch" placeholder="Search inside the Archive links..." />
+          </div>
+          <div class="miniList" id="miniList"></div>
+
+          <div class="tinyToggle" id="toggleBilingual">Show bilingual answers</div>
+          <div class="loaderWrap" id="loaderWrap">
+            <div class="loaderRow">
+              <div class="gymLoader"></div>
+              <div class="loaderText" id="loaderText">LAILA is thinking…</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHAT PANEL -->
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title" id="chatTitle">Ask LAILA</div>
+            <div class="panel-sub" id="chatSub">
+              Rhythmic Gymnastics intelligence — history, judging, training, apparatus, and athletes.
             </div>
           </div>
         </div>
 
-        <div class="chat-foot">
-          <input class="input" id="questionInput" placeholder="Type your question…" autocomplete="off" />
-          <button class="btn primary" id="sendBtn" type="button">
-            <span data-lang="en">Ask</span>
-            <span data-lang="ar">اسأل</span>
-          </button>
+        <div class="chat" id="chat"></div>
+
+        <div class="composer">
+          <input class="input" id="questionInput" placeholder="Type your question here…" />
+          <button class="btn" id="sendBtn" type="button">Ask</button>
         </div>
-      </div>
+      </section>
 
-      <!-- SIDE PANEL -->
-      <div class="panel">
-        <div class="side">
-          <h3 data-lang="en">How LAILA answers</h3>
-          <h3 data-lang="ar">ليلى بتجاوب إزاي</h3>
-
-          <p data-lang="en">
-            LAILA uses your Archive knowledge first. If something is missing, it will say so clearly.
-            Keep questions specific for best results.
-          </p>
-          <p data-lang="ar">
-            ليلى بتعتمد على معلومات الأرشيف أولًا. لو المعلومة مش موجودة، هتقول ده بوضوح.
-            كل ما سؤالك يكون محدد، الإجابة تبقى أدق.
-          </p>
-
-          <div class="mini">
-            <div class="mini-card">
-              <strong data-lang="en">Examples</strong>
-              <strong data-lang="ar">أمثلة</strong>
-              <span data-lang="en">“Explain artistry in judging.”</span>
-              <span data-lang="ar">"اشرح الجانب الفني في التحكيم."</span>
-            </div>
-
-            <div class="mini-card">
-              <strong data-lang="en">Language</strong>
-              <strong data-lang="ar">اللغة</strong>
-              <span data-lang="en">Switch EN/AR anytime — your choice is saved.</span>
-              <span data-lang="ar">تقدر تبدّل عربي/إنجليزي في أي وقت — والاختيار بيتحفظ.</span>
-            </div>
-
-            <div class="mini-card">
-              <strong data-lang="en">Next upgrade</strong>
-              <strong data-lang="ar">الترقية الجاية</strong>
-              <span data-lang="en">Archive search + sources (page-level references).</span>
-              <span data-lang="ar">بحث داخل الأرشيف + مصادر (إشارات للصفحات).</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section>
+    </div>
   </main>
 
   <script>
-    // ====== CONFIG ======
-    // ضع هنا دومين الـ Backend بتاعك (بدون /api/laila في الآخر)
-    const API_BASE = "https://laila-ai-backend.vercel.app";
-    const API_ENDPOINT = API_BASE + "/api/laila";
+    // IMPORTANT: ضع رابط الـVercel API هنا
+    const API_ENDPOINT = "https://laila-ai-backend.vercel.app/api/laila";
 
     const STORAGE_KEY = "laila_lang";
+    const STORAGE_BI = "laila_bilingual";
 
-    // ====== UI HELPERS ======
+    const ui = {
+      ar: {
+        leftTitle: "المساعد إزاي بيساعدك",
+        leftSub: "اسأل بطريقتك — ليلى هترد اعتمادًا على الأرشيف، ومع مستوى + حقبة + مصادر داخلية.",
+        chatTitle: "اسأل ليلى",
+        chatSub: "ذكاء الجمباز الإيقاعي — تاريخ، تحكيم، تدريب، أدوات، ولاعبات.",
+        placeholder: "اكتب سؤالك هنا…",
+        ask: "اسأل",
+        thinking: "ليلى بتفكر…",
+        showBi: "عرض الإجابة بلغتين",
+        hideBi: "إخفاء الترجمة",
+        searchPH: "ابحث داخل روابط الأرشيف…",
+        chips: [
+          { label: "التحكيم / Judging", q: "اشرح نظام التحكيم D/E/A ببساطة" },
+          { label: "التدريب / Training", q: "عايز خطة تدريب مبتدئ لمدة 4 أسابيع" },
+          { label: "الأدوات / Apparatus", q: "إيه الفرق بين الشريط والطوق في الصعوبة؟" },
+          { label: "التاريخ / History", q: "إزاي بدأ الجمباز الإيقاعي واتطور؟" },
+          { label: "لاعبات / Gymnasts", q: "مين أبرز اللاعبات وتأثيرهم على اللعبة؟" }
+        ],
+        levelLabel: "المستوى",
+        eraLabel: "الحقبة",
+        sourcesLabel: "مصادر داخل الأرشيف",
+        linksLabel: "اقرأ أكتر",
+        noAnswer: "مافيش إجابة واضحة من الأرشيف. جرّب تسأل بصياغة أدق."
+      },
+      en: {
+        leftTitle: "How LAILA helps",
+        leftSub: "Ask in your own words — LAILA answers from the archive with level + era + internal sources.",
+        chatTitle: "Ask LAILA",
+        chatSub: "Rhythmic Gymnastics intelligence — history, judging, training, apparatus, athletes.",
+        placeholder: "Type your question here…",
+        ask: "Ask",
+        thinking: "LAILA is thinking…",
+        showBi: "Show bilingual answers",
+        hideBi: "Hide translation",
+        searchPH: "Search inside the Archive links…",
+        chips: [
+          { label: "Judging", q: "Explain D/E/A judging in a simple way" },
+          { label: "Training", q: "Make a 4-week beginner training roadmap" },
+          { label: "Apparatus", q: "What’s the difference between ribbon and hoop difficulty?" },
+          { label: "History", q: "How did rhythmic gymnastics start and evolve?" },
+          { label: "Gymnasts", q: "Who are influential gymnasts and why?" }
+        ],
+        levelLabel: "Level",
+        eraLabel: "Era",
+        sourcesLabel: "Archive sources",
+        linksLabel: "Read more",
+        noAnswer: "No clear archive answer. Try a more specific wording."
+      }
+    };
+
+    const linkIndex = [
+      { ar: "تاريخ اللعبة", en: "History", url: "history.html" },
+      { ar: "دليل الأدوات", en: "Apparatus", url: "apparatus.html" },
+      { ar: "تطور القوانين", en: "Rules", url: "rules.html" },
+      { ar: "التحكيم", en: "Judging", url: "judging.html" },
+      { ar: "التدريب", en: "Training", url: "training.html" },
+      { ar: "لاعبات مؤثرات", en: "Gymnasts", url: "gymnasts.html" },
+      { ar: "الأرشيف", en: "Archive", url: "archive.html" }
+    ];
+
     function addTapGlow(el){
       el.classList.remove("tap-glow");
       void el.offsetWidth;
@@ -613,20 +423,27 @@
     }
 
     function setLang(lang, persist=true){
-      document.querySelectorAll("[data-lang]").forEach(el=>{
-        el.style.display = (el.getAttribute("data-lang") === lang) ? "block" : "none";
-      });
       document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
       document.documentElement.lang = (lang === "ar") ? "ar" : "en";
 
-      const btnEn = document.getElementById("btn-en");
-      const btnAr = document.getElementById("btn-ar");
-      btnEn.classList.toggle("active", lang === "en");
-      btnAr.classList.toggle("active", lang === "ar");
+      document.getElementById("btn-en").classList.toggle("active", lang === "en");
+      document.getElementById("btn-ar").classList.toggle("active", lang === "ar");
 
-      // placeholder
-      const input = document.getElementById("questionInput");
-      input.placeholder = (lang === "ar") ? "اكتب سؤالك هنا…" : "Type your question…";
+      const t = ui[lang];
+      document.getElementById("leftTitle").textContent = t.leftTitle;
+      document.getElementById("leftSub").textContent = t.leftSub;
+      document.getElementById("chatTitle").textContent = t.chatTitle;
+      document.getElementById("chatSub").textContent = t.chatSub;
+      document.getElementById("questionInput").placeholder = t.placeholder;
+      document.getElementById("sendBtn").textContent = t.ask;
+      document.getElementById("loaderText").textContent = t.thinking;
+      document.getElementById("archiveSearch").placeholder = t.searchPH;
+
+      renderChips(lang);
+      renderMiniList(lang, document.getElementById("archiveSearch").value || "");
+
+      const bilingual = localStorage.getItem(STORAGE_BI) === "1";
+      document.getElementById("toggleBilingual").textContent = bilingual ? t.hideBi : t.showBi;
 
       if(persist) localStorage.setItem(STORAGE_KEY, lang);
     }
@@ -638,75 +455,6 @@
       });
     }
 
-    function setStatus(state, text){
-      const dot = document.getElementById("statusDot");
-      const label = document.getElementById("statusText");
-
-      dot.classList.remove("good","warn","bad");
-      if(state === "good") dot.classList.add("good");
-      if(state === "warn") dot.classList.add("warn");
-      if(state === "bad")  dot.classList.add("bad");
-
-      label.textContent = text;
-    }
-
-    function escapeHTML(str){
-      return String(str)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;");
-    }
-
-    function appendMessage(role, html){
-      const chatBody = document.getElementById("chatBody");
-      const div = document.createElement("div");
-      div.className = "msg " + role;
-      div.innerHTML = html;
-      chatBody.appendChild(div);
-      chatBody.scrollTop = chatBody.scrollHeight;
-      return div;
-    }
-
-    function appendTyping(){
-      const html = `
-        <div class="typing" aria-label="Typing">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        </div>
-      `;
-      return appendMessage("ai", html);
-    }
-
-    // ====== API ======
-    async function ping(){
-      try{
-        const r = await fetch(API_ENDPOINT, { method:"GET" });
-        if(!r.ok) throw new Error("Bad status");
-        const j = await r.json();
-        if(j && j.message){
-          setStatus("good", "Online");
-        }else{
-          setStatus("warn", "Online");
-        }
-      }catch(e){
-        setStatus("bad", "Offline");
-      }
-    }
-
-    async function ask(question, lang){
-      const r = await fetch(API_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type":"application/json" },
-        body: JSON.stringify({ question, lang })
-      });
-      const data = await r.json().catch(()=> ({}));
-      if(!r.ok){
-        const details = data?.details || data?.error || ("HTTP " + r.status);
-        throw new Error(details);
-      }
-      return data.answer || "";
-    }
-
-    // ====== EVENTS ======
     const menuBtn = document.getElementById("menuBtn");
     const menuPanel = document.getElementById("menuPanel");
     function toggleMenu(){
@@ -726,78 +474,202 @@
       el.addEventListener("click", ()=> addTapGlow(el));
     });
 
-    // Chips
-    document.getElementById("chipsRow").addEventListener("click", (e)=>{
-      const chip = e.target.closest(".chip");
-      if(!chip) return;
-      const saved = localStorage.getItem(STORAGE_KEY) || "en";
-      const q = (saved === "ar") ? chip.getAttribute("data-q-ar") : chip.getAttribute("data-q-en");
-      const input = document.getElementById("questionInput");
-      input.value = q;
-      input.focus();
+    function renderChips(lang){
+      const wrap = document.getElementById("chips");
+      wrap.innerHTML = "";
+      ui[lang].chips.forEach(item=>{
+        const b = document.createElement("div");
+        b.className = "chip";
+        b.textContent = item.label;
+        b.onclick = ()=>{
+          addTapGlow(b);
+          document.getElementById("questionInput").value = item.q;
+          document.getElementById("questionInput").focus();
+        };
+        wrap.appendChild(b);
+      });
+    }
+
+    function renderMiniList(lang, q){
+      const list = document.getElementById("miniList");
+      list.innerHTML = "";
+      const query = (q || "").toLowerCase().trim();
+      const items = linkIndex.filter(x=>{
+        const hay = (lang==="ar"? x.ar : x.en).toLowerCase();
+        return !query || hay.includes(query);
+      }).slice(0, 6);
+
+      items.forEach(x=>{
+        const div = document.createElement("div");
+        div.className = "miniItem";
+        const title = document.createElement("div");
+        title.textContent = (lang==="ar") ? x.ar : x.en;
+        const a = document.createElement("a");
+        a.href = x.url;
+        a.textContent = (lang==="ar") ? "فتح" : "Open";
+        div.appendChild(title);
+        div.appendChild(a);
+        list.appendChild(div);
+      });
+    }
+
+    document.getElementById("archiveSearch").addEventListener("input", (e)=>{
+      const lang = localStorage.getItem(STORAGE_KEY) || "en";
+      renderMiniList(lang, e.target.value);
     });
 
-    // Send
-    const sendBtn = document.getElementById("sendBtn");
-    const input = document.getElementById("questionInput");
+    function addMessage(role, html){
+      const chat = document.getElementById("chat");
+      const row = document.createElement("div");
+      row.className = "msg " + (role === "user" ? "user" : "bot");
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.innerHTML = html;
+      row.appendChild(bubble);
+      chat.appendChild(row);
+      chat.scrollTop = chat.scrollHeight;
+    }
 
-    async function onSend(){
-      const lang = localStorage.getItem(STORAGE_KEY) || "en";
+    function showLoader(on){
+      document.getElementById("loaderWrap").style.display = on ? "block" : "none";
+    }
+
+    function levelLabel(lang, lvl){
+      const t = ui[lang];
+      const map = {
+        beginner: lang==="ar" ? "مبتدئ" : "Beginner",
+        intermediate: lang==="ar" ? "متوسط" : "Intermediate",
+        advanced: lang==="ar" ? "متقدم" : "Advanced",
+      };
+      return map[lvl] || map.beginner;
+    }
+
+    function escapeHTML(s){
+      return String(s || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+    }
+
+    async function ask(){
+      const input = document.getElementById("questionInput");
       const q = (input.value || "").trim();
       if(!q) return;
 
-      sendBtn.disabled = true;
-      input.disabled = true;
+      const lang = localStorage.getItem(STORAGE_KEY) || "en";
+      const bilingual = localStorage.getItem(STORAGE_BI) === "1";
+      const t = ui[lang];
 
-      appendMessage("user", `<div>${escapeHTML(q)}</div><small>${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</small>`);
+      addMessage("user", `<div>${escapeHTML(q)}</div>`);
       input.value = "";
 
-      const typingEl = appendTyping();
+      showLoader(true);
+      document.getElementById("sendBtn").disabled = true;
 
       try{
-        setStatus("good", "Thinking…");
-        const answer = await ask(q, lang);
-        typingEl.remove();
+        const r = await fetch(API_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: q, lang })
+        });
 
-        // Keep answer formatting simple (new lines)
-        const safe = escapeHTML(answer).replaceAll("\n", "<br/>");
-        appendMessage("ai", `<div>${safe}</div><small>${lang === "ar" ? "إجابة من ليلى" : "Answer from LAILA"}</small>`);
+        const data = await r.json();
 
-        setStatus("good", "Online");
-      }catch(err){
-        typingEl.remove();
-        setStatus("warn", "Check");
-        const msg = (lang === "ar")
-          ? ("حصل خطأ أثناء الاتصال بالذكاء الاصطناعي. التفاصيل: " + err.message)
-          : ("AI request failed. Details: " + err.message);
+        const ansAr = data.answer_ar || "";
+        const ansEn = data.answer_en || "";
+        const ans = (lang === "ar") ? ansAr : ansEn;
+        const lvl = data.level || "beginner";
+        const era = data.year_or_era || (lang==="ar" ? "العصر الحديث" : "Modern era");
+        const sources = Array.isArray(data.sources) ? data.sources : [];
+        const links = Array.isArray(data.archive_links) ? data.archive_links : [];
 
-        appendMessage("ai", `<div>${escapeHTML(msg)}</div><small>${lang === "ar" ? "ملاحظة" : "Note"}</small>`);
-      }finally{
-        sendBtn.disabled = false;
-        input.disabled = false;
-        input.focus();
-        const chatBody = document.getElementById("chatBody");
-        chatBody.scrollTop = chatBody.scrollHeight;
+        const answerBlock = ans ? escapeHTML(ans).replaceAll("\n","<br>") : `<span style="color:rgba(255,255,255,0.65)">${t.noAnswer}</span>`;
+
+        let biBlock = "";
+        if (bilingual){
+          const other = (lang==="ar") ? ansEn : ansAr;
+          if (other && other.trim()){
+            biBlock = `
+              <div style="margin-top:12px;opacity:.9">
+                <div style="font-size:.85rem;color:rgba(255,255,255,0.65);margin-bottom:6px">${lang==="ar"?"الترجمة":"Translation"}</div>
+                <div style="border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);padding:10px 12px;border-radius:14px;line-height:1.75">
+                  ${escapeHTML(other).replaceAll("\n","<br>")}
+                </div>
+              </div>
+            `;
+          }
+        }
+
+        const badges = `
+          <div class="meta-row">
+            <span class="badge strong">${t.levelLabel}: ${levelLabel(lang, lvl)}</span>
+            <span class="badge">${t.eraLabel}: ${escapeHTML(era)}</span>
+          </div>
+        `;
+
+        const sourcesHtml = sources.length ? `
+          <div style="margin-top:10px">
+            <div style="color:rgba(255,255,255,0.65);font-size:.85rem;margin-bottom:6px">${t.sourcesLabel}</div>
+            <div class="meta-row">
+              ${sources.slice(0,6).map(s=> `<span class="badge">${escapeHTML(s)}</span>`).join("")}
+            </div>
+          </div>
+        ` : "";
+
+        const linksHtml = links.length ? `
+          <div style="margin-top:10px">
+            <div style="color:rgba(255,255,255,0.65);font-size:.85rem;margin-bottom:6px">${t.linksLabel}</div>
+            <div class="links">
+              ${links.slice(0,4).map(l=>{
+                const title = (lang==="ar") ? l.title_ar : l.title_en;
+                return `<a class="alink" href="${l.url}">${escapeHTML(title)}</a>`;
+              }).join("")}
+            </div>
+          </div>
+        ` : "";
+
+        addMessage("bot", `
+          <div>${answerBlock}</div>
+          ${badges}
+          ${sourcesHtml}
+          ${linksHtml}
+          ${biBlock}
+        `);
+
+      } catch(e){
+        addMessage("bot", `<div style="color:rgba(255,255,255,0.75)">Failed to fetch: ${escapeHTML(e.message || "Error")}</div>`);
+      } finally{
+        showLoader(false);
+        document.getElementById("sendBtn").disabled = false;
       }
     }
 
-    sendBtn.addEventListener("click", onSend);
-    input.addEventListener("keydown", (e)=>{
-      if(e.key === "Enter" && !e.shiftKey){
-        e.preventDefault();
-        onSend();
-      }
+    document.getElementById("sendBtn").addEventListener("click", ask);
+    document.getElementById("questionInput").addEventListener("keydown", (e)=>{
+      if(e.key === "Enter") ask();
     });
 
-    // Language buttons
-    document.getElementById("btn-en").addEventListener("click", ()=> setLang("en"));
-    document.getElementById("btn-ar").addEventListener("click", ()=> setLang("ar"));
+    document.getElementById("toggleBilingual").addEventListener("click", ()=>{
+      const lang = localStorage.getItem(STORAGE_KEY) || "en";
+      const t = ui[lang];
+      const current = localStorage.getItem(STORAGE_BI) === "1";
+      localStorage.setItem(STORAGE_BI, current ? "0" : "1");
+      document.getElementById("toggleBilingual").textContent = current ? t.showBi : t.hideBi;
+    });
 
-    // Init
     const saved = localStorage.getItem(STORAGE_KEY) || "en";
     setLang(saved, false);
     highlightActiveRoute();
-    ping();
+
+    document.getElementById("btn-en").addEventListener("click", ()=> setLang("en"));
+    document.getElementById("btn-ar").addEventListener("click", ()=> setLang("ar"));
+
+    // Welcome message
+    const startLang = localStorage.getItem(STORAGE_KEY) || "en";
+    addMessage("bot", (startLang==="ar")
+      ? "أهلًا! أنا ليلى. اسألني عن الجمباز الإيقاعي بأي صياغة: تحكيم، تدريب، أدوات، تاريخ، أو لاعبات."
+      : "Hi! I’m LAILA. Ask anything about rhythmic gymnastics: judging, training, apparatus, history, or gymnasts."
+    );
   </script>
 </body>
 </html>
