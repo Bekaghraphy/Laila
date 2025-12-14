@@ -1,274 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LAILA | Learn Rhythmic Gymnastics</title>
 
-  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-main: #0e0f14;
-      --bg-soft: #151722;
-      --accent: #8b8df8;
-      --accent-soft: #6f72e6;
-      --text-main: #ffffff;
-      --text-muted: rgba(255,255,255,0.75);
-      --border-soft: rgba(255,255,255,0.08);
+    :root{
+      --bg-main:#0e0f14;
+      --bg-soft:#151722;
+      --accent:#8b8df8;
+      --accent-soft:#6f72e6;
+      --text:#ffffff;
+      --muted:rgba(255,255,255,0.74);
+      --border:rgba(255,255,255,0.08);
+      --shadow:0 18px 60px rgba(0,0,0,0.45);
+      --radius:18px;
+      --radius-lg:22px;
+      --ease:cubic-bezier(.2,.8,.2,1);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Montserrat", sans-serif;
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
+    body{
+      background:radial-gradient(circle at top,#1a1c2d,var(--bg-main));
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
     }
 
-    body {
-      background: radial-gradient(circle at top, #1a1c2d, var(--bg-main));
-      color: var(--text-main);
-      min-height: 100vh;
+    .bg-glow{
+      position:fixed;inset:-200px;
+      background:
+        radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 12% 22%/520px 520px,
+        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 88% 32%/560px 560px;
+      pointer-events:none;z-index:-1;
+      animation:floatGlow 10s var(--ease) infinite alternate;
+    }
+    @keyframes floatGlow{
+      from{transform:translateY(0);}
+      to{transform:translateY(-16px);}
     }
 
-    /* NAV */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--border-soft);
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:16px 18px;
+      border-bottom:1px solid var(--border);
+      background:rgba(14,15,20,0.7);
+      backdrop-filter:blur(14px);
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:2px;}
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      box-shadow:0 0 0 6px rgba(139,141,248,.12);
     }
 
-    .logo {
-      font-weight: 700;
-      letter-spacing: 2px;
-      font-size: 1.1rem;
+    nav{display:none;gap:18px;}
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:999px;
+      transition:all .18s var(--ease);
+    }
+    nav a:hover{
+      color:var(--text);
+      background:rgba(255,255,255,.04);
+      box-shadow:0 0 0 1px rgba(139,141,248,.14) inset;
+    }
+    nav a.active{
+      background:rgba(139,141,248,.1);
+      color:var(--text);
     }
 
-    nav {
-      display: none;
+    .right{display:flex;align-items:center;gap:10px;}
+    .lang button,.menu-btn{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.02);
+      color:var(--text);
+      padding:7px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:all .18s var(--ease);
+    }
+    .lang button.active{
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      border:none;
+    }
+    .lang button:hover,.menu-btn:hover{
+      box-shadow:0 0 0 1px rgba(139,141,248,.16) inset;
     }
 
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.9rem;
+    .menu-panel{
+      display:none;
+      position:fixed;top:68px;left:16px;right:16px;
+      background:rgba(21,23,34,.95);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow);
+      padding:12px;
+    }
+    .menu-panel a{
+      display:block;
+      padding:12px;
+      color:var(--muted);
+      text-decoration:none;
+      border-radius:14px;
+      transition:all .18s var(--ease);
+    }
+    .menu-panel a:hover{
+      background:rgba(255,255,255,.04);
+      color:var(--text);
     }
 
-    .lang-toggle button {
-      background: transparent;
-      border: 1px solid var(--border-soft);
-      color: var(--text-main);
-      padding: 6px 14px;
-      border-radius: 20px;
-      margin-left: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
+    main{max-width:1000px;margin:0 auto;padding:40px 18px 90px;}
+    .fade-in{animation:fade .5s var(--ease) both;}
+    @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;}}
+
+    /* Hero */
+    .hero{text-align:center;margin-bottom:30px;}
+    .hero h1{font-size:2rem;margin-bottom:12px;}
+    .hero p{color:var(--muted);font-size:.95rem;line-height:1.6;max-width:760px;margin:0 auto;}
+
+    /* Cards */
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+    .card{
+      background:rgba(21,23,34,.85);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      padding:20px;
+      transition:all .18s var(--ease);
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 22px 70px rgba(0,0,0,.45);
+    }
+    .card h3{margin-bottom:8px;font-size:1.05rem;}
+    .card p{font-size:.88rem;color:var(--muted);line-height:1.6;}
+
+    @media(min-width:768px){
+      nav{display:flex;}
+      .menu-btn{display:none;}
+      .menu-panel{display:none!important;}
+      .hero h1{font-size:2.6rem;}
+      .grid{grid-template-columns:repeat(3,1fr);}
     }
 
-    .lang-toggle button.active {
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      border: none;
-    }
-
-    /* HERO */
-    .hero {
-      padding: 60px 20px 40px;
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 2rem;
-      margin-bottom: 14px;
-    }
-
-    .hero p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* SECTIONS */
-    .learn-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-      padding: 20px 20px 80px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .learn-card {
-      background: var(--bg-soft);
-      border: 1px solid var(--border-soft);
-      border-radius: 18px;
-      padding: 26px 24px;
-    }
-
-    .learn-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-
-    .learn-card p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* DESKTOP */
-    @media (min-width: 768px) {
-      nav {
-        display: flex;
-        gap: 25px;
-      }
-
-      .hero h1 {
-        font-size: 2.6rem;
-      }
-
-      .learn-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .learn-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    [data-lang] {
-      display: none;
-    }
+    [data-lang]{display:none;}
   </style>
 </head>
 
 <body>
+  <div class="bg-glow"></div>
 
-  <!-- NAV -->
   <header>
-    <div class="logo">LAILA</div>
+    <div class="brand"><span class="dot"></span>LAILA</div>
 
     <nav>
-  <a href="index.html">Home</a>
-  <a href="archive.html">Archive</a>
-  <a href="assistant.html">AI Assistant</a>
-  <a href="learn.html">Learn</a>
-</nav>
+      <a href="index.html" data-route="index.html">Home</a>
+      <a href="archive.html" data-route="archive.html">Archive</a>
+      <a href="learn.html" data-route="learn.html">Learn</a>
+      <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
+    </nav>
 
-    <div class="lang-toggle">
-      <button id="btn-en" onclick="setLang('en')" class="active">EN</button>
-      <button id="btn-ar" onclick="setLang('ar')">AR</button>
+    <div class="right">
+      <button class="menu-btn" id="menuBtn">Menu</button>
+      <div class="lang">
+        <button id="btn-en">EN</button>
+        <button id="btn-ar">AR</button>
+      </div>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div data-lang="en">
-      <h1>Learn Rhythmic Gymnastics</h1>
-      <p>
-        Clear and simple explanations designed for beginners, parents,
-        and anyone who wants to truly understand rhythmic gymnastics.
-      </p>
-    </div>
+  <div class="menu-panel" id="menuPanel">
+    <a href="index.html">Home</a>
+    <a href="archive.html">Archive</a>
+    <a href="learn.html">Learn</a>
+    <a href="assistant.html">AI Assistant</a>
+  </div>
 
-    <div data-lang="ar">
-      <h1>تعلّم الجمباز الإيقاعي</h1>
-      <p>
-        شرح مبسط ومفهوم لرياضة الجمباز الإيقاعي،
-        موجه للمبتدئين وأولياء الأمور وكل من يريد فهم اللعبة بشكل صحيح.
-      </p>
-    </div>
-  </section>
+  <main class="fade-in">
+    <section class="hero">
+      <div data-lang="en">
+        <h1>Learn Rhythmic Gymnastics</h1>
+        <p>
+          Clear and structured explanations designed for beginners,
+          parents, and anyone who wants to truly understand rhythmic gymnastics.
+        </p>
+      </div>
+      <div data-lang="ar">
+        <h1>تعلّم الجمباز الإيقاعي</h1>
+        <p>
+          شرح مبسط ومنظم لرياضة الجمباز الإيقاعي،
+          موجه للمبتدئين وأولياء الأمور وكل من يريد فهم اللعبة بعمق.
+        </p>
+      </div>
+    </section>
 
-  <!-- LEARN CONTENT -->
-  <section class="learn-grid">
+    <section class="grid">
 
-    <!-- EN -->
-    <div class="learn-card" data-lang="en">
-      <h3>What is Rhythmic Gymnastics?</h3>
-      <p>An overview of the sport, its purpose, and how it differs from artistic gymnastics.</p>
-    </div>
+      <div class="card">
+        <h3 data-lang="en">What is Rhythmic Gymnastics?</h3>
+        <h3 data-lang="ar">ما هو الجمباز الإيقاعي؟</h3>
+        <p data-lang="en">An introduction to the sport and how it differs from artistic gymnastics.</p>
+        <p data-lang="ar">مقدمة عن اللعبة والفرق بينها وبين الجمباز الفني.</p>
+      </div>
 
-    <div class="learn-card" data-lang="en">
-      <h3>Apparatus Explained</h3>
-      <p>Understanding ribbon, hoop, ball, clubs, and rope in a simple way.</p>
-    </div>
+      <div class="card">
+        <h3 data-lang="en">Apparatus Explained</h3>
+        <h3 data-lang="ar">شرح الأدوات</h3>
+        <p data-lang="en">Understanding ribbon, hoop, ball, clubs, and rope.</p>
+        <p data-lang="ar">فهم الشريط والطوق والكرة والصولجان والحبل.</p>
+      </div>
 
-    <div class="learn-card" data-lang="en">
-      <h3>How Scoring Works</h3>
-      <p>A simplified explanation of difficulty, execution, artistry, and penalties.</p>
-    </div>
+      <div class="card">
+        <h3 data-lang="en">How Scoring Works</h3>
+        <h3 data-lang="ar">طريقة احتساب الدرجات</h3>
+        <p data-lang="en">Simplified explanation of difficulty, execution, and artistry.</p>
+        <p data-lang="ar">شرح مبسط للصعوبة والتنفيذ والجانب الفني.</p>
+      </div>
 
-    <div class="learn-card" data-lang="en">
-      <h3>Training Basics</h3>
-      <p>What beginners should focus on during early training stages.</p>
-    </div>
+      <div class="card">
+        <h3 data-lang="en">Training Basics</h3>
+        <h3 data-lang="ar">أساسيات التدريب</h3>
+        <p data-lang="en">What beginners should focus on in early stages.</p>
+        <p data-lang="ar">ما يجب التركيز عليه في المراحل الأولى للتدريب.</p>
+      </div>
 
-    <div class="learn-card" data-lang="en">
-      <h3>Common Mistakes</h3>
-      <p>Frequent errors made by beginners and how to avoid them.</p>
-    </div>
+      <div class="card">
+        <h3 data-lang="en">Common Mistakes</h3>
+        <h3 data-lang="ar">أخطاء شائعة</h3>
+        <p data-lang="en">Frequent beginner mistakes and how to avoid them.</p>
+        <p data-lang="ar">الأخطاء الشائعة وكيفية تجنبها.</p>
+      </div>
 
-    <div class="learn-card" data-lang="en">
-      <h3>Parents Guide</h3>
-      <p>How parents can support young gymnasts emotionally and physically.</p>
-    </div>
+      <div class="card">
+        <h3 data-lang="en">Parents Guide</h3>
+        <h3 data-lang="ar">دليل أولياء الأمور</h3>
+        <p data-lang="en">How parents can support young gymnasts.</p>
+        <p data-lang="ar">كيف يمكن للأهل دعم اللاعبات نفسيًا وبدنيًا.</p>
+      </div>
 
-    <!-- AR -->
-    <div class="learn-card" data-lang="ar">
-      <h3>ما هو الجمباز الإيقاعي؟</h3>
-      <p>تعريف مبسط باللعبة والفرق بينها وبين الجمباز الفني.</p>
-    </div>
+    </section>
+  </main>
 
-    <div class="learn-card" data-lang="ar">
-      <h3>شرح الأدوات</h3>
-      <p>فهم استخدام الشريط والطوق والكرة والصولجان والحبل بطريقة سهلة.</p>
-    </div>
-
-    <div class="learn-card" data-lang="ar">
-      <h3>طريقة احتساب الدرجات</h3>
-      <p>شرح مبسط للصعوبة والتنفيذ والجانب الفني والخصومات.</p>
-    </div>
-
-    <div class="learn-card" data-lang="ar">
-      <h3>أساسيات التدريب</h3>
-      <p>ما الذي يجب التركيز عليه في مراحل التدريب الأولى.</p>
-    </div>
-
-    <div class="learn-card" data-lang="ar">
-      <h3>أخطاء شائعة</h3>
-      <p>أكثر الأخطاء انتشارًا لدى المبتدئات وكيفية تجنبها.</p>
-    </div>
-
-    <div class="learn-card" data-lang="ar">
-      <h3>دليل أولياء الأمور</h3>
-      <p>كيف يمكن للأهل دعم اللاعبات نفسيًا وبدنيًا.</p>
-    </div>
-
-  </section>
-
-  <!-- SCRIPT -->
   <script>
-    function setLang(lang) {
-      document.querySelectorAll("[data-lang]").forEach(el => {
-        el.style.display = el.getAttribute("data-lang") === lang ? "block" : "none";
+    const STORAGE_KEY="laila_lang";
+    function setLang(lang){
+      document.querySelectorAll("[data-lang]").forEach(e=>{
+        e.style.display=e.getAttribute("data-lang")===lang?"block":"none";
       });
-
-      document.getElementById("btn-en").classList.remove("active");
-      document.getElementById("btn-ar").classList.remove("active");
-      document.getElementById("btn-" + lang).classList.add("active");
-
-      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+      document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+      document.documentElement.lang=lang;
+      document.getElementById("btn-en").classList.toggle("active",lang==="en");
+      document.getElementById("btn-ar").classList.toggle("active",lang==="ar");
+      localStorage.setItem(STORAGE_KEY,lang);
     }
-
-    setLang("en");
+    document.getElementById("menuBtn").onclick=()=>{
+      const p=document.getElementById("menuPanel");
+      p.style.display=p.style.display==="block"?"none":"block";
+    };
+    const saved=localStorage.getItem(STORAGE_KEY)||"en";
+    setLang(saved);
   </script>
-
 </body>
 </html>
