@@ -65,36 +65,21 @@
     .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:20px;}
     .card{background:rgba(21,23,34,0.86);border:1px solid var(--border);border-radius:var(--radius-lg);
       padding:20px 18px;position:relative;overflow:hidden;transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease);}
-    .card::before{content:"";position:absolute;inset:-60% -30%;background:radial-gradient(circle at 30% 30%, rgba(139,141,248,0.18), transparent 55%);
-      opacity:0;transition:opacity .18s var(--ease);}
     .card:hover{transform:translateY(-2px);border-color:rgba(139,141,248,0.18);box-shadow:0 26px 80px rgba(0,0,0,0.45);}
-    .card:hover::before{opacity:1;}
     .card h3{font-size:1.05rem;margin-bottom:8px;}
     .card p{color:var(--muted);font-size:0.88rem;line-height:1.6;margin-bottom:14px;}
-    .card button{
-      border:1px solid var(--border);
-      background:rgba(255,255,255,0.03);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:999px;
-      cursor:pointer;
-      transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease);
-    }
-    .card button:hover{
-      transform:translateY(-1px);
-      box-shadow:0 0 0 1px rgba(139,141,248,0.16) inset,0 18px 60px rgba(0,0,0,0.35);
-      background:rgba(139,141,248,0.08);
-    }
+    .card button{border:1px solid var(--border);background:rgba(255,255,255,0.03);color:var(--text);
+      padding:10px 12px;border-radius:999px;cursor:pointer;
+      transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease);}
+    .card button:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.16) inset,0 18px 60px rgba(0,0,0,0.35);
+      background:rgba(139,141,248,0.08);}
 
     @media(min-width:768px){
-      header{padding:16px 26px;}
       nav{display:flex;}
       .menu-btn{display:none;}
       .menu-panel{display:none !important;}
-      main{padding:52px 26px 90px;}
+      .grid{grid-template-columns:repeat(3,1fr);}
       .hero h1{font-size:2.7rem;}
-      .grid{grid-template-columns:repeat(3,1fr);gap:16px;}
-      .card{padding:22px 20px;}
     }
 
     [data-lang]{display:none;}
@@ -106,46 +91,30 @@
 
   <header>
     <div class="brand"><span class="dot"></span><span>LAILA</span></div>
-
     <nav>
       <a href="index.html" data-route="index.html">Home</a>
       <a href="archive.html" data-route="archive.html">Archive</a>
       <a href="learn.html" data-route="learn.html">Learn</a>
       <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
     </nav>
-
     <div class="right">
-      <button class="menu-btn" id="menuBtn" type="button">Menu</button>
+      <button class="menu-btn" id="menuBtn">Menu</button>
       <div class="lang">
-        <button id="btn-en" type="button">EN</button>
-        <button id="btn-ar" type="button">AR</button>
+        <button id="btn-en">EN</button>
+        <button id="btn-ar">AR</button>
       </div>
     </div>
   </header>
-
-  <div class="menu-panel" id="menuPanel">
-    <a href="index.html" data-route="index.html">Home</a>
-    <a href="archive.html" data-route="archive.html">Archive</a>
-    <a href="learn.html" data-route="learn.html">Learn</a>
-    <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
-  </div>
 
   <main class="fade-in">
     <section class="hero">
       <div data-lang="en">
         <h1>Rhythmic Gymnastics Archive</h1>
-        <p>
-          A curated archive covering the history, apparatus, rules evolution, and judging system —
-          structured for learning and reference.
-        </p>
+        <p>A structured archive covering history, apparatus, rules, judging, and key figures.</p>
       </div>
-
       <div data-lang="ar">
         <h1>أرشيف الجمباز الإيقاعي</h1>
-        <p>
-          أرشيف منظم يشمل تاريخ اللعبة، الأدوات، تطور القوانين، ونظام التحكيم —
-          مناسب للتعلّم والرجوع إليه.
-        </p>
+        <p>أرشيف منظم يشمل التاريخ والأدوات والقوانين ونظام التحكيم والشخصيات المؤثرة.</p>
       </div>
     </section>
 
@@ -153,127 +122,83 @@
       <div class="card">
         <div data-lang="en">
           <h3>History of the Sport</h3>
-          <p>Origins, milestones, and the modern era—cleanly structured.</p>
-          <button type="button" onclick="alert('Next: we will link this to history.html')">Open</button>
+          <p>Origins, milestones, and the modern era.</p>
+          <button onclick="location.href='history.html'">Open</button>
         </div>
         <div data-lang="ar">
           <h3>تاريخ اللعبة</h3>
-          <p>النشأة والمحطات الأساسية والعصر الحديث بشكل منظم.</p>
-          <button type="button" onclick="alert('بعدها هنربطها بصفحة history.html')">فتح</button>
+          <p>النشأة والمحطات الأساسية والعصر الحديث.</p>
+          <button onclick="location.href='history.html'">فتح</button>
         </div>
       </div>
 
       <div class="card">
         <div data-lang="en">
           <h3>Apparatus Guide</h3>
-          <p>Ribbon, hoop, ball, clubs, rope—what they mean and how they work.</p>
-          <button type="button" onclick="alert('Next: we will link this to apparatus.html')">Open</button>
+          <p>Ribbon, hoop, ball, clubs, rope explained.</p>
+          <button onclick="location.href='apparatus.html'">Open</button>
         </div>
         <div data-lang="ar">
           <h3>دليل الأدوات</h3>
-          <p>الشريط والطوق والكرة والصولجان والحبل—شرح مبسط وواضح.</p>
-          <button type="button" onclick="alert('بعدها هنربطها بصفحة apparatus.html')">فتح</button>
+          <p>شرح مبسط لكل أدوات الجمباز الإيقاعي.</p>
+          <button onclick="location.href='apparatus.html'">فتح</button>
         </div>
       </div>
 
       <div class="card">
         <div data-lang="en">
           <h3>Evolution of Rules</h3>
-          <p>How the Code of Points changed across eras (in a readable timeline).</p>
-          <button type="button" onclick="alert('Next: we will link this to rules.html')">Open</button>
+          <p>How the Code of Points evolved.</p>
+          <button onclick="location.href='rules.html'">Open</button>
         </div>
         <div data-lang="ar">
           <h3>تطور القوانين</h3>
-          <p>كيف تغيّر قانون التحكيم عبر السنوات بطريقة سهلة للقراءة.</p>
-          <button type="button" onclick="alert('بعدها هنربطها بصفحة rules.html')">فتح</button>
+          <p>تغير قوانين التحكيم عبر السنوات.</p>
+          <button onclick="location.href='rules.html'">فتح</button>
         </div>
       </div>
 
       <div class="card">
         <div data-lang="en">
           <h3>Judging System</h3>
-          <p>Difficulty, execution, artistry, penalties—simplified and organized.</p>
-          <button type="button" onclick="alert('Next: we will link this to judging.html')">Open</button>
+          <p>Difficulty, execution, artistry explained.</p>
+          <button onclick="location.href='judging.html'">Open</button>
         </div>
         <div data-lang="ar">
           <h3>نظام التحكيم</h3>
-          <p>الصعوبة والتنفيذ والجانب الفني والخصومات بشكل مبسط ومنظم.</p>
-          <button type="button" onclick="alert('بعدها هنربطها بصفحة judging.html')">فتح</button>
+          <p>شرح درجات الصعوبة والتنفيذ والفن.</p>
+          <button onclick="location.href='judging.html'">فتح</button>
         </div>
       </div>
 
       <div class="card">
         <div data-lang="en">
           <h3>Famous Gymnasts</h3>
-          <p>Influential athletes who shaped the sport through generations.</p>
-          <button type="button" onclick="alert('Next: we will link this to gymnasts.html')">Open</button>
+          <p>Influential gymnasts who shaped the sport.</p>
+          <button onclick="location.href='gymnasts.html'">Open</button>
         </div>
         <div data-lang="ar">
           <h3>لاعبات مؤثرات</h3>
-          <p>شخصيات تركت بصمة واضحة في تاريخ اللعبة عبر الأجيال.</p>
-          <button type="button" onclick="alert('بعدها هنربطها بصفحة gymnasts.html')">فتح</button>
+          <p>شخصيات تركت بصمة في تاريخ اللعبة.</p>
+          <button onclick="location.href='gymnasts.html'">فتح</button>
         </div>
       </div>
     </section>
   </main>
 
   <script>
-    const STORAGE_KEY = "laila_lang";
-
-    function addTapGlow(el){
-      el.classList.remove("tap-glow");
-      void el.offsetWidth;
-      el.classList.add("tap-glow");
-      setTimeout(()=> el.classList.remove("tap-glow"), 560);
-    }
-
-    function setLang(lang, persist=true){
-      document.querySelectorAll("[data-lang]").forEach(el=>{
-        el.style.display = (el.getAttribute("data-lang") === lang) ? "block" : "none";
+    const STORAGE_KEY="laila_lang";
+    function setLang(lang){
+      document.querySelectorAll("[data-lang]").forEach(e=>{
+        e.style.display=e.getAttribute("data-lang")===lang?"block":"none";
       });
-      document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
-      document.documentElement.lang = (lang === "ar") ? "ar" : "en";
-
-      const btnEn = document.getElementById("btn-en");
-      const btnAr = document.getElementById("btn-ar");
-      btnEn.classList.toggle("active", lang === "en");
-      btnAr.classList.toggle("active", lang === "ar");
-
-      if(persist) localStorage.setItem(STORAGE_KEY, lang);
+      document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+      document.documentElement.lang=lang;
+      localStorage.setItem(STORAGE_KEY,lang);
     }
-
-    function highlightActiveRoute(){
-      const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
-      document.querySelectorAll("[data-route]").forEach(a=>{
-        a.classList.toggle("active", a.getAttribute("data-route").toLowerCase() === file);
-      });
-    }
-
-    const menuBtn = document.getElementById("menuBtn");
-    const menuPanel = document.getElementById("menuPanel");
-    function toggleMenu(){
-      const open = menuPanel.style.display === "block";
-      menuPanel.style.display = open ? "none" : "block";
-    }
-    menuBtn?.addEventListener("click", ()=>{
-      addTapGlow(menuBtn);
-      toggleMenu();
-    });
-    document.addEventListener("click", (e)=>{
-      const inside = menuPanel.contains(e.target) || menuBtn.contains(e.target);
-      if(!inside) menuPanel.style.display = "none";
-    });
-
-    document.querySelectorAll("button, a").forEach(el=>{
-      el.addEventListener("click", ()=> addTapGlow(el));
-    });
-
-    const saved = localStorage.getItem(STORAGE_KEY) || "en";
-    setLang(saved, false);
-    highlightActiveRoute();
-
-    document.getElementById("btn-en").addEventListener("click", ()=> setLang("en"));
-    document.getElementById("btn-ar").addEventListener("click", ()=> setLang("ar"));
+    setLang(localStorage.getItem(STORAGE_KEY)||"en");
+    document.getElementById("btn-en").onclick=()=>setLang("en");
+    document.getElementById("btn-ar").onclick=()=>setLang("ar");
   </script>
 </body>
 </html>
