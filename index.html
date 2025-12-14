@@ -224,6 +224,10 @@
       localStorage.setItem("laila_lang","ar");
       location.reload();
     };
+    document.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("laila_lang") || "en";
+  setLang(saved, false);
+});
   </script>
 </body>
 </html>
