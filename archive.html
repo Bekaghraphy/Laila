@@ -136,16 +136,24 @@ h1{
   margin-top:20px;
   height:520px;
   overflow:hidden;
+  z-index:1;   /* 👈 يضمن إنه فوق الخلفية */
 }
+
 
 .visual img{
   position:absolute;
   bottom:0;
   left:-20%;
   height:520px;
+
+  z-index:2;              /* 👈 مهم */
+  opacity:1;              /* 👈 تأكيد */
+  pointer-events:none;    /* 👈 عشان متأثرش على الأزرار */
+
   animation: moveGym 8s ease-in-out infinite alternate;
-  filter:drop-shadow(0 0 60px rgba(139,141,248,.35));
+  filter:drop-shadow(0 0 60px rgba(139,141,248,.45));
 }
+
 
 @keyframes moveGym{
   from{transform:translateX(0);}
