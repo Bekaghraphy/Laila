@@ -1,1 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>LAILA | Events</title>
+
+<link rel="icon" type="image/svg+xml" href="favicon-home.svg">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0e0f14;
+  --bg-soft:#14162a;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.65);
+  --accent:#8b8df8;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Montserrat",sans-serif;
+}
+
+body{
+  background:radial-gradient(circle at top,#1a1c2d,var(--bg));
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* ================= HEADER ================= */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:100;
+  backdrop-filter:blur(14px);
+  background:linear-gradient(180deg,rgba(15,16,30,.85),rgba(15,16,30,.55));
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.navbar{
+  max-width:1400px;
+  margin:auto;
+  padding:16px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-weight:700;
+  letter-spacing:.5px;
+}
+
+/* links */
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:22px;
+}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:14px;
+  transition:.25s;
+}
+
+.nav-links a:hover{
+  color:var(--text);
+}
+
+/* language */
+.lang-toggle{
+  display:flex;
+  gap:10px;
+  margin-left:28px;
+}
+
+.lang-toggle button{
+  background:rgba(255,255,255,.08);
+  border:none;
+  color:var(--text);
+  padding:6px 12px;
+  border-radius:14px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.lang-toggle button.active{
+  background:var(--accent);
+  color:#000;
+}
+
+/* ================= PAGE ================= */
+main{
+  padding-top:120px;
+  max-width:1100px;
+  margin:auto;
+  padding-left:20px;
+  padding-right:20px;
+}
+
+.page-title{
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.page-title h1{
+  font-size:40px;
+  margin-bottom:10px;
+}
+
+.page-title p{
+  color:var(--muted);
+}
+
+/* demo content */
+.card{
+  background:linear-gradient(180deg,#1b1e33,#121424);
+  border-radius:16px;
+  padding:26px;
+  margin-bottom:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="navbar">
+    <div class="logo">• LAILA</div>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="archive.html">Archive</a>
+      <a href="learn.html">Learn</a>
+      <a href="assistant.html">AI Assistant</a>
+
+      <a href="events.html">Events</a>
+      <a href="gymnasts.html">Gymnasts</a>
+      <a href="rules.html">Rules</a>
+      <a href="judging.html">Judging</a>
+
+      <div class="lang-toggle">
+        <button class="active">EN</button>
+        <button>AR</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= CONTENT ================= -->
+<main>
+  <div class="page-title">
+    <h1>Events</h1>
+    <p>World & European Gymnastics Competitions</p>
+  </div>
+
+  <div class="card">
+    Event content goes here
+  </div>
+
+  <div class="card">
+    Another event
+  </div>
+</main>
+
+</body>
+</html>
 
