@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <link rel="icon" type="image/svg+xml" href="favicon-archive.svg">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LAILA | Archive</title>
@@ -10,196 +9,185 @@
 
   <style>
     :root{
-      --bg-main:#0e0f14; --bg-soft:#151722;
-      --accent:#8b8df8; --accent-soft:#6f72e6;
-      --text:#ffffff; --muted:rgba(255,255,255,0.74);
-      --border:rgba(255,255,255,0.08);
-      --shadow: 0 18px 60px rgba(0,0,0,0.45);
-      --radius:18px; --radius-lg:22px;
+      --bg-main:#0e0f14;
+      --accent:#8b8df8;
+      --accent-soft:#6f72e6;
+      --text:#fff;
+      --muted:rgba(255,255,255,.75);
+      --border:rgba(255,255,255,.08);
       --ease:cubic-bezier(.2,.8,.2,1);
     }
-    *{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
-    body{background:radial-gradient(circle at top,#1a1c2d,var(--bg-main));color:var(--text);min-height:100vh;overflow-x:hidden;}
-    .bg-glow{position:fixed;inset:-200px;background:
-      radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 10% 20%/520px 520px,
-      radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px,
-      radial-gradient(closest-side, rgba(139,141,248,0.08), transparent 60%) 50% 95%/620px 620px;
-      pointer-events:none;z-index:-1;animation:floatGlow 10s var(--ease) infinite alternate;opacity:.9;}
-    @keyframes floatGlow{from{transform:translate3d(0,0,0) scale(1);}to{transform:translate3d(0,-18px,0) scale(1.03);}}
 
-    header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
-      padding:16px 18px;border-bottom:1px solid var(--border);
-      background:rgba(14,15,20,0.70);backdrop-filter:blur(14px);}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:2px;font-size:1.05rem;user-select:none;}
-    .brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      box-shadow:0 0 0 6px rgba(139,141,248,0.12),0 0 26px rgba(139,141,248,0.35);}
-    nav{display:none;align-items:center;gap:18px;}
-    nav a{color:var(--muted);text-decoration:none;font-size:0.92rem;padding:10px 10px;border-radius:999px;
-      transition:transform .18s var(--ease),color .18s var(--ease),background .18s var(--ease);}
-    nav a:hover{color:var(--text);background:rgba(255,255,255,0.04);transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.14) inset;}
-    nav a.active{color:var(--text);background:rgba(139,141,248,0.10);box-shadow:0 0 0 1px rgba(139,141,248,0.22) inset,0 14px 38px rgba(0,0,0,0.35);}
-    .right{display:flex;align-items:center;gap:10px;}
-    .lang button,.menu-btn{border:1px solid var(--border);background:rgba(255,255,255,0.02);color:var(--text);
-      padding:8px 12px;border-radius:999px;font-size:0.82rem;cursor:pointer;position:relative;overflow:hidden;
-      transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease),border-color .18s var(--ease);}
-    .lang button.active{border-color:transparent;background:linear-gradient(135deg,var(--accent),var(--accent-soft));box-shadow:0 16px 50px rgba(139,141,248,0.22);}
-    .lang button:hover,.menu-btn:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.16) inset,0 18px 60px rgba(0,0,0,0.35);}
-    .tap-glow::after{content:"";position:absolute;inset:-60%;background:radial-gradient(circle,rgba(139,141,248,0.55),transparent 60%);
-      transform:scale(0.2);opacity:0;animation:tap 520ms var(--ease) forwards;pointer-events:none;}
-    @keyframes tap{0%{opacity:0;transform:scale(0.15);}35%{opacity:0.65;transform:scale(0.55);}100%{opacity:0;transform:scale(1.05);}}
-    .menu-btn{display:inline-flex;align-items:center;gap:8px;}
-    .menu-panel{position:fixed;top:68px;left:16px;right:16px;background:rgba(21,23,34,0.92);border:1px solid var(--border);
-      border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:12px;display:none;backdrop-filter:blur(16px);}
-    .menu-panel a{display:block;padding:12px 12px;border-radius:14px;color:var(--muted);text-decoration:none;
-      transition:background .18s var(--ease),color .18s var(--ease),transform .18s var(--ease);}
-    .menu-panel a:hover{background:rgba(255,255,255,0.04);color:var(--text);transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.14) inset;}
-    .menu-panel a.active{color:var(--text);background:rgba(139,141,248,0.10);box-shadow:0 0 0 1px rgba(139,141,248,0.22) inset;}
-
-    main{max-width:1100px;margin:0 auto;padding:42px 18px 80px;}
-    .fade-in{animation:fadeIn 520ms var(--ease) both;}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-
-    .hero{text-align:center;padding:34px 10px 14px;max-width:900px;margin:0 auto;}
-    .hero h1{font-size:2.05rem;line-height:1.25;margin-bottom:12px;}
-    .hero p{color:var(--muted);font-size:0.98rem;line-height:1.75;max-width:760px;margin:0 auto;}
-
-    .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:20px;}
-    .card{background:rgba(21,23,34,0.86);border:1px solid var(--border);border-radius:var(--radius-lg);
-      padding:20px 18px;position:relative;overflow:hidden;transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease);}
-    .card:hover{transform:translateY(-2px);border-color:rgba(139,141,248,0.18);box-shadow:0 26px 80px rgba(0,0,0,0.45);}
-    .card h3{font-size:1.05rem;margin-bottom:8px;}
-    .card p{color:var(--muted);font-size:0.88rem;line-height:1.6;margin-bottom:14px;}
-    .card button{border:1px solid var(--border);background:rgba(255,255,255,0.03);color:var(--text);
-      padding:10px 12px;border-radius:999px;cursor:pointer;
-      transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .18s var(--ease);}
-    .card button:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(139,141,248,0.16) inset,0 18px 60px rgba(0,0,0,0.35);
-      background:rgba(139,141,248,0.08);}
-
-    @media(min-width:768px){
-      nav{display:flex;}
-      .menu-btn{display:none;}
-      .menu-panel{display:none !important;}
-      .grid{grid-template-columns:repeat(3,1fr);}
-      .hero h1{font-size:2.7rem;}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Montserrat,sans-serif}
+    body{
+      background:radial-gradient(circle at top,#1a1c2d,var(--bg-main));
+      color:var(--text);
+      min-height:100vh;
     }
 
-    [data-lang]{display:none;}
+    header{
+      position:sticky;top:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:16px 22px;
+      backdrop-filter:blur(14px);
+      background:rgba(14,15,20,.75);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      margin:0 8px;
+      padding:8px 14px;
+      border-radius:999px;
+      transition:.25s;
+    }
+    nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
+
+    .lang button{
+      border:1px solid var(--border);
+      background:transparent;
+      color:#fff;
+      padding:6px 12px;
+      border-radius:999px;
+      cursor:pointer;
+    }
+    .lang button.active{
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      border:none;
+    }
+
+    main{max-width:1100px;margin:auto;padding:60px 20px}
+
+    .hero{text-align:center;margin-bottom:40px}
+    .hero h1{font-size:2.6rem;margin-bottom:12px}
+    .hero p{color:var(--muted);max-width:720px;margin:auto}
+
+    /* === NEW BUTTONS === */
+    .action-buttons{
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+      margin:40px 0;
+    }
+
+    .action-btn{
+      position:relative;
+      padding:14px 26px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      color:#fff;
+      text-decoration:none;
+      font-size:.95rem;
+      overflow:hidden;
+      transition:.35s var(--ease);
+      box-shadow:0 18px 50px rgba(139,141,248,.35);
+    }
+
+    .action-btn::after{
+      content:"";
+      position:absolute;
+      inset:-120%;
+      background:radial-gradient(circle,rgba(255,255,255,.35),transparent 60%);
+      transform:scale(.2);
+      opacity:0;
+      transition:.4s;
+    }
+
+    .action-btn:hover{
+      transform:translateY(-4px);
+      box-shadow:0 30px 80px rgba(139,141,248,.45);
+    }
+    .action-btn:hover::after{
+      opacity:1;
+      transform:scale(1);
+    }
+
+    /* === IMAGE EFFECT === */
+    .archive-visual{
+      margin:60px auto;
+      text-align:center;
+    }
+    .archive-visual img{
+      max-width:420px;
+      width:100%;
+      animation:float 6s ease-in-out infinite;
+      filter:drop-shadow(0 30px 80px rgba(139,141,248,.45));
+    }
+
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-18px)}
+    }
+
+    [data-lang]{display:none}
   </style>
 </head>
 
 <body>
-  <div class="bg-glow"></div>
 
-  <header>
-    <div class="brand"><span class="dot"></span><span>LAILA</span></div>
-    <nav>
-      <a href="index.html" data-route="index.html">Home</a>
-      <a href="archive.html" data-route="archive.html">Archive</a>
-      <a href="learn.html" data-route="learn.html">Learn</a>
-      <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
-    </nav>
-    <div class="right">
-      <button class="menu-btn" id="menuBtn">Menu</button>
-      <div class="lang">
-        <button id="btn-en">EN</button>
-        <button id="btn-ar">AR</button>
-      </div>
+<header>
+  <div>LAILA</div>
+
+  <nav>
+    <a href="index.html" data-en="Home" data-ar="الرئيسية"></a>
+    <a href="archive.html" data-en="Archive" data-ar="الأرشيف"></a>
+    <a href="learn.html" data-en="Learn" data-ar="التعلّم"></a>
+    <a href="assistant.html" data-en="AI Assistant" data-ar="المساعد الذكي"></a>
+  </nav>
+
+  <div class="lang">
+    <button id="en">EN</button>
+    <button id="ar">AR</button>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div data-lang="en">
+      <h1>Rhythmic Gymnastics Archive</h1>
+      <p>A structured archive covering history, apparatus, rules, judging, and key figures.</p>
     </div>
-  </header>
+    <div data-lang="ar">
+      <h1>أرشيف الجمباز الإيقاعي</h1>
+      <p>أرشيف منظم يشمل التاريخ والأدوات والقوانين ونظام التحكيم والشخصيات المؤثرة.</p>
+    </div>
+  </section>
 
-  <main class="fade-in">
-    <section class="hero">
-      <div data-lang="en">
-        <h1>Rhythmic Gymnastics Archive</h1>
-        <p>A structured archive covering history, apparatus, rules, judging, and key figures.</p>
-      </div>
-      <div data-lang="ar">
-        <h1>أرشيف الجمباز الإيقاعي</h1>
-        <p>أرشيف منظم يشمل التاريخ والأدوات والقوانين ونظام التحكيم والشخصيات المؤثرة.</p>
-      </div>
-    </section>
+  <!-- NEW BUTTONS -->
+  <div class="action-buttons">
+    <a href="history.html" class="action-btn">تاريخ اللعبة</a>
+    <a href="apparatus.html" class="action-btn">دليل الأدوات</a>
+    <a href="judging.html" class="action-btn">نظام التحكيم</a>
+  </div>
 
-    <section class="grid">
-      <div class="card">
-        <div data-lang="en">
-          <h3>History of the Sport</h3>
-          <p>Origins, milestones, and the modern era.</p>
-          <button onclick="location.href='history.html'">Open</button>
-        </div>
-        <div data-lang="ar">
-          <h3>تاريخ اللعبة</h3>
-          <p>النشأة والمحطات الأساسية والعصر الحديث.</p>
-          <button onclick="location.href='history.html'">فتح</button>
-        </div>
-      </div>
+  <!-- IMAGE -->
+  <div class="archive-visual">
+    <img src="img/archive-hero.png" alt="Rhythmic Gymnastics">
+  </div>
 
-      <div class="card">
-        <div data-lang="en">
-          <h3>Apparatus Guide</h3>
-          <p>Ribbon, hoop, ball, clubs, rope explained.</p>
-          <button onclick="location.href='apparatus.html'">Open</button>
-        </div>
-        <div data-lang="ar">
-          <h3>دليل الأدوات</h3>
-          <p>شرح مبسط لكل أدوات الجمباز الإيقاعي.</p>
-          <button onclick="location.href='apparatus.html'">فتح</button>
-        </div>
-      </div>
+</main>
 
-      <div class="card">
-        <div data-lang="en">
-          <h3>Evolution of Rules</h3>
-          <p>How the Code of Points evolved.</p>
-          <button onclick="location.href='rules.html'">Open</button>
-        </div>
-        <div data-lang="ar">
-          <h3>تطور القوانين</h3>
-          <p>تغير قوانين التحكيم عبر السنوات.</p>
-          <button onclick="location.href='rules.html'">فتح</button>
-        </div>
-      </div>
+<script>
+  const STORAGE_KEY="laila_lang";
+  const setLang=(l)=>{
+    document.querySelectorAll("[data-lang]").forEach(e=>{
+      e.style.display=e.getAttribute("data-lang")===l?"block":"none";
+    });
+    document.querySelectorAll("nav a").forEach(a=>{
+      a.textContent=a.dataset[l];
+    });
+    document.documentElement.dir=l==="ar"?"rtl":"ltr";
+    localStorage.setItem(STORAGE_KEY,l);
+    document.getElementById("en").classList.toggle("active",l==="en");
+    document.getElementById("ar").classList.toggle("active",l==="ar");
+  }
+  setLang(localStorage.getItem(STORAGE_KEY)||"en");
+  en.onclick=()=>setLang("en");
+  ar.onclick=()=>setLang("ar");
+</script>
 
-      <div class="card">
-        <div data-lang="en">
-          <h3>Judging System</h3>
-          <p>Difficulty, execution, artistry explained.</p>
-          <button onclick="location.href='judging.html'">Open</button>
-        </div>
-        <div data-lang="ar">
-          <h3>نظام التحكيم</h3>
-          <p>شرح درجات الصعوبة والتنفيذ والفن.</p>
-          <button onclick="location.href='judging.html'">فتح</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div data-lang="en">
-          <h3>Famous Gymnasts</h3>
-          <p>Influential gymnasts who shaped the sport.</p>
-          <button onclick="location.href='gymnasts.html'">Open</button>
-        </div>
-        <div data-lang="ar">
-          <h3>لاعبات مؤثرات</h3>
-          <p>شخصيات تركت بصمة في تاريخ اللعبة.</p>
-          <button onclick="location.href='gymnasts.html'">فتح</button>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    const STORAGE_KEY="laila_lang";
-    function setLang(lang){
-      document.querySelectorAll("[data-lang]").forEach(e=>{
-        e.style.display=e.getAttribute("data-lang")===lang?"block":"none";
-      });
-      document.documentElement.dir=lang==="ar"?"rtl":"ltr";
-      document.documentElement.lang=lang;
-      localStorage.setItem(STORAGE_KEY,lang);
-    }
-    setLang(localStorage.getItem(STORAGE_KEY)||"en");
-    document.getElementById("btn-en").onclick=()=>setLang("en");
-    document.getElementById("btn-ar").onclick=()=>setLang("ar");
-  </script>
 </body>
 </html>
