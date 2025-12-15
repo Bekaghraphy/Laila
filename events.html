@@ -1,177 +1,259 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="favicon-events.svg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAILA | Rhythmic Gymnastics Events</title>
 
-<title>LAILA | Events</title>
-
-<link rel="icon" type="image/svg+xml" href="favicon-home.svg">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#0e0f14;
-  --bg-soft:#14162a;
-  --text:#ffffff;
-  --muted:rgba(255,255,255,.65);
+  --bg-main:#0e0f14;
+  --bg-soft:#151722;
   --accent:#8b8df8;
+  --accent-soft:#6f72e6;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.72);
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Montserrat",sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
 
 body{
-  background:radial-gradient(circle at top,#1a1c2d,var(--bg));
+  background: radial-gradient(circle at top, #1a1c2d, var(--bg-main));
   color:var(--text);
   min-height:100vh;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 header{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  z-index:100;
-  backdrop-filter:blur(14px);
-  background:linear-gradient(180deg,rgba(15,16,30,.85),rgba(15,16,30,.55));
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.navbar{
-  max-width:1400px;
-  margin:auto;
-  padding:16px 24px;
+  top:0;left:0;right:0;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  padding:18px 32px;
+  background:rgba(14,15,20,.75);
+  backdrop-filter:blur(14px);
+  z-index:100;
 }
 
-.logo{
-  font-weight:700;
-  letter-spacing:.5px;
-}
-
-/* links */
-.nav-links{
+.brand{
   display:flex;
   align-items:center;
-  gap:22px;
-}
-
-.nav-links a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:14px;
-  transition:.25s;
-}
-
-.nav-links a:hover{
-  color:var(--text);
-}
-
-/* language */
-.lang-toggle{
-  display:flex;
   gap:10px;
-  margin-left:28px;
+  font-weight:700;
+  letter-spacing:2px;
 }
 
-.lang-toggle button{
-  background:rgba(255,255,255,.08);
-  border:none;
-  color:var(--text);
-  padding:6px 12px;
-  border-radius:14px;
-  font-size:12px;
-  cursor:pointer;
+.brand .dot{
+  width:10px;height:10px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-soft));
 }
 
-.lang-toggle button.active{
-  background:var(--accent);
-  color:#000;
+nav{
+  display:flex;
+  gap:26px;
 }
 
-/* ================= PAGE ================= */
+nav a{
+  text-decoration:none;
+  color:var(--muted);
+  font-size:.9rem;
+  padding:8px 14px;
+  border-radius:999px;
+}
+
+nav a.active,
+nav a:hover{
+  color:#fff;
+  background:rgba(139,141,248,.15);
+}
+
+/* MAIN */
 main{
-  padding-top:120px;
-  max-width:1100px;
-  margin:auto;
-  padding-left:20px;
-  padding-right:20px;
+  padding-top:140px;
+  max-width:1200px;
+  margin:0 auto;
+  padding-left:24px;
+  padding-right:24px;
 }
 
-.page-title{
+/* HERO */
+.hero{
   text-align:center;
-  margin-bottom:50px;
+  margin-bottom:60px;
 }
 
-.page-title h1{
-  font-size:40px;
+.hero h1{
+  font-size:2.8rem;
+  margin-bottom:14px;
+}
+
+.hero p{
+  max-width:760px;
+  margin:0 auto;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:.95rem;
+}
+
+/* EVENTS GRID */
+.events-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:26px;
+}
+
+/* EVENT CARD */
+.event-card{
+  background:rgba(21,23,34,.85);
+  border-radius:22px;
+  padding:26px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  transition:.35s ease;
+}
+
+.event-card::before{
+  content:"";
+  position:absolute;
+  inset:-60%;
+  background:radial-gradient(circle, rgba(139,141,248,.18), transparent 60%);
+  opacity:0;
+  transition:.35s;
+}
+
+.event-card:hover{
+  transform:translateY(-6px);
+}
+
+.event-card:hover::before{
+  opacity:1;
+}
+
+/* EVENT INFO */
+.event-date{
+  font-size:.8rem;
+  letter-spacing:1px;
+  color:var(--accent);
   margin-bottom:10px;
 }
 
-.page-title p{
-  color:var(--muted);
+.event-title{
+  font-size:1.15rem;
+  margin-bottom:10px;
 }
 
-/* demo content */
-.card{
-  background:linear-gradient(180deg,#1b1e33,#121424);
-  border-radius:16px;
-  padding:26px;
-  margin-bottom:20px;
+.event-meta{
+  font-size:.85rem;
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:18px;
+}
+
+/* BUTTON */
+.event-btn{
+  display:inline-block;
+  padding:10px 20px;
+  border-radius:999px;
+  font-size:.85rem;
+  text-decoration:none;
+  color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+  box-shadow:0 14px 40px rgba(139,141,248,.25);
+  transition:.3s;
+}
+
+.event-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 20px 60px rgba(139,141,248,.35);
+}
+
+/* FOOTER LINE */
+.footer-line{
+  margin:80px auto 30px;
+  width:260px;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:.6;
+  animation:lineGlow 4s ease-in-out infinite;
+}
+
+@keyframes lineGlow{
+  0%,100%{opacity:.3;}
+  50%{opacity:.9;}
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero h1{font-size:2.1rem;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
 <header>
-  <div class="navbar">
-    <div class="logo">• LAILA</div>
+  <div class="brand"><span class="dot"></span>LAILA</div>
 
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="archive.html">Archive</a>
-      <a href="learn.html">Learn</a>
-      <a href="assistant.html">AI Assistant</a>
-
-      <a href="events.html">Events</a>
-      <a href="gymnasts.html">Gymnasts</a>
-      <a href="rules.html">Rules</a>
-      <a href="judging.html">Judging</a>
-
-      <div class="lang-toggle">
-        <button class="active">EN</button>
-        <button>AR</button>
-      </div>
-    </div>
-  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="archive.html">Archive</a>
+    <a href="events.html" class="active">Events</a>
+    <a href="assistant.html">AI Assistant</a>
+  </nav>
 </header>
 
-<!-- ================= CONTENT ================= -->
 <main>
-  <div class="page-title">
-    <h1>Events</h1>
-    <p>World & European Gymnastics Competitions</p>
+
+<section class="hero">
+  <h1>Rhythmic Gymnastics Events</h1>
+  <p>
+    Discover upcoming rhythmic gymnastics competitions, championships,
+    and international events from around the world.
+  </p>
+</section>
+
+<section class="events-grid">
+
+  <div class="event-card">
+    <div class="event-date">APR 12 – APR 14, 2025</div>
+    <div class="event-title">World Cup – Sofia</div>
+    <div class="event-meta">
+      Sofia, Bulgaria<br>
+      Senior Individual & Group
+    </div>
+    <a href="#" class="event-btn">View Details</a>
   </div>
 
-  <div class="card">
-    Event content goes here
+  <div class="event-card">
+    <div class="event-date">MAY 03 – MAY 05, 2025</div>
+    <div class="event-title">European Championships</div>
+    <div class="event-meta">
+      Budapest, Hungary<br>
+      Junior & Senior
+    </div>
+    <a href="#" class="event-btn">View Details</a>
   </div>
 
-  <div class="card">
-    Another event
+  <div class="event-card">
+    <div class="event-date">JUN 18 – JUN 20, 2025</div>
+    <div class="event-title">International Friendly Cup</div>
+    <div class="event-meta">
+      Paris, France<br>
+      Senior Individual
+    </div>
+    <a href="#" class="event-btn">View Details</a>
   </div>
+
+</section>
+
+<div class="footer-line"></div>
+
 </main>
 
 </body>
 </html>
-
