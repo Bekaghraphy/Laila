@@ -11,14 +11,12 @@
   <style>
     :root{
       --bg-main:#0e0f14;
-      --bg-soft:#151722;
       --accent:#8b8df8;
       --accent-soft:#6f72e6;
       --text:#ffffff;
       --muted:rgba(255,255,255,0.74);
       --border:rgba(255,255,255,0.08);
       --shadow: 0 18px 60px rgba(0,0,0,0.45);
-      --radius:18px;
       --radius-lg:22px;
       --ease:cubic-bezier(.2,.8,.2,1);
     }
@@ -28,15 +26,13 @@
       background: radial-gradient(circle at top, #1a1c2d, var(--bg-main));
       color:var(--text);
       min-height:100vh;
-      overflow:hidden;
+      overflow-x:hidden;
     }
 
     .bg-glow{
       position:fixed; inset:-200px;
       background:
-        radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 10% 20%/520px 520px,
-        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px,
-        radial-gradient(closest-side, rgba(139,141,248,0.08), transparent 60%) 50% 95%/620px 620px;
+        radial-gradient(circle, rgba(139,141,248,0.18), transparent 60%);
       pointer-events:none;
       z-index:-1;
       animation: floatGlow 10s var(--ease) infinite alternate;
@@ -44,130 +40,104 @@
 
     @keyframes floatGlow{
       from{transform:translateY(0);}
-      to{transform:translateY(-18px);}
+      to{transform:translateY(-20px);}
     }
 
     header{
-      position:sticky; top:0; z-index:50;
-      display:flex; justify-content:space-between; align-items:center;
-      padding:16px 18px;
+      position:sticky;
+      top:0;
+      z-index:100;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:16px 24px;
+      backdrop-filter:blur(16px);
+      background:rgba(14,15,20,0.7);
       border-bottom:1px solid var(--border);
-      background: rgba(14,15,20,0.7);
-      backdrop-filter: blur(14px);
     }
 
-    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:2px;}
-    .brand .dot{
-      width:10px;height:10px;border-radius:50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      box-shadow:0 0 0 6px rgba(139,141,248,0.12);
-    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:2px;}
+    .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft));}
 
-    nav{display:none; gap:18px;}
-    nav a{
-      color:var(--muted); text-decoration:none; font-size:0.92rem;
-      padding:10px; border-radius:999px;
-    }
-    nav a.active{color:var(--text); background:rgba(139,141,248,0.12);}
+    nav{display:none;gap:18px;}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:999px;}
+    nav a.active{background:rgba(139,141,248,0.15);color:#fff;}
 
-    .right{display:flex; gap:10px;}
-
-    .menu-btn,.lang button{
-      background:rgba(255,255,255,0.03);
-      border:1px solid var(--border);
-      color:#fff;
-      padding:8px 12px;
-      border-radius:999px;
+    .right{display:flex;gap:10px;}
+    button{
       cursor:pointer;
-    }
-
-    .lang button.active{
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      border:none;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.04);
+      color:#fff;
+      padding:8px 14px;
     }
 
     .menu-panel{
-      position:fixed; top:70px; left:16px; right:16px;
+      position:fixed;
+      top:70px;
+      left:16px;
+      right:16px;
       background:rgba(21,23,34,0.95);
-      border:1px solid var(--border);
       border-radius:22px;
+      padding:14px;
       display:none;
-      padding:12px;
-      z-index:99;
+      z-index:999;
     }
-
     .menu-panel a{
       display:block;
       padding:12px;
-      color:var(--muted);
+      color:#fff;
       text-decoration:none;
       border-radius:14px;
     }
 
-    main{
-      max-width:1000px;
-      margin:0 auto;
-      padding:40px 18px;
-      text-align:center;
-    }
+    main{text-align:center;padding:60px 20px;}
+    h1{font-size:2.4rem;margin-bottom:12px;}
+    p{color:var(--muted);max-width:720px;margin:0 auto 20px;line-height:1.7;}
 
-    .hero h1{font-size:2.2rem;margin-bottom:12px;}
-    .hero p{color:var(--muted);max-width:750px;margin:0 auto 18px;}
-
-    .cta{display:flex;gap:12px;justify-content:center;margin-bottom:32px;}
-    .btn{
-      padding:12px 18px;border-radius:999px;border:none;
+    .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .btn-main{
       background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      color:#fff;cursor:pointer;
-    }
-    .btn.secondary{
-      background:rgba(255,255,255,0.04);
-      border:1px solid var(--border);
+      border:none;
+      padding:14px 22px;
+      font-size:.95rem;
     }
 
-    .history{
-      max-width:850px;
-      margin:0 auto 26px;
-      font-size:0.95rem;
-      line-height:1.8;
-      color:var(--muted);
-    }
-
-    .video-wrap{
-      max-width:800px;
-      margin:0 auto 30px;
-      aspect-ratio:16/9;
-      border-radius:18px;
-      overflow:hidden;
+    iframe{
+      width:100%;
+      max-width:820px;
+      height:460px;
+      border-radius:22px;
+      margin:40px auto;
+      display:block;
       box-shadow:var(--shadow);
     }
 
-    .video-wrap iframe{width:100%;height:100%;border:none;}
-
-    .footer-line{
-      height:2px;
-      width:60%;
-      margin:0 auto 12px;
-      background:linear-gradient(90deg,transparent,var(--accent),transparent);
-      animation: glowLine 3s infinite linear;
-    }
-
-    @keyframes glowLine{
-      from{background-position:0%;}
-      to{background-position:200%;}
-    }
-
     footer{
-      font-size:0.8rem;
-      color:var(--muted);
+      text-align:center;
+      padding:30px 10px;
+      margin-top:40px;
+    }
+
+    .glow-line{
+      height:2px;
+      width:160px;
+      margin:0 auto 14px;
+      background:linear-gradient(90deg,transparent,var(--accent),transparent);
+      animation: glow 3s infinite;
+    }
+
+    @keyframes glow{
+      0%{opacity:.2}
+      50%{opacity:1}
+      100%{opacity:.2}
     }
 
     @media(min-width:768px){
       nav{display:flex;}
       .menu-btn{display:none;}
     }
-
-    [data-lang]{display:none;}
   </style>
 </head>
 
@@ -175,90 +145,65 @@
 <div class="bg-glow"></div>
 
 <header>
-  <div class="brand"><span class="dot"></span><span>LAILA</span></div>
-
+  <div class="brand"><span class="dot"></span>LAILA</div>
   <nav>
-    <a href="index.html" data-route="index.html" data-en="Home" data-ar="الرئيسية"></a>
-    <a href="archive.html" data-route="archive.html" data-en="Archive" data-ar="الأرشيف"></a>
-    <a href="learn.html" data-route="learn.html" data-en="Learn" data-ar="التعلّم"></a>
-    <a href="assistant.html" data-route="assistant.html" data-en="AI Assistant" data-ar="المساعد الذكي"></a>
+    <a href="index.html" class="active">Home</a>
+    <a href="archive.html">Archive</a>
+    <a href="learn.html">Learn</a>
+    <a href="assistant.html">AI Assistant</a>
   </nav>
-
   <div class="right">
-    <button class="menu-btn" id="menuBtn">Menu</button>
-    <div class="lang">
-      <button id="btn-en">EN</button>
-      <button id="btn-ar">AR</button>
-    </div>
+    <button class="menu-btn" onclick="toggleMenu()">Menu</button>
+    <button onclick="setLang('en')">EN</button>
+    <button onclick="setLang('ar')">AR</button>
   </div>
 </header>
 
-<div class="menu-panel" id="menuPanel"></div>
+<div class="menu-panel" id="menuPanel">
+  <a href="index.html">Home</a>
+  <a href="archive.html">Archive</a>
+  <a href="learn.html">Learn</a>
+  <a href="assistant.html">AI Assistant</a>
+</div>
 
 <main>
-  <section class="hero">
-    <div data-lang="en">
-      <h1>Rhythmic Gymnastics Intelligence</h1>
-      <p>An AI-powered archive and learning platform dedicated to rhythmic gymnastics.</p>
-      <div class="cta">
-        <button class="btn">Explore the Archive</button>
-        <button class="btn secondary">Ask the Assistant</button>
-      </div>
-    </div>
+  <h1 id="title">Rhythmic Gymnastics Intelligence</h1>
+  <p id="desc">
+    Rhythmic gymnastics originated in the early 20th century, blending classical ballet,
+    expressive movement, and precise apparatus handling. Over decades, it evolved into a
+    highly technical Olympic discipline, first appearing in the Games in 1984. Today, it
+    represents a refined balance between athletic excellence and artistic expression.
+  </p>
 
-    <div data-lang="ar">
-      <h1>منصة ذكية للجمباز الإيقاعي</h1>
-      <p>منصة تعتمد على الذكاء الاصطناعي لتوثيق وتعليم رياضة الجمباز الإيقاعي.</p>
-      <div class="cta">
-        <button class="btn">تصفح الأرشيف</button>
-        <button class="btn secondary">اسأل المساعد</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="history">
-    <div data-lang="en">
-      Rhythmic gymnastics emerged in the early 20th century as a discipline combining ballet,
-      expressive movement, and apparatus handling. It evolved into an Olympic sport in 1984
-      and continues to grow as a balance between athletic precision and artistic expression.
-    </div>
-
-    <div data-lang="ar">
-      نشأ الجمباز الإيقاعي في أوائل القرن العشرين كرياضة تجمع بين الباليه والحركة التعبيرية
-      واستخدام الأدوات، ثم تطور ليصبح رياضة أولمبية عام 1984 تجمع بين الدقة الفنية والجمال الحركي.
-    </div>
-  </section>
-
-  <div class="video-wrap">
-    <iframe src="https://www.youtube.com/embed/_16ZTruxYas" allowfullscreen></iframe>
+  <div class="cta">
+    <button class="btn-main" onclick="location.href='archive.html'">Explore the Archive</button>
+    <button onclick="location.href='assistant.html'">Ask the Assistant</button>
   </div>
 
-  <div class="footer-line"></div>
-  <footer>© 2025 All rights reserved</footer>
+  <iframe src="https://www.youtube.com/embed/_16ZTruxYas" allowfullscreen></iframe>
 </main>
 
+<footer>
+  <div class="glow-line"></div>
+  <small>© 2025 LAILA — All rights reserved</small>
+</footer>
+
 <script>
-const STORAGE_KEY="laila_lang";
-const menuBtn=document.getElementById("menuBtn");
-const menuPanel=document.getElementById("menuPanel");
+  function toggleMenu(){
+    const m=document.getElementById("menuPanel");
+    m.style.display=m.style.display==="block"?"none":"block";
+  }
 
-function setLang(lang){
-  document.querySelectorAll("[data-lang]").forEach(el=>{
-    el.style.display=el.getAttribute("data-lang")===lang?"block":"none";
-  });
-  document.querySelectorAll("nav a").forEach(a=>{
-    a.textContent=a.dataset[lang];
-  });
-  localStorage.setItem(STORAGE_KEY,lang);
-}
-
-menuBtn.onclick=()=>menuPanel.style.display=menuPanel.style.display==="block"?"none":"block";
-
-const saved=localStorage.getItem(STORAGE_KEY)||"en";
-setLang(saved);
-document.getElementById("btn-en").onclick=()=>setLang("en");
-document.getElementById("btn-ar").onclick=()=>setLang("ar");
+  function setLang(l){
+    if(l==="ar"){
+      document.documentElement.dir="rtl";
+      document.getElementById("title").innerText="منصة ذكية للجمباز الإيقاعي";
+      document.getElementById("desc").innerText=
+      "نشأ الجمباز الإيقاعي في أوائل القرن العشرين كرياضة تجمع بين الباليه والحركة التعبيرية واستخدام الأدوات. تطورت الرياضة تدريجيًا حتى أصبحت جزءًا من الألعاب الأولمبية عام 1984، واليوم تمثل توازنًا فريدًا بين القوة الرياضية والجمال الفني.";
+    }else{
+      location.reload();
+    }
+  }
 </script>
-
 </body>
 </html>
