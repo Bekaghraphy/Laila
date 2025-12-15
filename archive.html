@@ -133,48 +133,73 @@ h1{
 }
 
 /* IMAGE SECTION */
-.visual{
-  position:relative;
-  margin-top:10px;
-  height:520px;
-  overflow:hidden;
+.visual {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
 }
 
-.visual img{
-  position:absolute;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  height:520px;
-  pointer-events:none;
+.visual img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  opacity: 0.9;
+  filter: drop-shadow(0 40px 80px rgba(120,130,255,0.15));
   animation: floatSoft 6s ease-in-out infinite;
-  filter:drop-shadow(0 0 60px rgba(139,141,248,.35));
 }
 
-/* subtle motion */
-@keyframes floatSoft{
-  0%{transform:translate(-50%,0);}
-  50%{transform:translate(-50%,-10px);}
-  100%{transform:translate(-50%,0);}
+/* حركة بسيطة جدًا */
+@keyframes floatSoft {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.01);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
+
 
 /* LIGHT SHAPES */
-.line{
-  position:absolute;
-  width:200px;
-  height:3px;
-  background:linear-gradient(90deg,transparent,var(--accent),transparent);
-  opacity:.35;
-  animation: floatLine 6s ease-in-out infinite alternate;
+.visual .line {
+  position: absolute;
+  width: 180px;
+  height: 2px;
+  background: rgba(255,255,255,0.18);
+  filter: blur(0.5px);
+  animation: wave 5s ease-in-out infinite;
 }
 
-.line.one{top:65%;left:12%;}
-.line.two{top:70%;right:14%;}
-.line.three{top:75%;left:30%;}
+.visual .line.one {
+  left: -60px;
+  bottom: 120px;
+  transform: rotate(-8deg);
+}
 
-@keyframes floatLine{
-  from{transform:translateX(0);}
-  to{transform:translateX(40px);}
+.visual .line.two {
+  right: -80px;
+  bottom: 160px;
+  transform: rotate(6deg);
+  animation-delay: 1.5s;
+}
+
+.visual .line.three {
+  right: -40px;
+  bottom: 90px;
+  transform: rotate(-4deg);
+  animation-delay: 3s;
+}
+
+@keyframes wave {
+  0%,100% { opacity: 0.15; }
+  50% { opacity: 0.35; }
 }
 
 /* RESPONSIVE */
