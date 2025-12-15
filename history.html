@@ -7,166 +7,294 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- ⚠️ CSS unchanged -->
-  <!-- نفس الستايل والأنيميشن -->
+  <style>
+    :root{
+      --bg-main:#0e0f14;
+      --bg-soft:#151722;
+      --accent:#8b8df8;
+      --accent-soft:#6f72e6;
+      --text:#ffffff;
+      --muted:rgba(255,255,255,0.74);
+      --border:rgba(255,255,255,0.08);
+      --shadow:0 18px 60px rgba(0,0,0,0.45);
+      --radius:18px;
+      --radius-lg:22px;
+      --ease:cubic-bezier(.2,.8,.2,1);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
+    body{
+      background:radial-gradient(circle at top,#1a1c2d,var(--bg-main));
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .bg-glow{
+      position:fixed;inset:-200px;
+      background:
+        radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 15% 20%/520px 520px,
+        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px;
+      pointer-events:none;z-index:-1;
+      animation:floatGlow 10s var(--ease) infinite alternate;
+    }
+    @keyframes floatGlow{from{transform:translateY(0);}to{transform:translateY(-16px);} }
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:50;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:16px 18px;
+      border-bottom:1px solid var(--border);
+      background:rgba(14,15,20,0.7);
+      backdrop-filter:blur(14px);
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:2px;}
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      box-shadow:0 0 0 6px rgba(139,141,248,.12);
+    }
+
+    nav{display:none;gap:18px;}
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:999px;
+      transition:all .18s var(--ease);
+    }
+    nav a:hover{
+      color:var(--text);
+      background:rgba(255,255,255,.04);
+      box-shadow:0 0 0 1px rgba(139,141,248,.14) inset;
+    }
+    nav a.active{
+      background:rgba(139,141,248,.1);
+      color:var(--text);
+    }
+
+    .right{display:flex;align-items:center;gap:10px;}
+    .lang button,.menu-btn{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.02);
+      color:var(--text);
+      padding:7px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:all .18s var(--ease);
+    }
+    .lang button.active{
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      border:none;
+    }
+
+    .menu-panel{
+      display:none;
+      position:fixed;top:68px;left:16px;right:16px;
+      background:rgba(21,23,34,.95);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow);
+      padding:12px;
+    }
+    .menu-panel a{
+      display:block;
+      padding:12px;
+      color:var(--muted);
+      text-decoration:none;
+      border-radius:14px;
+      transition:all .18s var(--ease);
+    }
+    .menu-panel a:hover{
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+    }
+
+    main{max-width:900px;margin:0 auto;padding:40px 18px 90px;}
+    .fade-in{animation:fade .5s var(--ease) both;}
+    @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;}}
+
+    .hero{text-align:center;margin-bottom:34px;}
+    .hero h1{font-size:2rem;margin-bottom:12px;}
+    .hero p{color:var(--muted);font-size:.95rem;line-height:1.7;}
+
+    /* Content sections */
+    .section{
+      background:rgba(21,23,34,.85);
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
+      padding:22px;
+      margin-bottom:16px;
+      transition:all .18s var(--ease);
+    }
+    .section:hover{
+      transform:translateY(-2px);
+      box-shadow:0 22px 70px rgba(0,0,0,.45);
+    }
+    .section h2{
+      font-size:1.1rem;
+      margin-bottom:10px;
+    }
+    .section p{
+      font-size:.9rem;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .cta{
+      margin-top:28px;
+      text-align:center;
+    }
+    .cta button{
+      padding:12px 28px;
+      border-radius:999px;
+      border:none;
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      color:#fff;
+      cursor:pointer;
+      transition:all .18s var(--ease);
+    }
+    .cta button:hover{
+      transform:translateY(-2px);
+      box-shadow:0 22px 70px rgba(139,141,248,.28);
+    }
+
+    @media(min-width:768px){
+      nav{display:flex;}
+      .menu-btn{display:none;}
+      .menu-panel{display:none!important;}
+      .hero h1{font-size:2.6rem;}
+    }
+
+    [data-lang]{display:none;}
+  </style>
 </head>
 
 <body>
-<div class="bg-glow"></div>
+  <div class="bg-glow"></div>
 
-<header>
-  <div class="brand"><span class="dot"></span>LAILA</div>
-  <nav>
+  <header>
+    <div class="brand"><span class="dot"></span>LAILA</div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="archive.html" class="active">Archive</a>
+      <a href="learn.html">Learn</a>
+      <a href="assistant.html">AI Assistant</a>
+    </nav>
+
+    <div class="right">
+      <button class="menu-btn" id="menuBtn">Menu</button>
+      <div class="lang">
+        <button id="btn-en">EN</button>
+        <button id="btn-ar">AR</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="menu-panel" id="menuPanel">
     <a href="index.html">Home</a>
-    <a href="archive.html" class="active">Archive</a>
+    <a href="archive.html">Archive</a>
     <a href="learn.html">Learn</a>
     <a href="assistant.html">AI Assistant</a>
-  </nav>
-  <div class="right">
-    <button class="menu-btn" id="menuBtn">Menu</button>
-    <div class="lang">
-      <button id="btn-en">EN</button>
-      <button id="btn-ar">AR</button>
+  </div>
+
+  <main class="fade-in">
+
+    <section class="hero">
+      <div data-lang="en">
+        <h1>History of Rhythmic Gymnastics</h1>
+        <p>
+          From expressive movement to an international competitive sport —
+          a structured journey through the evolution of rhythmic gymnastics.
+        </p>
+      </div>
+      <div data-lang="ar">
+        <h1>تاريخ الجمباز الإيقاعي</h1>
+        <p>
+          من حركات تعبيرية بسيطة إلى رياضة تنافسية عالمية —
+          رحلة منظمة عبر تطور الجمباز الإيقاعي.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 data-lang="en">Origins</h2>
+      <h2 data-lang="ar">النشأة</h2>
+      <p data-lang="en">
+        Rhythmic gymnastics began as a form of expressive physical education,
+        combining dance, movement, and apparatus work.
+      </p>
+      <p data-lang="ar">
+        نشأ الجمباز الإيقاعي كنوع من التربية البدنية التعبيرية،
+        يجمع بين الرقص والحركة واستخدام الأدوات.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2 data-lang="en">Development in Europe</h2>
+      <h2 data-lang="ar">التطور في أوروبا</h2>
+      <p data-lang="en">
+        The sport developed rapidly in Eastern Europe, particularly in Russia
+        and Bulgaria, shaping its competitive identity.
+      </p>
+      <p data-lang="ar">
+        تطورت الرياضة بسرعة في أوروبا الشرقية، خاصة في روسيا وبلغاريا،
+        مما ساهم في تشكيل هويتها التنافسية.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2 data-lang="en">International Recognition</h2>
+      <h2 data-lang="ar">الاعتراف الدولي</h2>
+      <p data-lang="en">
+        Rhythmic gymnastics became officially recognized by the FIG
+        and later included in the Olympic Games.
+      </p>
+      <p data-lang="ar">
+        تم الاعتراف بالجمباز الإيقاعي رسميًا من قبل الاتحاد الدولي،
+        ثم أُدرج لاحقًا ضمن الألعاب الأولمبية.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2 data-lang="en">Modern Era</h2>
+      <h2 data-lang="ar">العصر الحديث</h2>
+      <p data-lang="en">
+        Today, the sport continues to evolve with updated rules,
+        higher difficulty, and greater artistic expression.
+      </p>
+      <p data-lang="ar">
+        اليوم، تستمر الرياضة في التطور مع تحديث القوانين،
+        وزيادة الصعوبة، وتعزيز الجانب الفني.
+      </p>
+    </section>
+
+    <div class="cta">
+      <button onclick="location.href='assistant.html'">Ask LAILA about this topic</button>
     </div>
-  </div>
-</header>
 
-<div class="menu-panel" id="menuPanel">
-  <a href="index.html">Home</a>
-  <a href="archive.html">Archive</a>
-  <a href="learn.html">Learn</a>
-  <a href="assistant.html">AI Assistant</a>
-</div>
+  </main>
 
-<main class="fade-in">
-
-<!-- HERO -->
-<section class="hero">
-  <div data-lang="en">
-    <h1>History of Rhythmic Gymnastics</h1>
-    <p>
-      A complete historical journey tracing rhythmic gymnastics
-      from expressive movement practices to a global Olympic sport.
-    </p>
-  </div>
-  <div data-lang="ar">
-    <h1>تاريخ الجمباز الإيقاعي</h1>
-    <p>
-      رحلة تاريخية متكاملة ترصد تطور الجمباز الإيقاعي
-      من الحركات التعبيرية إلى رياضة أولمبية عالمية.
-    </p>
-  </div>
-</section>
-
-<!-- ORIGINS -->
-<section class="section">
-  <h2 data-lang="en">Early Origins</h2>
-  <h2 data-lang="ar">الجذور الأولى</h2>
-
-  <p data-lang="en">
-    Rhythmic gymnastics originated in Europe during the late 19th and early
-    20th centuries. It evolved from expressive physical education systems that
-    emphasized rhythm, posture, and harmony between body and music.
-    These early practices were influenced by ballet, modern dance,
-    and Scandinavian gymnastics philosophies.
-  </p>
-
-  <p data-lang="ar">
-    نشأ الجمباز الإيقاعي في أوروبا خلال أواخر القرن التاسع عشر وبدايات القرن العشرين،
-    حيث تطور من أنظمة التربية البدنية التعبيرية التي ركزت على الإيقاع،
-    التوازن، والانسجام بين الجسد والموسيقى.
-    وقد تأثرت هذه الممارسات المبكرة بالباليه والرقص الحديث
-    والمدارس الإسكندنافية للجمباز.
-  </p>
-</section>
-
-<!-- EUROPE -->
-<section class="section">
-  <h2 data-lang="en">Development in Eastern Europe</h2>
-  <h2 data-lang="ar">التطور في أوروبا الشرقية</h2>
-
-  <p data-lang="en">
-    During the early 20th century, rhythmic gymnastics became highly structured
-    in Eastern Europe, particularly in the Soviet Union and Bulgaria.
-    Coaches formalized apparatus techniques, choreography principles,
-    and training systems, transforming it into a competitive sport.
-  </p>
-
-  <p data-lang="ar">
-    خلال النصف الأول من القرن العشرين، شهد الجمباز الإيقاعي
-    تطورًا كبيرًا في أوروبا الشرقية، خاصة في الاتحاد السوفييتي وبلغاريا.
-    حيث تم تقنين استخدام الأدوات، أسس تصميم الجمل الحركية،
-    وأنظمة التدريب، مما حوله إلى رياضة تنافسية منظمة.
-  </p>
-</section>
-
-<!-- FIG -->
-<section class="section">
-  <h2 data-lang="en">International Recognition</h2>
-  <h2 data-lang="ar">الاعتراف الدولي</h2>
-
-  <p data-lang="en">
-    The International Gymnastics Federation (FIG) officially recognized
-    rhythmic gymnastics in the 1960s.
-    The first World Championships were held in 1963,
-    establishing unified rules and judging systems worldwide.
-  </p>
-
-  <p data-lang="ar">
-    اعترف الاتحاد الدولي للجمباز رسميًا برياضة الجمباز الإيقاعي
-    في ستينيات القرن الماضي، وتم تنظيم أول بطولة عالمية عام 1963،
-    مما ساهم في توحيد القوانين وأنظمة التحكيم على المستوى الدولي.
-  </p>
-</section>
-
-<!-- OLYMPICS -->
-<section class="section">
-  <h2 data-lang="en">Olympic Era</h2>
-  <h2 data-lang="ar">العصر الأولمبي</h2>
-
-  <p data-lang="en">
-    Rhythmic gymnastics debuted at the Olympic Games in 1984
-    with individual competitions, while group events were added in 1996.
-    Olympic inclusion significantly expanded the sport’s global reach
-    and professional standards.
-  </p>
-
-  <p data-lang="ar">
-    دخل الجمباز الإيقاعي البرنامج الأولمبي لأول مرة عام 1984
-    من خلال المنافسات الفردية، ثم أضيفت المنافسات الجماعية عام 1996.
-    وأسهم هذا الظهور الأولمبي في انتشار الرياضة عالميًا
-    ورفع مستواها الاحترافي.
-  </p>
-</section>
-
-<!-- MODERN -->
-<section class="section">
-  <h2 data-lang="en">Modern Rhythmic Gymnastics</h2>
-  <h2 data-lang="ar">الجمباز الإيقاعي الحديث</h2>
-
-  <p data-lang="en">
-    Today, rhythmic gymnastics combines extreme athletic difficulty
-    with advanced artistic storytelling.
-    Digital media, international academies, and evolving rules
-    continue to shape the sport for future generations.
-  </p>
-
-  <p data-lang="ar">
-    اليوم، يجمع الجمباز الإيقاعي بين مستويات عالية من الصعوبة البدنية
-    والتعبير الفني المتقدم.
-    كما تساهم وسائل الإعلام الرقمية والأكاديميات الدولية
-    وتطور القوانين في تشكيل مستقبل هذه الرياضة.
-  </p>
-</section>
-
-<div class="cta">
-  <button onclick="location.href='assistant.html'">
-    Ask LAILA about this topic
-  </button>
-</div>
-
-</main>
-
-<!-- ⚠️ JS unchanged -->
+  <script>
+    const STORAGE_KEY="laila_lang";
+    function setLang(lang){
+      document.querySelectorAll("[data-lang]").forEach(e=>{
+        e.style.display=e.getAttribute("data-lang")===lang?"block":"none";
+      });
+      document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+      document.documentElement.lang=lang;
+      document.getElementById("btn-en").classList.toggle("active",lang==="en");
+      document.getElementById("btn-ar").classList.toggle("active",lang==="ar");
+      localStorage.setItem(STORAGE_KEY,lang);
+    }
+    document.getElementById("menuBtn").onclick=()=>{
+      const p=document.getElementById("menuPanel");
+      p.style.display=p.style.display==="block"?"none":"block";
+    };
+    const saved=localStorage.getItem(STORAGE_KEY)||"en";
+    setLang(saved);
+  </script>
 </body>
 </html>
