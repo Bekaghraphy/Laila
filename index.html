@@ -11,15 +11,12 @@
   <style>
     :root{
       --bg-main:#0e0f14;
-      --bg-soft:#151722;
       --accent:#8b8df8;
       --accent-soft:#6f72e6;
       --text:#ffffff;
       --muted:rgba(255,255,255,0.74);
       --border:rgba(255,255,255,0.08);
       --shadow: 0 18px 60px rgba(0,0,0,0.45);
-      --radius:18px;
-      --radius-lg:22px;
       --ease:cubic-bezier(.2,.8,.2,1);
     }
 
@@ -35,12 +32,15 @@
       position:fixed; inset:-200px;
       background:
         radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 10% 20%/520px 520px,
-        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px,
-        radial-gradient(closest-side, rgba(139,141,248,0.08), transparent 60%) 50% 95%/620px 620px;
+        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px;
       pointer-events:none;
       z-index:-1;
       animation: floatGlow 10s var(--ease) infinite alternate;
       opacity:0.9;
+    }
+    @keyframes floatGlow{
+      from{transform:translateY(0);}
+      to{transform:translateY(-18px);}
     }
 
     header{
@@ -48,31 +48,24 @@
       display:flex; align-items:center; justify-content:space-between;
       padding:16px 18px;
       border-bottom:1px solid var(--border);
-      background: rgba(14,15,20,0.70);
+      background: rgba(14,15,20,0.7);
       backdrop-filter: blur(14px);
     }
 
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:700; letter-spacing:2px;
-    }
-    .brand .dot{
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;}
+    .dot{
       width:10px;height:10px;border-radius:50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      box-shadow: 0 0 0 6px rgba(139,141,248,0.12);
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
     }
 
     nav{display:flex;gap:18px;}
     nav a{
       color:var(--muted);
       text-decoration:none;
-      font-size:0.92rem;
       padding:10px 12px;
       border-radius:999px;
-      transition:.2s;
     }
-    nav a:hover{color:#fff;background:rgba(255,255,255,0.04);}
-    nav a.active{background:rgba(139,141,248,0.12);color:#fff;}
+    nav a:hover{color:#fff;background:rgba(255,255,255,0.05);}
 
     .lang button{
       border:1px solid var(--border);
@@ -87,11 +80,9 @@
       border-color:transparent;
     }
 
-    main{max-width:1100px;margin:0 auto;padding:50px 18px 40px;}
+    main{max-width:1100px;margin:0 auto;padding:50px 18px;}
 
-    .hero{text-align:center;margin-bottom:60px;animation:fadeUp .8s ease both;}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
-
+    .hero{text-align:center;margin-bottom:60px;}
     .hero h1{font-size:2.6rem;margin-bottom:14px;}
     .hero p{color:var(--muted);max-width:720px;margin:0 auto 26px;}
 
@@ -106,24 +97,30 @@
       border:1px solid var(--border);
     }
 
-    .history{margin-bottom:60px;animation:fadeUp .8s ease both;}
-    .history h2{text-align:center;font-size:1.8rem;margin-bottom:14px;}
-    .history p{text-align:center;color:var(--muted);line-height:1.8;margin-bottom:14px;}
-
     .video-wrap{
-      margin-top:24px;border-radius:18px;overflow:hidden;
+      margin:60px auto;
+      border-radius:18px;
+      overflow:hidden;
       box-shadow:var(--shadow);
+      max-width:900px;
     }
-    .video-wrap iframe{width:100%;aspect-ratio:16/9;border:0;}
+    .video-wrap iframe{
+      width:100%;
+      aspect-ratio:16/9;
+      border:0;
+    }
 
     footer{text-align:center;margin-top:70px;}
     .glow-line{
-      height:2px;width:100%;
+      height:2px;
       background:linear-gradient(90deg,transparent,var(--accent),transparent);
       animation:glowMove 3s linear infinite;
       margin-bottom:14px;
     }
-    @keyframes glowMove{from{background-position:0%;}to{background-position:200%;}}
+    @keyframes glowMove{
+      from{background-position:0%;}
+      to{background-position:200%;}
+    }
     footer p{color:var(--muted);font-size:0.85rem;}
 
     [data-lang]{display:none;}
@@ -169,6 +166,13 @@
       </div>
     </div>
   </section>
+
+  <!-- VIDEO -->
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/_16ZTruxYas"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
 </main>
 
 <footer>
@@ -179,6 +183,8 @@
 
 <script>
   const STORAGE_KEY = "laila_lang";
+  const btnEn = document.getElementById("btn-en");
+  const btnAr = document.getElementById("btn-ar");
 
   function setLang(lang){
     document.querySelectorAll("[data-lang]").forEach(el=>{
@@ -196,11 +202,9 @@
     btnAr.classList.toggle("active", lang === "ar");
   }
 
-  const initialLang = localStorage.getItem(STORAGE_KEY) || "en";
-  setLang(initialLang);
-
-  btnEn.onclick = () => setLang("en");
-  btnAr.onclick = () => setLang("ar");
+  setLang(localStorage.getItem(STORAGE_KEY) || "en");
+  btnEn.onclick = ()=>setLang("en");
+  btnAr.onclick = ()=>setLang("ar");
 </script>
 
 </body>
