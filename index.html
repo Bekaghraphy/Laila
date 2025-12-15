@@ -11,213 +11,453 @@
   <style>
     :root{
       --bg-main:#0e0f14;
+      --bg-soft:#151722;
       --accent:#8b8df8;
       --accent-soft:#6f72e6;
       --text:#ffffff;
       --muted:rgba(255,255,255,0.74);
       --border:rgba(255,255,255,0.08);
       --shadow: 0 18px 60px rgba(0,0,0,0.45);
+      --radius:18px;
       --radius-lg:22px;
       --ease:cubic-bezier(.2,.8,.2,1);
     }
 
     *{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
-
     body{
       background: radial-gradient(circle at top, #1a1c2d, var(--bg-main));
       color:var(--text);
       min-height:100vh;
-      overflow:hidden;
+      overflow-x:hidden;
     }
 
+    /* Subtle background sparkle */
     .bg-glow{
       position:fixed; inset:-200px;
       background:
         radial-gradient(closest-side, rgba(139,141,248,0.14), transparent 60%) 10% 20%/520px 520px,
-        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px;
+        radial-gradient(closest-side, rgba(111,114,230,0.10), transparent 60%) 85% 30%/560px 560px,
+        radial-gradient(closest-side, rgba(139,141,248,0.08), transparent 60%) 50% 95%/620px 620px;
+      filter: blur(0px);
       pointer-events:none;
       z-index:-1;
       animation: floatGlow 10s var(--ease) infinite alternate;
+      opacity:0.9;
     }
     @keyframes floatGlow{
-      from{transform:translateY(0);}
-      to{transform:translateY(-18px);}
+      from{transform:translate3d(0,0,0) scale(1);}
+      to{transform:translate3d(0,-18px,0) scale(1.03);}
     }
 
+    /* Header */
     header{
       position:sticky; top:0; z-index:50;
-      display:flex; justify-content:space-between; align-items:center;
+      display:flex; align-items:center; justify-content:space-between;
       padding:16px 18px;
-      background:rgba(14,15,20,0.7);
-      backdrop-filter:blur(14px);
       border-bottom:1px solid var(--border);
+      background: rgba(14,15,20,0.70);
+      backdrop-filter: blur(14px);
     }
-
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:2px;}
-    .dot{
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700; letter-spacing:2px; font-size:1.05rem;
+      user-select:none;
+    }
+    .brand .dot{
       width:10px;height:10px;border-radius:50%;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      box-shadow:0 0 20px rgba(139,141,248,.6);
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      box-shadow: 0 0 0 6px rgba(139,141,248,0.12), 0 0 26px rgba(139,141,248,0.35);
     }
 
-    nav{display:none;gap:18px;}
+    nav{display:none; align-items:center; gap:18px;}
     nav a{
       color:var(--muted);
       text-decoration:none;
-      padding:8px 12px;
+      font-size:0.92rem;
+      padding:10px 10px;
       border-radius:999px;
+      position:relative;
+      transition: transform .18s var(--ease), color .18s var(--ease), background .18s var(--ease);
     }
-    nav a.active{background:rgba(139,141,248,.12);color:#fff;}
+    nav a:hover{
+      color:var(--text);
+      background: rgba(255,255,255,0.04);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.14) inset;
+    }
+    nav a.active{
+      color:var(--text);
+      background: rgba(139,141,248,0.10);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.22) inset, 0 14px 38px rgba(0,0,0,0.35);
+    }
 
-    .right{display:flex;gap:10px;align-items:center;}
-    .menu-btn,.lang button{
-      background:rgba(255,255,255,.03);
+    .right{
+      display:flex; align-items:center; gap:10px;
+    }
+
+    .lang button, .menu-btn{
       border:1px solid var(--border);
-      color:#fff;
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
       padding:8px 12px;
       border-radius:999px;
+      font-size:0.82rem;
       cursor:pointer;
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+      position:relative;
+      overflow:hidden;
+    }
+    .lang button.active{
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      box-shadow: 0 16px 50px rgba(139,141,248,0.22);
+    }
+    .lang button:hover, .menu-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.16) inset, 0 18px 60px rgba(0,0,0,0.35);
+    }
+    .tap-glow::after{
+      content:"";
+      position:absolute; inset:-60%;
+      background: radial-gradient(circle, rgba(139,141,248,0.55), transparent 60%);
+      transform: scale(0.2);
+      opacity:0;
+      animation: tap 520ms var(--ease) forwards;
+      pointer-events:none;
+    }
+    @keyframes tap{
+      0%{opacity:0; transform:scale(0.15);}
+      35%{opacity:0.65; transform:scale(0.55);}
+      100%{opacity:0; transform:scale(1.05);}
     }
 
+    /* Mobile menu */
+    .menu-btn{display:inline-flex; align-items:center; gap:8px;}
     .menu-panel{
-      position:fixed;top:70px;left:16px;right:16px;
-      background:rgba(21,23,34,.95);
+      position:fixed; top:68px; left:16px; right:16px;
+      background: rgba(21,23,34,0.92);
       border:1px solid var(--border);
-      border-radius:var(--radius-lg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
       padding:12px;
       display:none;
-      z-index:100;
+      backdrop-filter: blur(16px);
     }
     .menu-panel a{
-      display:block;padding:12px;border-radius:14px;
-      color:var(--muted);text-decoration:none;
+      display:block;
+      padding:12px 12px;
+      border-radius:14px;
+      color:var(--muted);
+      text-decoration:none;
+      transition: background .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
+    }
+    .menu-panel a:hover{
+      background: rgba(255,255,255,0.04);
+      color:var(--text);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.14) inset;
+    }
+    .menu-panel a.active{
+      color:var(--text);
+      background: rgba(139,141,248,0.10);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.22) inset;
     }
 
-    main{
-      height:calc(100vh - 80px);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      padding:20px;
+    /* Main */
+    main{max-width:1100px; margin:0 auto; padding:42px 18px 80px;}
+    .fade-in{animation: fadeIn 520ms var(--ease) both;}
+    @keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+    .hero{
       text-align:center;
-      gap:16px;
+      padding:42px 10px 26px;
+      max-width:900px;
+      margin:0 auto;
     }
-
-    .history{
-      max-width:800px;
-      font-size:.95rem;
-      line-height:1.7;
+    .hero h1{
+      font-size:2.05rem;
+      line-height:1.25;
+      letter-spacing:0.2px;
+      margin-bottom:14px;
+    }
+    .hero p{
       color:var(--muted);
-    }
-
-    .video-wrap{
-      width:100%;
+      font-size:0.98rem;
+      line-height:1.75;
+      margin:0 auto;
       max-width:720px;
-      aspect-ratio:16/9;
-      border-radius:18px;
+    }
+
+    .cta{
+      margin-top:24px;
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:none;
+      cursor:pointer;
+      padding:13px 18px;
+      border-radius:999px;
+      font-size:0.92rem;
+      color:#fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      box-shadow: 0 16px 54px rgba(139,141,248,0.22);
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), filter .18s var(--ease);
+      position:relative;
       overflow:hidden;
-      box-shadow:var(--shadow);
+      min-width: 170px;
     }
-    iframe{width:100%;height:100%;border:0;}
-
-    .glow-line{
-      width:160px;height:2px;
-      background:linear-gradient(90deg,transparent,var(--accent),transparent);
-      animation: glowMove 2.5s linear infinite;
-      margin-top:12px;
+    .btn.secondary{
+      background: rgba(255,255,255,0.03);
+      border:1px solid var(--border);
+      color:var(--text);
+      box-shadow:none;
     }
-    @keyframes glowMove{
-      from{background-position:0%;}
-      to{background-position:200%;}
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 22px 70px rgba(139,141,248,0.28);
+      filter:saturate(1.05);
     }
-
-    footer{
-      font-size:.75rem;
-      color:var(--muted);
-      margin-top:6px;
+    .btn.secondary:hover{
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.16) inset, 0 18px 60px rgba(0,0,0,0.35);
     }
 
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:26px;
+    }
+    .card{
+      background: rgba(21,23,34,0.86);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding:20px 18px;
+      text-align:left;
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease);
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-60% -30%;
+      background: radial-gradient(circle at 30% 30%, rgba(139,141,248,0.18), transparent 55%);
+      opacity:0;
+      transition: opacity .18s var(--ease);
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(139,141,248,0.18);
+      box-shadow: 0 26px 80px rgba(0,0,0,0.45);
+    }
+    .card:hover::before{opacity:1;}
+    .card h3{font-size:1.05rem; margin-bottom:8px;}
+    .card p{color:var(--muted); font-size:0.88rem; line-height:1.6; margin-bottom:14px;}
+    .card a{
+      color: var(--text);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:0.9rem;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease);
+    }
+    .card a:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(139,141,248,0.16) inset, 0 18px 60px rgba(0,0,0,0.35);
+      background: rgba(139,141,248,0.08);
+    }
+
+    /* Responsive */
     @media(min-width:768px){
+      header{padding:16px 26px;}
       nav{display:flex;}
       .menu-btn{display:none;}
+      .menu-panel{display:none !important;}
+      main{padding:52px 26px 90px;}
+      .hero h1{font-size:3rem;}
+      .grid{grid-template-columns: repeat(3, 1fr); gap:16px;}
+      .card{padding:22px 20px;}
     }
 
+    /* Language blocks */
     [data-lang]{display:none;}
   </style>
 </head>
 
 <body>
-<div class="bg-glow"></div>
+  <div class="bg-glow"></div>
 
-<header>
-  <div class="brand"><span class="dot"></span>LAILA</div>
-
-  <nav>
-    <a href="index.html" data-route="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
-    <a href="archive.html" data-route="archive.html" data-en="Archive" data-ar="الأرشيف">Archive</a>
-    <a href="learn.html" data-route="learn.html" data-en="Learn" data-ar="التعلّم">Learn</a>
-    <a href="assistant.html" data-route="assistant.html" data-en="AI Assistant" data-ar="المساعد الذكي">AI Assistant</a>
-  </nav>
-
-  <div class="right">
-    <button class="menu-btn" id="menuBtn">Menu</button>
-    <div class="lang">
-      <button id="btn-en">EN</button>
-      <button id="btn-ar">AR</button>
+  <header>
+    <div class="brand">
+      <span class="dot"></span>
+      <span>LAILA</span>
     </div>
-  </div>
-</header>
 
-<div class="menu-panel" id="menuPanel">
-  <a href="index.html">الرئيسية</a>
-  <a href="archive.html">الأرشيف</a>
-  <a href="learn.html">التعلّم</a>
-  <a href="assistant.html">المساعد الذكي</a>
-</div>
+    <nav id="desktopNav">
+      <a href="index.html" data-route="index.html">Home</a>
+      <a href="archive.html" data-route="archive.html">Archive</a>
+      <a href="learn.html" data-route="learn.html">Learn</a>
+      <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
+    </nav>
 
-<main>
-  <div class="history" data-lang="en">
-    Rhythmic gymnastics emerged in the early 20th century, blending elements of ballet,
-    artistic movement, and apparatus handling. It became an official Olympic discipline in 1984,
-    celebrating grace, precision, and musical expression.
-  </div>
+    <div class="right">
+      <button class="menu-btn" id="menuBtn" type="button">Menu</button>
+      <div class="lang">
+        <button id="btn-en" type="button">EN</button>
+        <button id="btn-ar" type="button">AR</button>
+      </div>
+    </div>
+  </header>
 
-  <div class="history" data-lang="ar">
-    نشأ الجمباز الإيقاعي في أوائل القرن العشرين، متأثرًا بالباليه والحركات التعبيرية،
-    وأصبح رياضة أولمبية رسمية عام 1984، حيث يجمع بين الرشاقة والدقة والتعبير الفني.
-  </div>
-
-  <div class="video-wrap">
-    <iframe src="https://www.youtube.com/embed/_16ZTruxYas" allowfullscreen></iframe>
+  <div class="menu-panel" id="menuPanel">
+    <a href="index.html" data-route="index.html">Home</a>
+    <a href="archive.html" data-route="archive.html">Archive</a>
+    <a href="learn.html" data-route="learn.html">Learn</a>
+    <a href="assistant.html" data-route="assistant.html">AI Assistant</a>
   </div>
 
-  <div class="glow-line"></div>
-  <footer>© 2025 All Rights Reserved</footer>
-</main>
+  <main class="fade-in">
+    <section class="hero">
+      <div data-lang="en">
+        <h1>Rhythmic Gymnastics Intelligence</h1>
+        <p>
+          An AI-powered archive and learning platform dedicated to rhythmic gymnastics.
+          Designed for athletes, coaches, judges, and parents.
+        </p>
+        <div class="cta">
+          <button class="btn" onclick="location.href='archive.html'">Explore the Archive</button>
+          <button class="btn secondary" onclick="location.href='assistant.html'">Ask the Assistant</button>
+        </div>
+      </div>
 
-<script>
-  const STORAGE_KEY="laila_lang";
-  const menuBtn=document.getElementById("menuBtn");
-  const menuPanel=document.getElementById("menuPanel");
+      <div data-lang="ar">
+        <h1>منصة ذكية للجمباز الإيقاعي</h1>
+        <p>
+          منصة تعتمد على الذكاء الاصطناعي لتوثيق وتعليم رياضة الجمباز الإيقاعي،
+          موجهة للاعبات والمدربين والحكام وأولياء الأمور.
+        </p>
+        <div class="cta">
+          <button class="btn" onclick="location.href='archive.html'">تصفح الأرشيف</button>
+          <button class="btn secondary" onclick="location.href='assistant.html'">اسأل المساعد</button>
+        </div>
+      </div>
+    </section>
 
-  menuBtn.onclick=()=>menuPanel.style.display=
-    menuPanel.style.display==="block"?"none":"block";
+    <section class="grid">
+      <div class="card">
+        <div data-lang="en">
+          <h3>The Archive</h3>
+          <p>History, rules, apparatus, judging, and key figures—organized for reference.</p>
+          <a href="archive.html">Open Archive</a>
+        </div>
+        <div data-lang="ar">
+          <h3>الأرشيف</h3>
+          <p>تاريخ اللعبة والقوانين والأدوات والتحكيم والشخصيات المؤثرة بشكل منظم.</p>
+          <a href="archive.html">افتح الأرشيف</a>
+        </div>
+      </div>
 
-  function setLang(lang){
-    document.querySelectorAll("[data-lang]").forEach(el=>{
-      el.style.display=el.getAttribute("data-lang")===lang?"block":"none";
+      <div class="card">
+        <div data-lang="en">
+          <h3>Learn</h3>
+          <p>Simple explanations for beginners, parents, and anyone who wants clarity.</p>
+          <a href="learn.html">Start Learning</a>
+        </div>
+        <div data-lang="ar">
+          <h3>التعلم</h3>
+          <p>شرح مبسط للمبتدئين والأهالي وكل من يريد فهم اللعبة بشكل صحيح.</p>
+          <a href="learn.html">ابدأ التعلّم</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div data-lang="en">
+          <h3>AI Assistant</h3>
+          <p>Ask specialized questions—tailored to athletes, coaches, judges, and parents.</p>
+          <a href="assistant.html">Open Assistant</a>
+        </div>
+        <div data-lang="ar">
+          <h3>المساعد الذكي</h3>
+          <p>اسأل أسئلة متخصصة موجهة للاعبة والمدرب والحكم وولي الأمر.</p>
+          <a href="assistant.html">افتح المساعد</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ---------- Core helpers ----------
+    const STORAGE_KEY = "laila_lang";
+
+    function addTapGlow(el){
+      el.classList.remove("tap-glow");
+      void el.offsetWidth; // restart animation
+      el.classList.add("tap-glow");
+      setTimeout(()=> el.classList.remove("tap-glow"), 560);
+    }
+
+    function setLang(lang, persist=true){
+      document.querySelectorAll("[data-lang]").forEach(el=>{
+        el.style.display = (el.getAttribute("data-lang") === lang) ? "block" : "none";
+      });
+
+      document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
+      document.documentElement.lang = (lang === "ar") ? "ar" : "en";
+
+      const btnEn = document.getElementById("btn-en");
+      const btnAr = document.getElementById("btn-ar");
+      btnEn.classList.toggle("active", lang === "en");
+      btnAr.classList.toggle("active", lang === "ar");
+
+      if(persist) localStorage.setItem(STORAGE_KEY, lang);
+    }
+
+    function highlightActiveRoute(){
+      const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+      document.querySelectorAll("[data-route]").forEach(a=>{
+        a.classList.toggle("active", a.getAttribute("data-route").toLowerCase() === file);
+      });
+    }
+
+    // ---------- Mobile menu ----------
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+
+    function toggleMenu(){
+      const isOpen = menuPanel.style.display === "block";
+      menuPanel.style.display = isOpen ? "none" : "block";
+    }
+
+    menuBtn?.addEventListener("click", (e)=>{
+      addTapGlow(menuBtn);
+      toggleMenu();
     });
-    document.querySelectorAll("nav a").forEach(a=>{
-      a.textContent=a.dataset[lang];
+
+    document.addEventListener("click", (e)=>{
+      if(!menuPanel) return;
+      const clickedInside = menuPanel.contains(e.target) || menuBtn.contains(e.target);
+      if(!clickedInside) menuPanel.style.display = "none";
     });
-    localStorage.setItem(STORAGE_KEY,lang);
-  }
 
-  document.getElementById("btn-en").onclick=()=>setLang("en");
-  document.getElementById("btn-ar").onclick=()=>setLang("ar");
+    // ---------- Button interactions ----------
+    document.querySelectorAll("button, a").forEach(el=>{
+      el.addEventListener("click", ()=> addTapGlow(el));
+    });
 
-  setLang(localStorage.getItem(STORAGE_KEY)||"en");
-</script>
+    // ---------- Lang init ----------
+    const saved = localStorage.getItem(STORAGE_KEY) || "en";
+    setLang(saved, false);
+    highlightActiveRoute();
+
+    document.getElementById("btn-en").addEventListener("click", ()=> setLang("en"));
+    document.getElementById("btn-ar").addEventListener("click", ()=> setLang("ar"));
+  </script>
 </body>
 </html>
