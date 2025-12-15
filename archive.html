@@ -114,6 +114,7 @@ h1{
   justify-content:center;
   gap:14px;
   margin-bottom:40px;
+  flex-wrap:wrap;
 }
 
 .action-btn{
@@ -134,31 +135,27 @@ h1{
 /* IMAGE SECTION */
 .visual{
   position:relative;
-  margin-top:20px;
+  margin-top:10px;
   height:520px;
   overflow:hidden;
-  z-index:1;   /* 👈 يضمن إنه فوق الخلفية */
 }
-
 
 .visual img{
   position:absolute;
   bottom:0;
-  left:-20%;
+  left:50%;
+  transform:translateX(-50%);
   height:520px;
-
-  z-index:2;              /* 👈 مهم */
-  opacity:1;              /* 👈 تأكيد */
-  pointer-events:none;    /* 👈 عشان متأثرش على الأزرار */
-
-  animation: moveGym 8s ease-in-out infinite alternate;
-  filter:drop-shadow(0 0 60px rgba(139,141,248,.45));
+  pointer-events:none;
+  animation: floatSoft 6s ease-in-out infinite;
+  filter:drop-shadow(0 0 60px rgba(139,141,248,.35));
 }
 
-
-@keyframes moveGym{
-  from{transform:translateX(0);}
-  to{transform:translateX(40%);}
+/* subtle motion */
+@keyframes floatSoft{
+  0%{transform:translate(-50%,0);}
+  50%{transform:translate(-50%,-10px);}
+  100%{transform:translate(-50%,0);}
 }
 
 /* LIGHT SHAPES */
@@ -186,6 +183,7 @@ h1{
   .visual{height:420px;}
   .visual img{height:420px;}
 }
+
 [data-lang]{display:none;}
 </style>
 </head>
@@ -233,7 +231,7 @@ h1{
   </div>
 
   <div class="visual">
-    <img src="laila1.png" alt="Rhythmic Gymnastics">
+    <img src="img/laila1.png" alt="Rhythmic Gymnastics">
     <span class="line one"></span>
     <span class="line two"></span>
     <span class="line three"></span>
