@@ -1,192 +1,259 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LAILA | Archive</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LAILA | Rhythmic Gymnastics Archive</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg-main:#0e0f14;
-      --accent:#8b8df8;
-      --accent-soft:#6f72e6;
-      --text:#fff;
-      --muted:rgba(255,255,255,.75);
-      --border:rgba(255,255,255,.08);
-      --ease:cubic-bezier(.2,.8,.2,1);
-    }
+<style>
+:root{
+  --bg-main:#0e0f14;
+  --accent:#8b8df8;
+  --accent-soft:#6f72e6;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,0.75);
+}
 
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Montserrat,sans-serif}
-    body{
-      background:radial-gradient(circle at top,#1a1c2d,var(--bg-main));
-      color:var(--text);
-      min-height:100vh;
-    }
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
 
-    header{
-      position:sticky;top:0;z-index:50;
-      display:flex;justify-content:space-between;align-items:center;
-      padding:16px 22px;
-      backdrop-filter:blur(14px);
-      background:rgba(14,15,20,.75);
-      border-bottom:1px solid var(--border);
-    }
+body{
+  background: radial-gradient(circle at top, #1a1c2d, var(--bg-main));
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
 
-    nav a{
-      color:var(--muted);
-      text-decoration:none;
-      margin:0 8px;
-      padding:8px 14px;
-      border-radius:999px;
-      transition:.25s;
-    }
-    nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
+/* HEADER */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 32px;
+  background:rgba(14,15,20,.75);
+  backdrop-filter:blur(14px);
+  z-index:100;
+}
 
-    .lang button{
-      border:1px solid var(--border);
-      background:transparent;
-      color:#fff;
-      padding:6px 12px;
-      border-radius:999px;
-      cursor:pointer;
-    }
-    .lang button.active{
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      border:none;
-    }
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  letter-spacing:2px;
+}
 
-    main{max-width:1100px;margin:auto;padding:60px 20px}
+.brand .dot{
+  width:10px;height:10px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+}
 
-    .hero{text-align:center;margin-bottom:40px}
-    .hero h1{font-size:2.6rem;margin-bottom:12px}
-    .hero p{color:var(--muted);max-width:720px;margin:auto}
+nav{
+  display:flex;
+  gap:26px;
+}
 
-    /* === NEW BUTTONS === */
-    .action-buttons{
-      display:flex;
-      justify-content:center;
-      gap:16px;
-      flex-wrap:wrap;
-      margin:40px 0;
-    }
+nav a{
+  text-decoration:none;
+  color:var(--muted);
+  font-size:.9rem;
+  padding:8px 14px;
+  border-radius:999px;
+}
 
-    .action-btn{
-      position:relative;
-      padding:14px 26px;
-      border-radius:999px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      color:#fff;
-      text-decoration:none;
-      font-size:.95rem;
-      overflow:hidden;
-      transition:.35s var(--ease);
-      box-shadow:0 18px 50px rgba(139,141,248,.35);
-    }
+nav a.active,
+nav a:hover{
+  color:#fff;
+  background:rgba(139,141,248,.15);
+}
 
-    .action-btn::after{
-      content:"";
-      position:absolute;
-      inset:-120%;
-      background:radial-gradient(circle,rgba(255,255,255,.35),transparent 60%);
-      transform:scale(.2);
-      opacity:0;
-      transition:.4s;
-    }
+.lang{
+  display:flex;
+  gap:8px;
+}
 
-    .action-btn:hover{
-      transform:translateY(-4px);
-      box-shadow:0 30px 80px rgba(139,141,248,.45);
-    }
-    .action-btn:hover::after{
-      opacity:1;
-      transform:scale(1);
-    }
+.lang button{
+  border:none;
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  padding:6px 14px;
+  border-radius:999px;
+  cursor:pointer;
+}
 
-    /* === IMAGE EFFECT === */
-    .archive-visual{
-      margin:60px auto;
-      text-align:center;
-    }
-    .archive-visual img{
-      max-width:420px;
-      width:100%;
-      animation:float 6s ease-in-out infinite;
-      filter:drop-shadow(0 30px 80px rgba(139,141,248,.45));
-    }
+.lang button.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+}
 
-    @keyframes float{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-18px)}
-    }
+/* MAIN */
+main{
+  padding-top:140px;
+  text-align:center;
+}
 
-    [data-lang]{display:none}
-  </style>
+h1{
+  font-size:2.8rem;
+  margin-bottom:14px;
+}
+
+.subtitle{
+  max-width:760px;
+  margin:0 auto 34px;
+  color:var(--muted);
+  font-size:.95rem;
+  line-height:1.7;
+}
+
+/* BUTTONS */
+.actions{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin-bottom:40px;
+}
+
+.action-btn{
+  padding:12px 22px;
+  border-radius:999px;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+  box-shadow:0 14px 40px rgba(139,141,248,.25);
+  transition:.3s;
+}
+
+.action-btn:hover{
+  transform:translateY(-2px);
+}
+
+/* IMAGE SECTION */
+.visual{
+  position:relative;
+  margin-top:20px;
+  height:520px;
+  overflow:hidden;
+}
+
+.visual img{
+  position:absolute;
+  bottom:0;
+  left:-20%;
+  height:520px;
+  animation: moveGym 8s ease-in-out infinite alternate;
+  filter:drop-shadow(0 0 60px rgba(139,141,248,.35));
+}
+
+@keyframes moveGym{
+  from{transform:translateX(0);}
+  to{transform:translateX(40%);}
+}
+
+/* LIGHT SHAPES */
+.line{
+  position:absolute;
+  width:200px;
+  height:3px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:.35;
+  animation: floatLine 6s ease-in-out infinite alternate;
+}
+
+.line.one{top:65%;left:12%;}
+.line.two{top:70%;right:14%;}
+.line.three{top:75%;left:30%;}
+
+@keyframes floatLine{
+  from{transform:translateX(0);}
+  to{transform:translateX(40px);}
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  h1{font-size:2rem;}
+  .visual{height:420px;}
+  .visual img{height:420px;}
+}
+[data-lang]{display:none;}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div>LAILA</div>
+  <div class="brand"><span class="dot"></span>LAILA</div>
 
   <nav>
-    <a href="index.html" data-en="Home" data-ar="الرئيسية"></a>
-    <a href="archive.html" data-en="Archive" data-ar="الأرشيف"></a>
-    <a href="learn.html" data-en="Learn" data-ar="التعلّم"></a>
-    <a href="assistant.html" data-en="AI Assistant" data-ar="المساعد الذكي"></a>
+    <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+    <a class="active" href="archive.html" data-en="Archive" data-ar="الأرشيف">Archive</a>
+    <a href="learn.html" data-en="Learn" data-ar="التعلّم">Learn</a>
+    <a href="assistant.html" data-en="AI Assistant" data-ar="المساعد الذكي">AI Assistant</a>
   </nav>
 
   <div class="lang">
-    <button id="en">EN</button>
-    <button id="ar">AR</button>
+    <button id="enBtn" class="active">EN</button>
+    <button id="arBtn">AR</button>
   </div>
 </header>
 
 <main>
+  <h1 data-lang="en">Rhythmic Gymnastics Archive</h1>
+  <h1 data-lang="ar">أرشيف الجمباز الإيقاعي</h1>
 
-  <section class="hero">
-    <div data-lang="en">
-      <h1>Rhythmic Gymnastics Archive</h1>
-      <p>A structured archive covering history, apparatus, rules, judging, and key figures.</p>
-    </div>
-    <div data-lang="ar">
-      <h1>أرشيف الجمباز الإيقاعي</h1>
-      <p>أرشيف منظم يشمل التاريخ والأدوات والقوانين ونظام التحكيم والشخصيات المؤثرة.</p>
-    </div>
-  </section>
+  <p class="subtitle" data-lang="en">
+    An organized archive covering history, apparatus, rules, judging systems,
+    and influential figures in rhythmic gymnastics.
+  </p>
 
-  <!-- NEW BUTTONS -->
-  <div class="action-buttons">
-    <a href="history.html" class="action-btn">تاريخ اللعبة</a>
-    <a href="apparatus.html" class="action-btn">دليل الأدوات</a>
-    <a href="judging.html" class="action-btn">نظام التحكيم</a>
+  <p class="subtitle" data-lang="ar">
+    أرشيف منظم يشمل التاريخ والأدوات والقوانين ونظام التحكيم
+    والشخصيات المؤثرة في رياضة الجمباز الإيقاعي.
+  </p>
+
+  <div class="actions">
+    <button class="action-btn" data-lang="en">Game History</button>
+    <button class="action-btn" data-lang="en">Apparatus Guide</button>
+    <button class="action-btn" data-lang="en">Judging System</button>
+
+    <button class="action-btn" data-lang="ar">تاريخ اللعبة</button>
+    <button class="action-btn" data-lang="ar">دليل الأدوات</button>
+    <button class="action-btn" data-lang="ar">نظام التحكيم</button>
   </div>
 
-  <!-- IMAGE -->
-  <div class="archive-visual">
-    <img src="img/archive-hero.png" alt="Rhythmic Gymnastics">
+  <div class="visual">
+    <img src="LAILA1.png" alt="Rhythmic Gymnastics">
+    <span class="line one"></span>
+    <span class="line two"></span>
+    <span class="line three"></span>
   </div>
-
 </main>
 
 <script>
-  const STORAGE_KEY="laila_lang";
-  const setLang=(l)=>{
-    document.querySelectorAll("[data-lang]").forEach(e=>{
-      e.style.display=e.getAttribute("data-lang")===l?"block":"none";
-    });
-    document.querySelectorAll("nav a").forEach(a=>{
-      a.textContent=a.dataset[l];
-    });
-    document.documentElement.dir=l==="ar"?"rtl":"ltr";
-    localStorage.setItem(STORAGE_KEY,l);
-    document.getElementById("en").classList.toggle("active",l==="en");
-    document.getElementById("ar").classList.toggle("active",l==="ar");
-  }
-  setLang(localStorage.getItem(STORAGE_KEY)||"en");
-  en.onclick=()=>setLang("en");
-  ar.onclick=()=>setLang("ar");
+const enBtn = document.getElementById("enBtn");
+const arBtn = document.getElementById("arBtn");
+
+function setLang(lang){
+  document.querySelectorAll("[data-lang]").forEach(el=>{
+    el.style.display = el.getAttribute("data-lang") === lang ? "block" : "none";
+  });
+
+  document.querySelectorAll("nav a").forEach(a=>{
+    a.textContent = a.dataset[lang];
+  });
+
+  enBtn.classList.toggle("active", lang==="en");
+  arBtn.classList.toggle("active", lang==="ar");
+
+  document.documentElement.dir = lang==="ar" ? "rtl" : "ltr";
+}
+
+enBtn.onclick = ()=>setLang("en");
+arBtn.onclick = ()=>setLang("ar");
+
+setLang("en");
 </script>
 
 </body>
