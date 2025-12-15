@@ -173,6 +173,11 @@
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen></iframe>
   </div>
+  <!-- Language Toggle (Mobile Friendly) -->
+<div class="lang" style="display:flex;justify-content:center;gap:10px;margin-top:30px;">
+  <button id="btn-en-bottom" class="lang-btn">EN</button>
+  <button id="btn-ar-bottom" class="lang-btn">AR</button>
+</div>
 </main>
 
 <footer>
@@ -205,6 +210,13 @@
   setLang(localStorage.getItem(STORAGE_KEY) || "en");
   btnEn.onclick = ()=>setLang("en");
   btnAr.onclick = ()=>setLang("ar");
+  const btnEnBottom = document.getElementById("btn-en-bottom");
+const btnArBottom = document.getElementById("btn-ar-bottom");
+
+if(btnEnBottom && btnArBottom){
+  btnEnBottom.onclick = ()=>setLang("en");
+  btnArBottom.onclick = ()=>setLang("ar");
+}
 </script>
 
 </body>
