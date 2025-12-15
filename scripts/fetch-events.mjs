@@ -3,21 +3,21 @@ import fs from "fs";
 const events = [
   {
     title: "European Rhythmic Gymnastics Championships",
-    city: "Budapest",
-    country: "Hungary",
     startDate: "2025-05-22",
     endDate: "2025-05-26",
-    federation: "European Gymnastics",
-    link: "https://www.europeangymnastics.com"
+    city: "Budapest",
+    country: "Hungary",
+    source: "European Gymnastics",
+    url: "https://www.europeangymnastics.com"
   },
   {
-    title: "World Cup Sofia",
-    city: "Sofia",
-    country: "Bulgaria",
+    title: "FIG World Cup Sofia",
     startDate: "2025-04-12",
     endDate: "2025-04-14",
-    federation: "FIG",
-    link: "https://www.gymnastics.sport"
+    city: "Sofia",
+    country: "Bulgaria",
+    source: "FIG",
+    url: "https://www.gymnastics.sport"
   }
 ];
 
@@ -26,7 +26,5 @@ const output = {
   events
 };
 
-fs.mkdirSync("data", { recursive: true });
 fs.writeFileSync("data/events.json", JSON.stringify(output, null, 2));
-
-console.log("Events updated");
+console.log("Events updated:", events.length);
