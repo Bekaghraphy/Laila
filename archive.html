@@ -1,193 +1,206 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>LAILA | Archive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --bg-main:#0e0f14;
+      --bg-soft:#151722;
       --accent:#8b8df8;
       --accent-soft:#6f72e6;
-      --text:#fff;
-      --muted:rgba(255,255,255,.75);
-      --border:rgba(255,255,255,.08);
+      --text:#ffffff;
+      --muted:rgba(255,255,255,0.74);
+      --border:rgba(255,255,255,0.08);
+      --shadow:0 18px 60px rgba(0,0,0,0.45);
       --ease:cubic-bezier(.2,.8,.2,1);
     }
 
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Montserrat,sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Montserrat",sans-serif;}
+
     body{
       background:radial-gradient(circle at top,#1a1c2d,var(--bg-main));
       color:var(--text);
       min-height:100vh;
+      overflow-x:hidden;
     }
 
     header{
-      position:sticky;top:0;z-index:50;
-      display:flex;justify-content:space-between;align-items:center;
-      padding:16px 22px;
+      position:sticky;
+      top:0;
+      z-index:50;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 28px;
+      background:rgba(14,15,20,.7);
       backdrop-filter:blur(14px);
-      background:rgba(14,15,20,.75);
       border-bottom:1px solid var(--border);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:2px;
+    }
+
+    .brand .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+      box-shadow:0 0 0 6px rgba(139,141,248,.15);
+    }
+
+    nav{
+      display:flex;
+      gap:20px;
     }
 
     nav a{
       color:var(--muted);
       text-decoration:none;
-      margin:0 8px;
-      padding:8px 14px;
+      font-size:.9rem;
+      padding:10px 14px;
       border-radius:999px;
-      transition:.25s;
-    }
-    nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
-
-    .lang button{
-      border:1px solid var(--border);
-      background:transparent;
-      color:#fff;
-      padding:6px 12px;
-      border-radius:999px;
-      cursor:pointer;
-    }
-    .lang button.active{
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      border:none;
+      transition:.3s;
     }
 
-    main{max-width:1100px;margin:auto;padding:60px 20px}
-
-    .hero{text-align:center;margin-bottom:40px}
-    .hero h1{font-size:2.6rem;margin-bottom:12px}
-    .hero p{color:var(--muted);max-width:720px;margin:auto}
-
-    /* === NEW BUTTONS === */
-    .action-buttons{
-      display:flex;
-      justify-content:center;
-      gap:16px;
-      flex-wrap:wrap;
-      margin:40px 0;
+    nav a.active,
+    nav a:hover{
+      color:var(--text);
+      background:rgba(139,141,248,.12);
     }
 
-    .action-btn{
-      position:relative;
-      padding:14px 26px;
-      border-radius:999px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-soft));
-      color:#fff;
-      text-decoration:none;
-      font-size:.95rem;
-      overflow:hidden;
-      transition:.35s var(--ease);
-      box-shadow:0 18px 50px rgba(139,141,248,.35);
-    }
-
-    .action-btn::after{
-      content:"";
-      position:absolute;
-      inset:-120%;
-      background:radial-gradient(circle,rgba(255,255,255,.35),transparent 60%);
-      transform:scale(.2);
-      opacity:0;
-      transition:.4s;
-    }
-
-    .action-btn:hover{
-      transform:translateY(-4px);
-      box-shadow:0 30px 80px rgba(139,141,248,.45);
-    }
-    .action-btn:hover::after{
-      opacity:1;
-      transform:scale(1);
-    }
-
-    /* === IMAGE EFFECT === */
-    .archive-visual{
-      margin:60px auto;
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:80px 20px 120px;
       text-align:center;
     }
+
+    h1{
+      font-size:2.4rem;
+      margin-bottom:18px;
+    }
+
+    p{
+      max-width:720px;
+      margin:0 auto 60px;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:.95rem;
+    }
+
+    /* ====== IMAGE SECTION (ADDED ONLY) ====== */
+    .archive-visual{
+      position:relative;
+      margin:90px auto;
+      text-align:center;
+    }
+
     .archive-visual img{
-      max-width:420px;
       width:100%;
-      animation:float 6s ease-in-out infinite;
-      filter:drop-shadow(0 30px 80px rgba(139,141,248,.45));
+      max-width:520px;
+      position:relative;
+      z-index:2;
+      animation:jumpMove 2.8s cubic-bezier(.22,.88,.36,1) forwards;
+      filter:drop-shadow(0 40px 90px rgba(139,141,248,.45));
     }
 
-    @keyframes float{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-18px)}
+    .motion-shape{
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:420px;
+      height:420px;
+      background:radial-gradient(circle at 30% 30%,
+        rgba(139,141,248,.35),
+        rgba(111,114,230,.18),
+        transparent 65%);
+      transform:translate(-50%,-50%);
+      filter:blur(60px);
+      opacity:.85;
+      z-index:1;
+      animation:shapeDrift 3.2s ease-out forwards;
     }
 
-    [data-lang]{display:none}
+    @keyframes jumpMove{
+      0%{
+        transform:translateX(280px) translateY(20px) scale(.92);
+        opacity:0;
+      }
+      45%{
+        transform:translateX(-20px) translateY(-14px) scale(1.02);
+        opacity:1;
+      }
+      70%{
+        transform:translateX(8px) translateY(0) scale(1);
+      }
+      100%{
+        transform:translateX(0) translateY(0) scale(1);
+      }
+    }
+
+    @keyframes shapeDrift{
+      0%{
+        transform:translate(-50%,-50%) translateX(160px);
+        opacity:0;
+      }
+      100%{
+        transform:translate(-50%,-50%) translateX(0);
+        opacity:.85;
+      }
+    }
+
+    @media(max-width:768px){
+      h1{font-size:1.9rem;}
+      .archive-visual img{max-width:360px;}
+      .motion-shape{
+        width:300px;
+        height:300px;
+        filter:blur(50px);
+      }
+    }
   </style>
 </head>
 
 <body>
 
 <header>
-  <div>LAILA</div>
-
-  <nav>
-    <a href="index.html" data-en="Home" data-ar="الرئيسية"></a>
-    <a href="archive.html" data-en="Archive" data-ar="الأرشيف"></a>
-    <a href="learn.html" data-en="Learn" data-ar="التعلّم"></a>
-    <a href="assistant.html" data-en="AI Assistant" data-ar="المساعد الذكي"></a>
-  </nav>
-
-  <div class="lang">
-    <button id="en">EN</button>
-    <button id="ar">AR</button>
+  <div class="brand">
+    <span class="dot"></span>
+    <span>LAILA</span>
   </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="archive.html" class="active">Archive</a>
+    <a href="learn.html">Learn</a>
+    <a href="assistant.html">AI Assistant</a>
+  </nav>
 </header>
 
 <main>
+  <h1>Rhythmic Gymnastics Archive</h1>
 
-  <section class="hero">
-    <div data-lang="en">
-      <h1>Rhythmic Gymnastics Archive</h1>
-      <p>A structured archive covering history, apparatus, rules, judging, and key figures.</p>
-    </div>
-    <div data-lang="ar">
-      <h1>أرشيف الجمباز الإيقاعي</h1>
-      <p>أرشيف منظم يشمل التاريخ والأدوات والقوانين ونظام التحكيم والشخصيات المؤثرة.</p>
-    </div>
-  </section>
+  <p>
+    أرشيف منظم يشمل التاريخ والأدوات والقوانين ونظام التحكيم
+    والشخصيات المؤثرة في رياضة الجمباز الإيقاعي.
+  </p>
 
-  <!-- NEW BUTTONS -->
-  <div class="action-buttons">
-    <a href="history.html" class="action-btn">تاريخ اللعبة</a>
-    <a href="apparatus.html" class="action-btn">دليل الأدوات</a>
-    <a href="judging.html" class="action-btn">نظام التحكيم</a>
-  </div>
-
-  <!-- IMAGE -->
+  <!-- 🔥 ADDED IMAGE WITH MOTION -->
   <div class="archive-visual">
-    <img src="img/archive-hero.png" alt="Rhythmic Gymnastics">
+    <div class="motion-shape"></div>
+    <img src="img/archive-hero.png" alt="Rhythmic Gymnastics Motion">
   </div>
 
 </main>
-
-<script>
-  const STORAGE_KEY="laila_lang";
-  const setLang=(l)=>{
-    document.querySelectorAll("[data-lang]").forEach(e=>{
-      e.style.display=e.getAttribute("data-lang")===l?"block":"none";
-    });
-    document.querySelectorAll("nav a").forEach(a=>{
-      a.textContent=a.dataset[l];
-    });
-    document.documentElement.dir=l==="ar"?"rtl":"ltr";
-    localStorage.setItem(STORAGE_KEY,l);
-    document.getElementById("en").classList.toggle("active",l==="en");
-    document.getElementById("ar").classList.toggle("active",l==="ar");
-  }
-  setLang(localStorage.getItem(STORAGE_KEY)||"en");
-  en.onclick=()=>setLang("en");
-  ar.onclick=()=>setLang("ar");
-</script>
 
 </body>
 </html>
