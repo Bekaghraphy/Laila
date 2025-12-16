@@ -1,23 +1,23 @@
 {
-  "updatedAt": "2025-12-15T14:04:37.420Z",
+  "updatedAt": "2025-12-16T06:31:05.345Z",
   "events": [
     {
-      "title": "Welcome to Portimão (POR) for the 2026 European Championships in Trampoline, Double Mini-Trampoline and Tumbling!",
-      "city": "Portimão",
-      "country": "Portugal",
-      "startDate": "2026-04-08",
-      "endDate": "2026-04-12",
-      "federation": "European Gymnastics",
-      "link": "https://www.europeangymnastics.com"
+      "title": "European Rhythmic Gymnastics Championships",
+      "startDate": "2025-05-22",
+      "endDate": "2025-05-26",
+      "city": "Budapest",
+      "country": "Hungary",
+      "source": "European Gymnastics",
+      "url": "https://www.europeangymnastics.com"
     },
     {
-      "title": "The European Cup Series 2026",
-      "city": "Baku",
-      "country": "Azerbaijan",
-      "startDate": "2026-04-30",
-      "endDate": "2026-05-03",
-      "federation": "FIG",
-      "link": "https://www.gymnastics.sport"
+      "title": "FIG World Cup Sofia",
+      "startDate": "2025-04-12",
+      "endDate": "2025-04-14",
+      "city": "Sofia",
+      "country": "Bulgaria",
+      "source": "FIG",
+      "url": "https://www.gymnastics.sport"
     }
   ]
 }
