@@ -1,1768 +1,2039 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>✨ Rhythmic Gymnastics World ✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root {
-  --pink: #FF6BB5;
-  --purple: #A855F7;
-  --yellow: #FFD700;
-  --teal: #00D4C8;
-  --orange: #FF8C42;
-  --blue: #4FC3F7;
-  --lime: #A8E063;
-  --bg: #FFF5FB;
-  --dark: #2D1B4E;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rhythmic Gymnastics World</title>
 
-- { margin: 0; padding: 0; box-sizing: border-box; }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-body {
-font-family: ‘Nunito’, sans-serif;
-background: var(–bg);
-overflow-x: hidden;
-cursor: none;
-}
+  <style>
+    :root {
+      --pink: #FF6BB5;
+      --purple: #A855F7;
+      --yellow: #FFD700;
+      --teal: #00D4C8;
+      --orange: #FF8C42;
+      --blue: #4FC3F7;
+      --lime: #A8E063;
 
-/* ── CURSOR ── */
-.cursor {
-width: 22px; height: 22px;
-background: var(–pink);
-border-radius: 50%;
-position: fixed;
-pointer-events: none;
-z-index: 99999;
-transform: translate(-50%,-50%);
-transition: background 0.3s, transform 0.1s;
-mix-blend-mode: multiply;
-}
+      --bg: #fff6fb;
+      --bg-soft: #ffeef8;
+      --card: #ffffff;
+      --text: #2d1b4e;
+      --text-soft: #6f6782;
+      --border: rgba(168, 85, 247, 0.14);
+      --nav-bg: rgba(255, 246, 251, 0.88);
+      --shadow: 0 10px 35px rgba(45, 27, 78, 0.08);
+      --hero-1: #ffe0f5;
+      --hero-2: #e0f0ff;
+      --hero-3: #fff8cc;
+    }
 
-/* ── FLOATING RIBBONS BG ── */
-.bg-ribbons {
-position: fixed; top:0; left:0;
-width:100%; height:100%;
-pointer-events: none;
-z-index: 0;
-overflow: hidden;
-}
-.ribbon {
-position: absolute;
-width: 4px;
-border-radius: 4px;
-animation: floatRibbon linear infinite;
-opacity: 0.35;
-}
-@keyframes floatRibbon {
-0%   { transform: translateY(110vh) rotate(0deg); opacity:0; }
-10%  { opacity: 0.35; }
-90%  { opacity: 0.35; }
-100% { transform: translateY(-120px) rotate(720deg); opacity:0; }
-}
+    [data-theme="dark"] {
+      --bg: #120d1f;
+      --bg-soft: #191327;
+      --card: #1b1529;
+      --text: #f7f1ff;
+      --text-soft: #c8bdd8;
+      --border: rgba(255, 255, 255, 0.08);
+      --nav-bg: rgba(18, 13, 31, 0.84);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+      --hero-1: rgba(255, 107, 181, 0.16);
+      --hero-2: rgba(79, 195, 247, 0.14);
+      --hero-3: rgba(255, 215, 0, 0.12);
+    }
 
-/* ── NAVBAR ── */
-nav {
-position: fixed; top:0; left:0; right:0;
-z-index: 1000;
-background: rgba(255,245,251,0.88);
-backdrop-filter: blur(14px);
-border-bottom: 3px solid transparent;
-border-image: linear-gradient(90deg, var(–pink), var(–purple), var(–blue), var(–teal)) 1;
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 0 40px;
-height: 70px;
-}
-.nav-logo {
-font-family: ‘Fredoka One’, cursive;
-font-size: 1.6rem;
-background: linear-gradient(135deg, var(–pink), var(–purple));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-letter-spacing: 1px;
-}
-.nav-links {
-display: flex;
-gap: 8px;
-list-style: none;
-}
-.nav-links li a {
-display: inline-block;
-font-family: ‘Fredoka One’, cursive;
-font-size: 1.05rem;
-color: #888;
-text-decoration: none;
-padding: 8px 20px;
-border-radius: 50px;
-transition: all 0.3s;
-letter-spacing: 0.5px;
-}
-.nav-links li a:hover,
-.nav-links li a.active {
-background: linear-gradient(135deg, var(–pink), var(–purple));
-color: white;
-transform: translateY(-2px);
-box-shadow: 0 6px 20px rgba(255,107,181,0.4);
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* ── PAGE SYSTEM ── */
-.page { display: none; padding-top: 70px; }
-.page.active { display: block; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* ── SCROLL REVEAL ── */
-.reveal {
-opacity: 0;
-transform: translateY(40px);
-transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible { opacity:1; transform:translateY(0); }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
 
-/* ════════════════════════════
-HOME PAGE
-════════════════════════════ */
-.hero {
-position: relative; z-index: 1;
-min-height: calc(100vh - 70px);
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: 60px 20px 40px;
-background:
-radial-gradient(ellipse at 20% 20%, #FFE0F5 0%, transparent 55%),
-radial-gradient(ellipse at 80% 80%, #E0F0FF 0%, transparent 55%),
-radial-gradient(ellipse at 60% 40%, #FFF8CC 0%, transparent 50%);
-}
-.hero-badge {
-display: inline-block;
-background: linear-gradient(135deg, var(–pink), var(–purple));
-color: white;
-font-family: ‘Fredoka One’, cursive;
-font-size: 1rem;
-padding: 8px 28px;
-border-radius: 50px;
-margin-bottom: 24px;
-animation: bounce 2.2s ease-in-out infinite;
-letter-spacing: 1px;
-}
-@keyframes bounce {
-0%,100% { transform: translateY(0); }
-50%      { transform: translateY(-10px); }
-}
-.hero h1 {
-font-family: ‘Fredoka One’, cursive;
-font-size: clamp(3rem, 9vw, 6.5rem);
-line-height: 1.05;
-background: linear-gradient(135deg, var(–pink) 0%, var(–purple) 45%, var(–blue) 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-margin-bottom: 14px;
-animation: fadeUp 0.9s ease both;
-}
-.hero h2 {
-font-size: clamp(1rem, 3vw, 1.5rem);
-color: #999;
-font-weight: 800;
-margin-bottom: 10px;
-animation: fadeUp 0.9s 0.15s ease both;
-}
-@keyframes fadeUp {
-from { opacity:0; transform: translateY(30px); }
-to   { opacity:1; transform: translateY(0); }
-}
-.gymnast-wrap {
-margin: 10px 0;
-animation: floatGym 5s ease-in-out infinite;
-}
-@keyframes floatGym {
-0%,100% { transform: translateY(0) rotate(-2deg); }
-50%     { transform: translateY(-16px) rotate(2deg); }
-}
-.gymnast-svg { width: clamp(160px, 35vw, 260px); }
+    a, button {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-.sparkle-float {
-position: absolute;
-font-size: 2rem;
-animation: sparkPop 3s ease-in-out infinite;
-pointer-events: none;
-}
-@keyframes sparkPop {
-0%,100% { opacity:0; transform:scale(0.4) rotate(0deg); }
-50%     { opacity:1; transform:scale(1.3) rotate(25deg); }
-}
+    /* Cursor */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      background: var(--pink);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: background 0.3s, transform 0.08s, opacity 0.3s;
+      mix-blend-mode: multiply;
+    }
 
-/* Info section */
-.info-section {
-position: relative; z-index:1;
-padding: 90px 20px;
-max-width: 1100px;
-margin: 0 auto;
-}
-.section-title {
-font-family: ‘Fredoka One’, cursive;
-font-size: clamp(2rem, 5vw, 3rem);
-text-align: center;
-margin-bottom: 50px;
-}
+    [data-theme="dark"] .cursor {
+      mix-blend-mode: screen;
+      opacity: 0.8;
+    }
 
-.big-info-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-gap: 30px;
-margin-bottom: 70px;
-}
-.info-card {
-background: white;
-border-radius: 28px;
-padding: 36px 28px;
-box-shadow: 0 8px 35px rgba(0,0,0,0.07);
-transition: transform 0.3s;
-}
-.info-card:hover { transform: translateY(-8px); }
-.info-card .ic-icon {
-font-size: 3rem;
-margin-bottom: 14px;
-display: block;
-}
-.info-card h3 {
-font-family: ‘Fredoka One’, cursive;
-font-size: 1.5rem;
-margin-bottom: 10px;
-color: var(–dark);
-}
-.info-card p { color: #666; line-height: 1.8; font-size: 0.97rem; }
+    /* Floating background */
+    .bg-ribbons {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
 
-/* Timeline */
-.timeline {
-max-width: 800px;
-margin: 0 auto;
-position: relative;
-padding: 0 0 0 40px;
-}
-.timeline::before {
-content:’’;
-position:absolute; left:14px; top:0; bottom:0;
-width:4px;
-background: linear-gradient(180deg, var(–pink), var(–purple), var(–blue), var(–teal));
-border-radius: 4px;
-}
-.tl-item {
-position: relative;
-margin-bottom: 36px;
-background: white;
-border-radius: 20px;
-padding: 22px 24px;
-box-shadow: 0 6px 24px rgba(0,0,0,0.07);
-}
-.tl-item::before {
-content:’’;
-position:absolute; left:-32px; top:22px;
-width:16px; height:16px;
-border-radius: 50%;
-background: var(–pink);
-border: 3px solid white;
-box-shadow: 0 0 0 3px var(–pink);
-}
-.tl-year {
-font-family: ‘Fredoka One’, cursive;
-font-size: 1.3rem;
-color: var(–purple);
-margin-bottom: 6px;
-}
-.tl-item p { color:#666; line-height:1.7; }
+    .ribbon {
+      position: absolute;
+      width: 4px;
+      border-radius: 4px;
+      animation: floatRibbon linear infinite;
+      opacity: 0.25;
+    }
 
-/* Stats strip */
-.stats-strip {
-position: relative; z-index:1;
-background: linear-gradient(135deg, #FF6BB5 0%, #A855F7 50%, #4FC3F7 100%);
-padding: 60px 20px;
-}
-.stats-inner {
-max-width: 1000px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-gap: 20px;
-text-align: center;
-}
-.stat-box {
-color: white;
-padding: 20px;
-}
-.stat-box .stat-num {
-font-family: ‘Fredoka One’, cursive;
-font-size: 3.5rem;
-line-height: 1;
-margin-bottom: 8px;
-text-shadow: 0 4px 15px rgba(0,0,0,0.15);
-}
-.stat-box p { font-weight: 700; font-size: 1rem; opacity:0.93; }
+    @keyframes floatRibbon {
+      0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.25;
+      }
+      90% {
+        opacity: 0.25;
+      }
+      100% {
+        transform: translateY(-120px) rotate(720deg);
+        opacity: 0;
+      }
+    }
 
-/* Champions section */
-.champions-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-gap: 24px;
-}
-.champ-card {
-background: white;
-border-radius: 24px;
-padding: 32px 24px;
-text-align: center;
-box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-transition: transform 0.3s;
-position: relative;
-overflow: hidden;
-}
-.champ-card::after {
-content:’’;
-position:absolute; top:0; left:0; right:0; height:5px;
-}
-.champ-card:nth-child(1)::after { background: linear-gradient(90deg,#FF6BB5,#FF8C42); }
-.champ-card:nth-child(2)::after { background: linear-gradient(90deg,#A855F7,#4FC3F7); }
-.champ-card:nth-child(3)::after { background: linear-gradient(90deg,#00D4C8,#A8E063); }
-.champ-card:hover { transform: translateY(-10px) rotate(1deg); }
-.champ-emoji { font-size: 4rem; margin-bottom: 12px; display:block; }
-.champ-card h3 {
-font-family: ‘Fredoka One’, cursive;
-font-size: 1.4rem;
-color: var(–dark);
-margin-bottom: 6px;
-}
-.champ-card .champ-country {
-display: inline-block;
-background: var(–bg);
-border-radius: 50px;
-padding: 4px 14px;
-font-size: 0.85rem;
-font-weight: 700;
-color: var(–purple);
-margin-bottom: 12px;
-}
-.champ-card p { color:#777; font-size:0.93rem; line-height:1.7; }
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 24px;
+      height: 72px;
+    }
 
-/* ════════════════════════════
-APPARATUS PAGE
-════════════════════════════ */
-.app-hero {
-position: relative; z-index:1;
-padding: 80px 20px 60px;
-text-align: center;
-background:
-radial-gradient(ellipse at 30% 50%, #FFE0F5 0%, transparent 60%),
-radial-gradient(ellipse at 70% 50%, #E8D5FF 0%, transparent 60%);
-}
-.app-hero h1 {
-font-family: ‘Fredoka One’, cursive;
-font-size: clamp(2.8rem,8vw,5.5rem);
-background: linear-gradient(135deg, var(–orange), var(–pink), var(–purple));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-margin-bottom: 16px;
-}
-.app-hero p {
-max-width: 600px;
-margin: 0 auto;
-color: #888;
-font-size: 1.1rem;
-font-weight: 700;
-line-height: 1.7;
-}
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      white-space: nowrap;
+    }
 
-.apparatus-section {
-position: relative; z-index:1;
-max-width: 1100px;
-margin: 0 auto;
-padding: 20px 20px 80px;
-}
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-.apparatus-item {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 40px;
-align-items: center;
-margin-bottom: 80px;
-background: white;
-border-radius: 32px;
-padding: 48px 48px;
-box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-transition: transform 0.3s;
-}
-.apparatus-item:hover { transform: translateY(-6px); }
-.apparatus-item.reverse { direction: rtl; }
-.apparatus-item.reverse > * { direction: ltr; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
 
-.app-visual {
-display: flex;
-align-items: center;
-justify-content: center;
-border-radius: 24px;
-aspect-ratio: 1;
-font-size: 8rem;
-position: relative;
-overflow: hidden;
-}
-.app-visual::before {
-content:’’;
-position:absolute; inset:0;
-border-radius: 24px;
-opacity: 0.15;
-}
-.av-ribbon   { background: linear-gradient(135deg,#FF6BB5,#FFB3DC); }
-.av-ball     { background: linear-gradient(135deg,#A855F7,#C4A0FF); }
-.av-clubs    { background: linear-gradient(135deg,#00D4C8,#80DDD9); }
-.av-hoop     { background: linear-gradient(135deg,#FFD700,#FFE066); }
-.av-rope     { background: linear-gradient(135deg,#FF8C42,#FFBB80); }
+    .nav-links li a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 10px 18px;
+      border-radius: 999px;
+      transition: 0.3s ease;
+      border: 1px solid transparent;
+    }
 
-.app-emoji-big {
-font-size: 7rem;
-animation: floatGym 4s ease-in-out infinite;
-display: block;
-text-align: center;
-}
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(168, 85, 247, 0.26);
+    }
 
-.app-content h2 {
-font-family: ‘Fredoka One’, cursive;
-font-size: 2.4rem;
-color: var(–dark);
-margin-bottom: 8px;
-}
-.app-subtitle {
-font-size: 0.9rem;
-font-weight: 800;
-text-transform: uppercase;
-letter-spacing: 2px;
-margin-bottom: 16px;
-display: block;
-}
-.app-content .app-desc {
-color: #666;
-line-height: 1.85;
-font-size: 1rem;
-margin-bottom: 20px;
-}
+    .toggle-btn {
+      border: none;
+      outline: none;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 11px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 8px 18px rgba(79, 195, 247, 0.22);
+    }
 
-.app-specs {
-display: flex;
-gap: 12px;
-flex-wrap: wrap;
-margin-bottom: 20px;
-}
-.spec-pill {
-background: var(–bg);
-border-radius: 50px;
-padding: 6px 16px;
-font-size: 0.85rem;
-font-weight: 700;
-color: var(–purple);
-}
+    .toggle-btn:hover {
+      transform: translateY(-2px);
+    }
 
-.app-moves h4 {
-font-family: ‘Fredoka One’, cursive;
-font-size: 1.1rem;
-color: var(–dark);
-margin-bottom: 10px;
-}
-.moves-list {
-list-style: none;
-display: flex;
-flex-direction: column;
-gap: 8px;
-}
-.moves-list li {
-display: flex;
-align-items: center;
-gap: 10px;
-color: #666;
-font-size: 0.95rem;
-}
-.moves-list li::before {
-content: ‘✦’;
-color: var(–pink);
-font-size: 0.75rem;
-flex-shrink: 0;
-}
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
 
-.difficulty-bar {
-margin-top: 20px;
-}
-.diff-label {
-font-weight: 800;
-font-size: 0.85rem;
-color: #aaa;
-margin-bottom: 6px;
-text-transform: uppercase;
-letter-spacing: 1px;
-}
-.diff-track {
-height: 12px;
-background: #f0f0f0;
-border-radius: 12px;
-overflow: hidden;
-}
-.diff-fill {
-height: 100%;
-border-radius: 12px;
-animation: fillBar 1.5s ease forwards;
-}
-@keyframes fillBar {
-from { width:0; }
-}
+    /* Pages */
+    .page {
+      display: none;
+      padding-top: 72px;
+      position: relative;
+      z-index: 1;
+    }
 
-/* ════════════════════════════
-VIDEOS PAGE
-════════════════════════════ */
-.vid-hero {
-position: relative; z-index:1;
-padding: 80px 20px 50px;
-text-align: center;
-background:
-radial-gradient(ellipse at 20% 50%, #CCE8FF 0%, transparent 60%),
-radial-gradient(ellipse at 80% 50%, #FFE0F5 0%, transparent 60%);
-}
-.vid-hero h1 {
-font-family: ‘Fredoka One’, cursive;
-font-size: clamp(2.8rem,8vw,5rem);
-background: linear-gradient(135deg, var(–blue), var(–purple), var(–pink));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-margin-bottom: 14px;
-}
-.vid-hero p {
-max-width: 580px;
-margin: 0 auto;
-color: #888;
-font-size: 1.1rem;
-font-weight: 700;
-line-height: 1.7;
-}
+    .page.active {
+      display: block;
+    }
 
-/* Athlete tabs */
-.athlete-tabs {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 10px;
-padding: 30px 20px 20px;
-position: relative; z-index:1;
-}
-.tab-btn {
-font-family: ‘Fredoka One’, cursive;
-font-size: 1rem;
-padding: 10px 24px;
-border-radius: 50px;
-border: 3px solid #eee;
-background: white;
-color: #999;
-cursor: none;
-transition: all 0.3s;
-letter-spacing: 0.5px;
-}
-.tab-btn:hover {
-border-color: var(–pink);
-color: var(–pink);
-transform: translateY(-3px);
-}
-.tab-btn.active {
-background: linear-gradient(135deg, var(–pink), var(–purple));
-border-color: transparent;
-color: white;
-box-shadow: 0 6px 20px rgba(168,85,247,0.4);
-}
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
 
-/* Athlete profile */
-.athlete-profile {
-position: relative; z-index:1;
-max-width: 900px;
-margin: 0 auto 40px;
-padding: 0 20px;
-}
-.profile-card {
-background: white;
-border-radius: 28px;
-padding: 36px 40px;
-box-shadow: 0 10px 40px rgba(0,0,0,0.09);
-display: flex;
-gap: 32px;
-align-items: center;
-}
-.profile-avatar {
-font-size: 6rem;
-width: 120px;
-height: 120px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-}
-.profile-info h2 {
-font-family: ‘Fredoka One’, cursive;
-font-size: 2rem;
-color: var(–dark);
-margin-bottom: 4px;
-}
-.profile-info .p-country {
-display: inline-block;
-padding: 4px 14px;
-border-radius: 50px;
-font-weight: 800;
-font-size: 0.85rem;
-margin-bottom: 12px;
-color: white;
-}
-.profile-info p { color:#666; line-height:1.75; font-size:0.97rem; }
-.profile-achievements {
-display: flex;
-gap: 10px;
-flex-wrap: wrap;
-margin-top: 12px;
-}
-.ach-badge {
-background: var(–bg);
-border-radius: 50px;
-padding: 5px 14px;
-font-size: 0.82rem;
-font-weight: 800;
-color: var(–purple);
-}
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/* Video grid */
-.videos-section {
-position: relative; z-index:1;
-max-width: 1100px;
-margin: 0 auto;
-padding: 0 20px 80px;
-}
-.vid-category-title {
-font-family: ‘Fredoka One’, cursive;
-font-size: 1.8rem;
-margin: 40px 0 20px;
-display: flex;
-align-items: center;
-gap: 12px;
-}
-.vid-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-gap: 20px;
-}
-.vid-card {
-background: white;
-border-radius: 20px;
-overflow: hidden;
-box-shadow: 0 6px 24px rgba(0,0,0,0.08);
-transition: transform 0.3s, box-shadow 0.3s;
-cursor: pointer;
-}
-.vid-card:hover {
-transform: translateY(-8px) scale(1.02);
-box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-}
-.vid-thumb {
-position: relative;
-aspect-ratio: 16/9;
-overflow: hidden;
-}
-.vid-thumb iframe {
-width: 100%;
-height: 100%;
-border: none;
-display: block;
-pointer-events: none;
-}
-.vid-thumb .play-overlay {
-position: absolute; inset:0;
-display: flex;
-align-items: center;
-justify-content: center;
-background: rgba(0,0,0,0.15);
-transition: background 0.3s;
-}
-.vid-card:hover .play-overlay { background: rgba(0,0,0,0); }
-.play-btn {
-width: 56px; height: 56px;
-background: white;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.5rem;
-box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-transition: transform 0.3s;
-}
-.vid-card:hover .play-btn { transform: scale(1.15); }
-.vid-info {
-padding: 16px 18px;
-}
-.vid-info h4 {
-font-family: ‘Fredoka One’, cursive;
-font-size: 1.05rem;
-color: var(–dark);
-margin-bottom: 4px;
-line-height: 1.3;
-}
-.vid-info .vid-meta {
-font-size: 0.82rem;
-font-weight: 700;
-color: #aaa;
-}
-.vid-apparatus-tag {
-display: inline-block;
-border-radius: 50px;
-padding: 3px 12px;
-font-size: 0.78rem;
-font-weight: 800;
-margin-top: 6px;
-color: white;
-}
+    /* Hero */
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 20px 40px;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 20% 20%, var(--hero-1) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, var(--hero-2) 0%, transparent 55%),
+        radial-gradient(ellipse at 60% 40%, var(--hero-3) 0%, transparent 50%);
+    }
 
-/* Athlete sections */
-.athlete-section { display: none; }
-.athlete-section.active { display: block; }
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 10px 24px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+      letter-spacing: 0.4px;
+      animation: bounce 2.2s ease-in-out infinite;
+    }
 
-/* ── FOOTER ── */
-footer {
-position: relative; z-index:1;
-background: var(–dark);
-color: white;
-text-align: center;
-padding: 56px 20px;
-}
-footer h3 {
-font-family: ‘Fredoka One’, cursive;
-font-size: 2.2rem;
-background: linear-gradient(135deg, var(–pink), var(–yellow));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-margin-bottom: 10px;
-}
-footer p { color: rgba(255,255,255,0.55); font-size:0.95rem; }
-.footer-emojis { font-size:2rem; letter-spacing:8px; margin-top:20px; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
 
-@media (max-width: 768px) {
-nav { padding: 0 16px; }
-.apparatus-item { grid-template-columns: 1fr; padding: 32px 24px; }
-.apparatus-item.reverse { direction: ltr; }
-.profile-card { flex-direction: column; text-align:center; padding: 28px 20px; }
-.vid-grid { grid-template-columns: 1fr; }
-nav { height: 60px; }
-.nav-logo { font-size: 1.2rem; }
-.nav-links li a { padding: 6px 12px; font-size:0.9rem; }
-}
-</style>
+    .hero h1 {
+      font-size: clamp(2.8rem, 8vw, 6.2rem);
+      line-height: 1.04;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+      animation: fadeUp 0.9s ease both;
+    }
 
+    .hero h2 {
+      font-size: clamp(1rem, 3vw, 1.35rem);
+      color: var(--text-soft);
+      font-weight: 800;
+      margin-bottom: 12px;
+      animation: fadeUp 0.9s 0.12s ease both;
+    }
+
+    .hero p.hero-note {
+      color: var(--text-soft);
+      font-size: 0.98rem;
+      margin-top: 12px;
+      font-weight: 700;
+      opacity: 0;
+      animation: fadeUp 1s 0.35s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .gymnast-wrap {
+      margin: 16px 0 6px;
+      animation: floatGym 5s ease-in-out infinite;
+    }
+
+    @keyframes floatGym {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-14px) rotate(2deg); }
+    }
+
+    .gymnast-svg {
+      width: clamp(160px, 34vw, 260px);
+      display: block;
+    }
+
+    .sparkle-float {
+      position: absolute;
+      font-size: 2rem;
+      animation: sparkPop 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sparkPop {
+      0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.25) rotate(25deg); }
+    }
+
+    /* Shared sections */
+    .info-section,
+    .apparatus-section,
+    .videos-section {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .info-section {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      text-align: center;
+      font-weight: 900;
+      margin-bottom: 50px;
+      letter-spacing: -0.6px;
+    }
+
+    .big-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .info-card {
+      background: var(--card);
+      border-radius: 26px;
+      padding: 30px 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, background 0.35s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .info-card .ic-icon {
+      display: block;
+      font-size: 2.7rem;
+      margin-bottom: 14px;
+    }
+
+    .info-card h3 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .info-card p {
+      color: var(--text-soft);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    /* Timeline */
+    .history-wrap {
+      width: min(1000px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 0 0 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--pink), var(--purple), var(--blue), var(--teal));
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 24px;
+      background: var(--card);
+      border-radius: 20px;
+      padding: 22px 22px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      left: -32px;
+      top: 22px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--pink);
+      border: 3px solid var(--card);
+      box-shadow: 0 0 0 3px var(--pink);
+    }
+
+    .tl-year {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--purple);
+      margin-bottom: 8px;
+    }
+
+    .tl-item p {
+      color: var(--text-soft);
+      line-height: 1.75;
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+
+    /* Stats */
+    .stats-strip {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, #FF6BB5 0%, #A855F7 50%, #4FC3F7 100%);
+      padding: 56px 16px;
+      margin-top: 10px;
+    }
+
+    .stats-inner {
+      width: min(1000px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 16px;
+      text-align: center;
+    }
+
+    .stat-box {
+      color: white;
+      padding: 16px;
+    }
+
+    .stat-num {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 8px;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .stat-box p {
+      font-size: 0.95rem;
+      font-weight: 700;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+
+    /* Champions */
+    .champions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .champ-card {
+      background: var(--card);
+      border-radius: 24px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .champ-card::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 5px;
+    }
+
+    .champ-card:nth-child(1)::after { background: linear-gradient(90deg, #FF6BB5, #FF8C42); }
+    .champ-card:nth-child(2)::after { background: linear-gradient(90deg, #A855F7, #4FC3F7); }
+    .champ-card:nth-child(3)::after { background: linear-gradient(90deg, #00D4C8, #A8E063); }
+
+    .champ-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .champ-emoji {
+      display: block;
+      font-size: 3.5rem;
+      margin-bottom: 12px;
+    }
+
+    .champ-card h3 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .champ-country {
+      display: inline-block;
+      background: var(--bg-soft);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--purple);
+      margin-bottom: 12px;
+    }
+
+    .champ-card p {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      line-height: 1.75;
+      font-weight: 600;
+    }
+
+    .profile-achievements {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      justify-content: center;
+    }
+
+    .ach-badge {
+      background: var(--bg-soft);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--purple);
+      border: 1px solid var(--border);
+    }
+
+    /* Apparatus page */
+    .app-hero,
+    .vid-hero {
+      position: relative;
+      z-index: 1;
+      padding: 84px 20px 56px;
+      text-align: center;
+    }
+
+    .app-hero {
+      background:
+        radial-gradient(ellipse at 30% 50%, var(--hero-1) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 50%, rgba(168,85,247,0.16) 0%, transparent 60%);
+    }
+
+    .vid-hero {
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(79,195,247,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(255,107,181,0.18) 0%, transparent 60%);
+    }
+
+    .app-hero h1,
+    .vid-hero h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      margin-bottom: 14px;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--orange), var(--pink), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .vid-hero h1 {
+      background: linear-gradient(135deg, var(--blue), var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .app-hero p,
+    .vid-hero p {
+      max-width: 660px;
+      margin: 0 auto;
+      color: var(--text-soft);
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.8;
+    }
+
+    .apparatus-section {
+      padding: 18px 0 80px;
+    }
+
+    .apparatus-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 34px;
+      align-items: center;
+      margin-bottom: 34px;
+      background: var(--card);
+      border-radius: 30px;
+      padding: 38px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease;
+    }
+
+    .apparatus-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .apparatus-item.reverse {
+      direction: rtl;
+    }
+
+    .apparatus-item.reverse > * {
+      direction: ltr;
+    }
+
+    .app-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 26px;
+      aspect-ratio: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      opacity: 0.15;
+    }
+
+    .av-ribbon::before { background: linear-gradient(135deg, #FF6BB5, #FFB3DC); }
+    .av-ball::before { background: linear-gradient(135deg, #A855F7, #C4A0FF); }
+    .av-clubs::before { background: linear-gradient(135deg, #00D4C8, #80DDD9); }
+    .av-hoop::before { background: linear-gradient(135deg, #FFD700, #FFE066); }
+    .av-rope::before { background: linear-gradient(135deg, #FF8C42, #FFBB80); }
+
+    .app-emoji-big {
+      font-size: 6.5rem;
+      animation: floatGym 4s ease-in-out infinite;
+      display: block;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .app-content h2 {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .app-subtitle {
+      font-size: 0.83rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .app-desc {
+      color: var(--text-soft);
+      line-height: 1.85;
+      font-size: 0.96rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .app-specs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .spec-pill {
+      background: var(--bg-soft);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--purple);
+      border: 1px solid var(--border);
+    }
+
+    .app-moves h4 {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .moves-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .moves-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--text-soft);
+      font-size: 0.93rem;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+
+    .moves-list li::before {
+      content: "✦";
+      color: var(--pink);
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .difficulty-bar {
+      margin-top: 18px;
+    }
+
+    .diff-label {
+      font-weight: 800;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .diff-track {
+      height: 12px;
+      background: rgba(127,127,127,0.15);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .diff-fill {
+      height: 100%;
+      border-radius: 999px;
+      animation: fillBar 1.5s ease forwards;
+    }
+
+    @keyframes fillBar {
+      from { width: 0; }
+    }
+
+    /* Videos */
+    .athlete-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 24px 20px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.94rem;
+      font-weight: 800;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .tab-btn:hover {
+      transform: translateY(-3px);
+      color: var(--pink);
+      border-color: rgba(255,107,181,0.3);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 8px 22px rgba(168, 85, 247, 0.28);
+    }
+
+    .athlete-profile {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-card {
+      background: var(--card);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .profile-avatar {
+      font-size: 5rem;
+      width: 118px;
+      height: 118px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .profile-info h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .p-country {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.82rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .profile-info p {
+      color: var(--text-soft);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .videos-section {
+      padding: 0 0 80px;
+    }
+
+    .vid-category-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      margin: 40px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: -0.4px;
+    }
+
+    .vid-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .vid-card {
+      background: var(--card);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .vid-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.16);
+    }
+
+    .vid-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .vid-thumb iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      pointer-events: none;
+    }
+
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.18);
+      transition: background 0.3s ease;
+    }
+
+    .vid-card:hover .play-overlay {
+      background: rgba(0,0,0,0.04);
+    }
+
+    .play-btn {
+      width: 58px;
+      height: 58px;
+      background: white;
+      color: #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+      transition: transform 0.3s ease;
+    }
+
+    .vid-card:hover .play-btn {
+      transform: scale(1.12);
+    }
+
+    .vid-info {
+      padding: 16px 16px 18px;
+    }
+
+    .vid-info h4 {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .vid-meta {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-soft);
+    }
+
+    .vid-apparatus-tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      margin-top: 8px;
+      color: white;
+    }
+
+    .athlete-section {
+      display: none;
+    }
+
+    .athlete-section.active {
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      background: var(--text);
+      color: white;
+      text-align: center;
+      padding: 54px 20px;
+      margin-top: 20px;
+    }
+
+    footer h3 {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--pink), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+
+    .footer-emojis {
+      font-size: 1.9rem;
+      letter-spacing: 8px;
+      margin-top: 16px;
+    }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .apparatus-item {
+        grid-template-columns: 1fr;
+      }
+
+      .apparatus-item.reverse {
+        direction: ltr;
+      }
+
+      .profile-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 26px 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cursor {
+        display: none;
+      }
+
+      nav {
+        padding: 0 14px;
+        height: 64px;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .page {
+        padding-top: 64px;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-center {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        display: none;
+        padding-bottom: 14px;
+      }
+
+      nav.open .nav-center {
+        display: flex;
+      }
+
+      .nav-links {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .nav-links li,
+      .nav-links li a {
+        width: 100%;
+      }
+
+      .nav-links li a {
+        justify-content: center;
+        padding: 12px 16px;
+      }
+
+      .toggle-btn {
+        width: 100%;
+      }
+
+      .nav-logo {
+        font-size: 1.08rem;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 70px 18px 30px;
+      }
+
+      .big-info-grid,
+      .champions-grid,
+      .vid-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        padding-left: 30px;
+      }
+
+      .timeline::before {
+        left: 10px;
+      }
+
+      .tl-item::before {
+        left: -24px;
+      }
+
+      .apparatus-item {
+        padding: 26px 18px;
+      }
+
+      .app-content h2 {
+        font-size: 1.8rem;
+      }
+
+      .vid-category-title {
+        font-size: 1.35rem;
+      }
+
+      .profile-avatar {
+        width: 96px;
+        height: 96px;
+        font-size: 4rem;
+      }
+
+      .athlete-tabs {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="bg-ribbons" id="ribbons"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="bg-ribbons" id="ribbons"></div>
 
-<!-- ══════════ NAVBAR ══════════ -->
+  <nav id="navbar">
+    <div class="nav-logo">RhythmWorld</div>
 
-<nav>
-  <div class="nav-logo">🎀 RhythmWorld</div>
-  <ul class="nav-links">
-    <li><a href="#" class="active" onclick="showPage('home',this)">🏠 Home</a></li>
-    <li><a href="#" onclick="showPage('apparatus',this)">🎪 Apparatus</a></li>
-    <li><a href="#" onclick="showPage('videos',this)">🎬 Videos</a></li>
-  </ul>
-</nav>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">☰</button>
 
-<!-- ══════════════════════════════════════
-     HOME PAGE
-══════════════════════════════════════ -->
+    <div class="nav-center" id="navCenter">
+      <ul class="nav-links">
+        <li><a href="#" class="active" onclick="showPage('home', this)">Home</a></li>
+        <li><a href="#" onclick="showPage('apparatus', this)">Apparatus</a></li>
+        <li><a href="#" onclick="showPage('videos', this)">Videos</a></li>
+      </ul>
 
-<div id="page-home" class="page active">
-
-  <!-- Hero -->
-
-  <section class="hero">
-    <span class="sparkle-float" style="top:15%;left:7%;animation-delay:0s">✨</span>
-    <span class="sparkle-float" style="top:22%;right:9%;animation-delay:1.2s">🌟</span>
-    <span class="sparkle-float" style="top:65%;left:4%;animation-delay:2.1s">💫</span>
-    <span class="sparkle-float" style="top:55%;right:6%;animation-delay:0.7s">⭐</span>
-    <span class="sparkle-float" style="top:80%;left:12%;animation-delay:1.8s">✦</span>
-
-```
-<div class="hero-badge">🌍 Welcome to the World of</div>
-<h1>Rhythmic<br>Gymnastics</h1>
-<h2>Where Sport Meets Art 💃</h2>
-
-<div class="gymnast-wrap">
-  <svg class="gymnast-svg" viewBox="0 0 280 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M200 30 Q245 65 220 108 Q198 148 242 170 Q272 188 250 228" stroke="#FF6BB5" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <path d="M207 28 Q252 63 227 106 Q205 146 249 168 Q279 186 257 226" stroke="#A855F7" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.45"/>
-    <ellipse cx="130" cy="82" rx="22" ry="26" fill="#FFD9B3"/>
-    <ellipse cx="130" cy="61" rx="22" ry="18" fill="#3D2200"/>
-    <ellipse cx="130" cy="53" rx="14" ry="10" fill="#3D2200"/>
-    <circle cx="122" cy="80" r="3" fill="#FF8FAB"/>
-    <circle cx="138" cy="80" r="3" fill="#FF8FAB"/>
-    <path d="M124 91 Q130 97 136 91" stroke="#FF6B6B" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <path d="M108 108 L152 108 L160 185 L100 185 Z" fill="#FF6BB5"/>
-    <path d="M115 108 L130 134 L145 108" fill="#A855F7" opacity="0.55"/>
-    <line x1="108" y1="118" x2="73" y2="82" stroke="#FFD9B3" stroke-width="14" stroke-linecap="round"/>
-    <line x1="73" y1="82" x2="99" y2="52" stroke="#FFD9B3" stroke-width="12" stroke-linecap="round"/>
-    <line x1="152" y1="118" x2="186" y2="103" stroke="#FFD9B3" stroke-width="14" stroke-linecap="round"/>
-    <line x1="97" y1="54" x2="202" y2="30" stroke="#FFD700" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="115" y1="185" x2="100" y2="248" stroke="#FFD9B3" stroke-width="14" stroke-linecap="round"/>
-    <line x1="100" y1="248" x2="78" y2="290" stroke="#FFD9B3" stroke-width="12" stroke-linecap="round"/>
-    <line x1="145" y1="185" x2="178" y2="235" stroke="#FFD9B3" stroke-width="14" stroke-linecap="round"/>
-    <line x1="178" y1="235" x2="198" y2="205" stroke="#FFD9B3" stroke-width="12" stroke-linecap="round"/>
-    <ellipse cx="76" cy="292" rx="14" ry="7" fill="#FF6BB5"/>
-    <ellipse cx="200" cy="203" rx="14" ry="7" fill="#FF6BB5" transform="rotate(-30 200 203)"/>
-    <text x="44" y="145" font-size="22" fill="#FFD700">★</text>
-    <text x="192" y="265" font-size="18" fill="#A855F7">✦</text>
-    <text x="28" y="230" font-size="14" fill="#00D4C8">✦</text>
-    <text x="165" y="52" font-size="14" fill="#FF6BB5">★</text>
-  </svg>
-</div>
-<p style="color:#bbb;font-size:1rem;margin-top:10px;font-weight:700;animation:fadeUp 1s 0.4s both;opacity:0;">Scroll down to explore ↓</p>
-```
-
-  </section>
-
-  <!-- What is it? -->
-
-  <section class="info-section reveal">
-    <h2 class="section-title" style="background:linear-gradient(135deg,#FF6BB5,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-      🌸 What is Rhythmic Gymnastics?
-    </h2>
-    <div class="big-info-grid">
-      <div class="info-card">
-        <span class="ic-icon">💃</span>
-        <h3>Sport + Art</h3>
-        <p>Rhythmic gymnastics is a beautiful sport that mixes dance, ballet, acrobatics, and music together. Gymnasts move with elegance and power at the same time. Every routine tells a story through movement!</p>
-      </div>
-      <div class="info-card">
-        <span class="ic-icon">🎵</span>
-        <h3>Music & Movement</h3>
-        <p>Every routine is performed to music — sometimes classical, sometimes pop! The gymnast must match every movement perfectly to the rhythm. The music helps tell the story of the performance and express emotion.</p>
-      </div>
-      <div class="info-card">
-        <span class="ic-icon">🎪</span>
-        <h3>Five Apparatus</h3>
-        <p>Gymnasts use five special tools called "apparatus" — the ribbon, ball, hoop, clubs, and rope. Each one is different and needs its own special skills. Learning all five makes a gymnast truly amazing!</p>
-      </div>
-      <div class="info-card">
-        <span class="ic-icon">🏅</span>
-        <h3>Olympic Sport</h3>
-        <p>Rhythmic gymnastics has been part of the Olympic Games since 1984! Athletes from all over the world train for years to compete at the highest level. It is one of the most watched sports at the Olympics!</p>
-      </div>
-      <div class="info-card">
-        <span class="ic-icon">👯</span>
-        <h3>Individual & Groups</h3>
-        <p>You can compete alone — just you and your apparatus. Or you can be part of a group of 5 gymnasts who all move together in perfect harmony! Group routines are especially exciting and beautiful to watch.</p>
-      </div>
-      <div class="info-card">
-        <span class="ic-icon">⚡</span>
-        <h3>Incredible Skills</h3>
-        <p>Gymnasts need to be very flexible (like bending backwards to touch their head to their feet!), have perfect balance, fast reflexes to catch the apparatus, and the grace of a dancer. It takes years of practice!</p>
-      </div>
+      <button class="toggle-btn" id="themeToggle" type="button">🌙 Dark Mode</button>
     </div>
-  </section>
+  </nav>
 
-  <!-- History Timeline -->
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <section class="hero">
+      <span class="sparkle-float" style="top:15%;left:7%;animation-delay:0s">✨</span>
+      <span class="sparkle-float" style="top:22%;right:9%;animation-delay:1.2s">🌟</span>
+      <span class="sparkle-float" style="top:65%;left:4%;animation-delay:2.1s">💫</span>
+      <span class="sparkle-float" style="top:55%;right:6%;animation-delay:0.7s">⭐</span>
+      <span class="sparkle-float" style="top:80%;left:12%;animation-delay:1.8s">✦</span>
 
-  <section style="position:relative;z-index:1;padding:0 20px 80px;max-width:1000px;margin:0 auto;">
-    <div class="reveal">
-      <h2 class="section-title" style="background:linear-gradient(135deg,#00D4C8,#4FC3F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-        📅 A Little History
+      <div class="hero-badge">Welcome to the world of</div>
+      <h1>Rhythmic<br>Gymnastics</h1>
+      <h2>Where sport meets art</h2>
+
+      <div class="gymnast-wrap">
+        <svg class="gymnast-svg" viewBox="0 0 280 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M200 30 Q245 65 220 108 Q198 148 242 170 Q272 188 250 228" stroke="#FF6BB5" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M207 28 Q252 63 227 106 Q205 146 249 168 Q279 186 257 226" stroke="#A855F7" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.45"/>
+          <ellipse cx="130" cy="82" rx="22" ry="26" fill="#FFD9B3"/>
+          <ellipse cx="130" cy="61" rx="22" ry="18" fill="#3D2200"/>
+          <ellipse cx="130" cy="53" rx="14" ry="10" fill="#3D2200"/>
+          <circle cx="122" cy="80" r="3" fill="#FF8FAB"/>
+          <circle cx="138" cy="80" r="3" fill="#FF8FAB"/>
+          <path d="M124 91 Q130 97 136 91" stroke="#FF6B6B" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M108 108 L152 108 L160 185 L100 185 Z" fill="#FF6BB5"/>
+          <path d="M115 108 L130 134 L145 108" fill="#A855F7" opacity="0.55"/>
+          <line x1="108" y1="118" x2="73" y2="82" stroke="#FFD9B3" stroke-width="14" stroke-linecap="round"/>
+          <line x1="73" y1="82" x2="99" y2="52" stroke="#FFD9B3" stroke-width="12" stroke-linecap="round"/>
+          <line x1="152" y1="118" x2="186" y2="103" stroke="#FFD9B3" stroke-width="14" stroke-linecap="round"/>
+          <line x1="97" y1="54" x2="202" y2="30" stroke="#FFD700" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="115" y1="185" x2="100" y2="248" stroke="#FFD9B3" stroke-width="14" stroke-linecap="round"/>
+          <line x1="100" y1="248" x2="78" y2="290" stroke="#FFD9B3" stroke-width="12" stroke-linecap="round"/>
+          <line x1="145" y1="185" x2="178" y2="235" stroke="#FFD9B3" stroke-width="14" stroke-linecap="round"/>
+          <line x1="178" y1="235" x2="198" y2="205" stroke="#FFD9B3" stroke-width="12" stroke-linecap="round"/>
+          <ellipse cx="76" cy="292" rx="14" ry="7" fill="#FF6BB5"/>
+          <ellipse cx="200" cy="203" rx="14" ry="7" fill="#FF6BB5" transform="rotate(-30 200 203)"/>
+          <text x="44" y="145" font-size="22" fill="#FFD700">★</text>
+          <text x="192" y="265" font-size="18" fill="#A855F7">✦</text>
+          <text x="28" y="230" font-size="14" fill="#00D4C8">✦</text>
+          <text x="165" y="52" font-size="14" fill="#FF6BB5">★</text>
+        </svg>
+      </div>
+
+      <p class="hero-note">Scroll down to explore</p>
+    </section>
+
+    <section class="info-section reveal">
+      <h2 class="section-title" style="background:linear-gradient(135deg,#FF6BB5,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+        What is Rhythmic Gymnastics?
       </h2>
+
+      <div class="big-info-grid">
+        <div class="info-card">
+          <span class="ic-icon">💃</span>
+          <h3>Sport + Art</h3>
+          <p>Rhythmic gymnastics mixes dance, ballet, acrobatics, and music together. Every routine combines grace, control, flexibility, and storytelling.</p>
+        </div>
+
+        <div class="info-card">
+          <span class="ic-icon">🎵</span>
+          <h3>Music & Movement</h3>
+          <p>Every performance is built around music. The gymnast matches movement, rhythm, emotion, and expression in one flowing routine.</p>
+        </div>
+
+        <div class="info-card">
+          <span class="ic-icon">🎀</span>
+          <h3>Five Apparatus</h3>
+          <p>The sport uses ribbon, ball, hoop, clubs, and rope. Each apparatus needs its own style, control, and technical skill.</p>
+        </div>
+
+        <div class="info-card">
+          <span class="ic-icon">🏅</span>
+          <h3>Olympic Sport</h3>
+          <p>Rhythmic gymnastics has been part of the Olympic Games since 1984 and continues to inspire athletes all over the world.</p>
+        </div>
+
+        <div class="info-card">
+          <span class="ic-icon">👯</span>
+          <h3>Individual & Groups</h3>
+          <p>Gymnasts can compete individually or in groups, where perfect timing and team harmony create amazing performances.</p>
+        </div>
+
+        <div class="info-card">
+          <span class="ic-icon">⚡</span>
+          <h3>Incredible Skills</h3>
+          <p>It takes years of training to develop flexibility, balance, musicality, precision, and clean apparatus handling.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="history-wrap reveal">
+      <h2 class="section-title" style="background:linear-gradient(135deg,#00D4C8,#4FC3F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+        A Little History
+      </h2>
+
       <div class="timeline">
         <div class="tl-item">
           <div class="tl-year">1880s</div>
-          <p>The roots of rhythmic gymnastics began in Europe, mixing ideas from Swedish gymnastics, ballet movements, and the ideas of teachers like François Delsarte and Rudolf Bode about expressive movement.</p>
+          <p>The roots of rhythmic gymnastics started in Europe through expressive movement, ballet, and early gymnastics methods.</p>
         </div>
         <div class="tl-item">
           <div class="tl-year">1963</div>
-          <p>The International Gymnastics Federation (FIG) officially recognized rhythmic gymnastics as a sport! The first World Championship was held in Budapest, Hungary. The sport began to spread around the world.</p>
+          <p>The International Gymnastics Federation officially recognized rhythmic gymnastics and held the first World Championship.</p>
         </div>
         <div class="tl-item">
           <div class="tl-year">1984</div>
-          <p>🏅 Big milestone! Rhythmic gymnastics made its debut at the Olympic Games in Los Angeles, USA. Canadian gymnast Lori Fung won the very first Olympic gold medal in the sport!</p>
+          <p>The sport made its Olympic debut in Los Angeles, becoming one of the most artistic events in the Games.</p>
         </div>
         <div class="tl-item">
           <div class="tl-year">1996</div>
-          <p>Group gymnastics was added to the Olympics in Atlanta. Now teams of 5 gymnasts could compete together, making the sport even more exciting and spectacular to watch!</p>
+          <p>Group rhythmic gymnastics joined the Olympics, adding spectacular team routines and synchronized movement.</p>
         </div>
         <div class="tl-item">
-          <div class="tl-year">Today 🌟</div>
-          <p>Rhythmic gymnastics is now loved in over 100 countries! Stars like Sofia Raffaeli from Italy and Stiliana Nikolova from Bulgaria inspire millions of young girls around the world to start gymnastics.</p>
+          <div class="tl-year">Today</div>
+          <p>Rhythmic gymnastics is practiced in more than 100 countries and continues to grow through world championships, cups, and youth training.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="stats-strip reveal">
+      <div class="stats-inner">
+        <div class="stat-box">
+          <div class="stat-num">100+</div>
+          <p>Countries competing worldwide</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1984</div>
+          <p>First Olympic debut</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5</div>
+          <p>Different apparatus used</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">90s</div>
+          <p>Typical routine length</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">10</div>
+          <p>Perfect execution feeling</p>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Stats -->
+    <section class="info-section reveal">
+      <h2 class="section-title" style="background:linear-gradient(135deg,#FF8C42,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+        Legendary Champions
+      </h2>
 
-  <div class="stats-strip reveal">
-    <div class="stats-inner">
-      <div class="stat-box">
-        <div class="stat-num">100+</div>
-        <p>Countries competing worldwide 🌍</p>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">1984</div>
-        <p>First Olympic Games debut 🏅</p>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">5</div>
-        <p>Different apparatus used 🎪</p>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">90s</div>
-        <p>Length of a routine in seconds ⏱️</p>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">10</div>
-        <p>Maximum judges score 🏆</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Famous Champions -->
-
-  <section class="info-section reveal">
-    <h2 class="section-title" style="background:linear-gradient(135deg,#FF8C42,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-      🏆 Legendary Champions
-    </h2>
-    <div class="champions-grid">
-      <div class="champ-card">
-        <span class="champ-emoji">🇮🇹</span>
-        <h3>Sofia Raffaeli</h3>
-        <span class="champ-country">🇮🇹 Italy</span>
-        <p>One of the biggest stars in rhythmic gymnastics today! Sofia is known for her incredible flexibility and beautiful routines. She became World Champion multiple times and wows everyone with her artistic style.</p>
-        <div class="profile-achievements" style="justify-content:center;">
-          <span class="ach-badge">🥇 World Champion</span>
-          <span class="ach-badge">🌟 Olympic Medalist</span>
-        </div>
-      </div>
-      <div class="champ-card">
-        <span class="champ-emoji">🇧🇬</span>
-        <h3>Stiliana Nikolova</h3>
-        <span class="champ-country">🇧🇬 Bulgaria</span>
-        <p>Known as one of the most powerful and expressive gymnasts in the world! Stiliana has won many medals for Bulgaria. Her routines are full of emotion and technical difficulty that leave audiences speechless.</p>
-        <div class="profile-achievements" style="justify-content:center;">
-          <span class="ach-badge">🏅 World Medalist</span>
-          <span class="ach-badge">⭐ World Cup Champion</span>
-        </div>
-      </div>
-      <div class="champ-card">
-        <span class="champ-emoji">🇷🇺</span>
-        <h3>Alina Kabaeva</h3>
-        <span class="champ-country">🇷🇺 Russia</span>
-        <p>A legend of rhythmic gymnastics! Alina won the Olympic gold medal in 2004 and is considered one of the greatest ever. Her routines were like watching a beautiful painting come to life.</p>
-        <div class="profile-achievements" style="justify-content:center;">
-          <span class="ach-badge">🥇 Olympic Champion 2004</span>
-          <span class="ach-badge">👑 All-Time Legend</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How scoring works -->
-
-  <section style="position:relative;z-index:1;padding:0 20px 100px;max-width:1000px;margin:0 auto;" class="reveal">
-    <h2 class="section-title" style="background:linear-gradient(135deg,#A855F7,#FF6BB5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-      📊 How Does Scoring Work?
-    </h2>
-    <div class="big-info-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
-      <div class="info-card" style="border-top:5px solid #FF6BB5;">
-        <span class="ic-icon">🤸</span>
-        <h3>Difficulty (D)</h3>
-        <p>Judges look at how hard the moves are. Difficult jumps, balances, and rotations give higher scores. The harder the skill, the more points a gymnast earns!</p>
-      </div>
-      <div class="info-card" style="border-top:5px solid #A855F7;">
-        <span class="ic-icon">🎨</span>
-        <h3>Artistry (A)</h3>
-        <p>How beautiful is the performance? Does the gymnast express emotion? Does the routine match the music? Artistry judges score the beauty and creativity of the whole performance.</p>
-      </div>
-      <div class="info-card" style="border-top:5px solid #00D4C8;">
-        <span class="ic-icon">⚙️</span>
-        <h3>Execution (E)</h3>
-        <p>This score is about perfection! If a gymnast drops the apparatus or makes a technical mistake, points are taken away. A clean routine with no mistakes scores highest!</p>
-      </div>
-      <div class="info-card" style="border-top:5px solid #FFD700;">
-        <span class="ic-icon">🎯</span>
-        <h3>Apparatus Handling</h3>
-        <p>Judges watch closely how the gymnast uses the apparatus. They must throw it, catch it, and use it in creative ways. Dropping or losing control takes away points!</p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <h3>✨ Rhythmic Gymnastics World ✨</h3>
-    <p>Grace · Rhythm · Beauty · Power · Art</p>
-    <p style="margin-top:8px;font-size:0.85rem;opacity:0.5;">Made with 💖 by Laila</p>
-    <div class="footer-emojis">🎀⭐🤸‍♀️🌟🎵</div>
-  </footer>
-</div>
-
-<!-- ══════════════════════════════════════
-     APPARATUS PAGE
-══════════════════════════════════════ -->
-
-<div id="page-apparatus" class="page">
-
-  <div class="app-hero">
-    <h1>🎪 The 5 Apparatus</h1>
-    <p>Every apparatus has its own personality, its own magic, and its own world of incredible moves. Learn everything about them!</p>
-  </div>
-
-  <div class="apparatus-section">
-
-```
-<!-- RIBBON -->
-<div class="apparatus-item reveal">
-  <div class="app-visual av-ribbon">
-    <span class="app-emoji-big">🎀</span>
-  </div>
-  <div class="app-content">
-    <span class="app-subtitle" style="color:var(--pink);">Apparatus No.1</span>
-    <h2>The Ribbon</h2>
-    <p class="app-desc">The ribbon is perhaps the most beautiful and magical of all the apparatus! It is a long, shiny ribbon attached to a stick called a "wand." When a gymnast moves it through the air, it creates stunning spirals, snakes, and waves that look almost alive. The ribbon must NEVER stop moving or touch the floor during the routine.</p>
-    <p class="app-desc">The ribbon requires incredible coordination between the gymnast's body movements and her wrist movements. While her legs are doing difficult jumps and her body is bending, her wrist must keep the ribbon flowing in perfect shapes. It takes years of practice to master!</p>
-    <div class="app-specs">
-      <span class="spec-pill">📏 Length: 6 meters</span>
-      <span class="spec-pill">⚖️ Min. weight: 35g</span>
-      <span class="spec-pill">🪡 Made of: Satin</span>
-      <span class="spec-pill">🏆 Age: Used since 1963</span>
-    </div>
-    <div class="app-moves">
-      <h4>✨ Famous Ribbon Moves</h4>
-      <ul class="moves-list">
-        <li>Snakes — the ribbon moves in an S-shape along the floor or in the air</li>
-        <li>Spirals — the ribbon makes tight coil shapes spinning in the air</li>
-        <li>Circles — the gymnast draws big and small circles with the ribbon</li>
-        <li>Figure-8s — the ribbon crosses itself in the shape of the number 8</li>
-        <li>Throws — the stick is thrown in the air while the ribbon flows freely</li>
-      </ul>
-    </div>
-    <div class="difficulty-bar">
-      <div class="diff-label">⭐ Difficulty to Master</div>
-      <div class="diff-track"><div class="diff-fill" style="width:92%;background:linear-gradient(90deg,#FF6BB5,#FF8C42);"></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- BALL -->
-<div class="apparatus-item reverse reveal">
-  <div class="app-visual av-ball">
-    <span class="app-emoji-big">⚾</span>
-  </div>
-  <div class="app-content">
-    <span class="app-subtitle" style="color:var(--purple);">Apparatus No.2</span>
-    <h2>The Ball</h2>
-    <p class="app-desc">The ball is the most graceful of all the apparatus! Unlike other sports where you grip a ball tightly, in rhythmic gymnastics you must never grip the ball — it should always rest gently on your hand, roll along your body, or float through the air. The relationship between gymnast and ball must look completely effortless and natural.</p>
-    <p class="app-desc">The ball can roll along the gymnast's arms, across her back, up her legs, and around her neck! It can be thrown high in the air while the gymnast performs a difficult jump or spin below. The secret is that the ball and the gymnast seem to belong together, moving as one.</p>
-    <div class="app-specs">
-      <span class="spec-pill">📏 Diameter: 18–20 cm</span>
-      <span class="spec-pill">⚖️ Weight: 400g min</span>
-      <span class="spec-pill">🏀 Made of: Rubber</span>
-      <span class="spec-pill">🎨 Color: Any color!</span>
-    </div>
-    <div class="app-moves">
-      <h4>✨ Famous Ball Moves</h4>
-      <ul class="moves-list">
-        <li>Body rolls — the ball rolls smoothly from hand to hand across the body</li>
-        <li>Bounces — bouncing the ball in perfect rhythm with the music</li>
-        <li>High throws — launching the ball very high and catching gracefully</li>
-        <li>Balancing — balancing the ball on the back of the hand, head or neck</li>
-        <li>Floor rolls — rolling the ball across the floor and chasing it with the body</li>
-      </ul>
-    </div>
-    <div class="difficulty-bar">
-      <div class="diff-label">⭐ Difficulty to Master</div>
-      <div class="diff-track"><div class="diff-fill" style="width:85%;background:linear-gradient(90deg,#A855F7,#4FC3F7);"></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- CLUBS -->
-<div class="apparatus-item reveal">
-  <div class="app-visual av-clubs">
-    <span class="app-emoji-big">🏸</span>
-  </div>
-  <div class="app-content">
-    <span class="app-subtitle" style="color:var(--teal);">Apparatus No.3</span>
-    <h2>The Clubs</h2>
-    <p class="app-desc">The clubs are the most exciting and dynamic apparatus! The gymnast uses TWO clubs at the same time — one in each hand. This makes it the most technically challenging apparatus because both hands must work independently while the body performs difficult gymnastics skills at the same time.</p>
-    <p class="app-desc">Clubs look a little like small bowling pins or bottles. They can be thrown in the air, spun, swapped from hand to hand, or juggled. When two clubs are thrown at the same time and the gymnast catches both — the crowd goes absolutely wild! The sound of the clubs spinning through the air is very satisfying.</p>
-    <div class="app-specs">
-      <span class="spec-pill">📏 Length: 40–50 cm each</span>
-      <span class="spec-pill">⚖️ Weight: 150g min each</span>
-      <span class="spec-pill">🪵 Made of: Plastic/rubber</span>
-      <span class="spec-pill">✌️ Quantity: 2 clubs used</span>
-    </div>
-    <div class="app-moves">
-      <h4>✨ Famous Club Moves</h4>
-      <ul class="moves-list">
-        <li>Mills — both clubs spinning in small circles in front of the body</li>
-        <li>Asymmetric throws — throwing both clubs at different heights and angles</li>
-        <li>Juggling catches — one or both clubs thrown and caught behind the back</li>
-        <li>Body contact — rolling the clubs along the arms, legs and neck</li>
-        <li>Simultaneous throws — throwing both clubs up at the same time</li>
-      </ul>
-    </div>
-    <div class="difficulty-bar">
-      <div class="diff-label">⭐ Difficulty to Master</div>
-      <div class="diff-track"><div class="diff-fill" style="width:97%;background:linear-gradient(90deg,#00D4C8,#A8E063);"></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- HOOP -->
-<div class="apparatus-item reverse reveal">
-  <div class="app-visual av-hoop">
-    <span class="app-emoji-big">⭕</span>
-  </div>
-  <div class="app-content">
-    <span class="app-subtitle" style="color:var(--yellow);">Apparatus No.4</span>
-    <h2>The Hoop</h2>
-    <p class="app-desc">The hoop is the most versatile apparatus — it can be used in SO many different ways! The gymnast can spin it like a wheel, jump through it like a portal, rotate it around her body, throw it in the air, or roll it across the floor. The hoop is also the largest apparatus, which makes moves look even more impressive and spectacular.</p>
-    <p class="app-desc">One of the most breathtaking moves is when the gymnast throws the hoop very high in the air, performs a full split jump while it's in the air, and catches it perfectly on the way down. The hoop adds a geometric element to the performance — circular shapes all around a human body in motion.</p>
-    <div class="app-specs">
-      <span class="spec-pill">📏 Diameter: 80–90 cm</span>
-      <span class="spec-pill">⚖️ Weight: 300g min</span>
-      <span class="spec-pill">🔵 Made of: Plastic</span>
-      <span class="spec-pill">⭕ Shape: Perfect circle</span>
-    </div>
-    <div class="app-moves">
-      <h4>✨ Famous Hoop Moves</h4>
-      <ul class="moves-list">
-        <li>Spinning — rotating the hoop around the waist, neck, arm or leg</li>
-        <li>Jumping through — the gymnast jumps through the hoop in mid-air</li>
-        <li>Rolling — rolling the hoop along the floor and leaping over it</li>
-        <li>High throws — throwing the hoop way above the head and catching it</li>
-        <li>Pirouette catch — spinning in a pirouette and catching the falling hoop</li>
-      </ul>
-    </div>
-    <div class="difficulty-bar">
-      <div class="diff-label">⭐ Difficulty to Master</div>
-      <div class="diff-track"><div class="diff-fill" style="width:88%;background:linear-gradient(90deg,#FFD700,#FF8C42);"></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ROPE -->
-<div class="apparatus-item reveal">
-  <div class="app-visual av-rope">
-    <span class="app-emoji-big">🪢</span>
-  </div>
-  <div class="app-content">
-    <span class="app-subtitle" style="color:var(--orange);">Apparatus No.5</span>
-    <h2>The Rope</h2>
-    <p class="app-desc">The rope might look simple — after all, everyone has jumped rope before! But in rhythmic gymnastics, the rope is used in ways that will completely amaze you. The gymnast can skip with it at incredible speed, swing it in giant circles, form shapes with it, or throw it in the air like a snake.</p>
-    <p class="app-desc">The rope has no handles — both ends are held directly. It must be proportional to the height of the gymnast. What makes the rope so special is the energy and joy it brings! Rope routines often feel the most alive and exciting because the gymnast seems to be flying and dancing all at once.</p>
-    <div class="app-specs">
-      <span class="spec-pill">📏 Length: Proportional to height</span>
-      <span class="spec-pill">🪢 Made of: Hemp or synthetic</span>
-      <span class="spec-pill">✋ No handles!</span>
-      <span class="spec-pill">⚡ Speed: Very fast movement</span>
-    </div>
-    <div class="app-moves">
-      <h4>✨ Famous Rope Moves</h4>
-      <ul class="moves-list">
-        <li>Double-Dutch skipping — incredibly fast skipping with complex footwork</li>
-        <li>Big swings — swinging the rope in giant circles while doing leaps</li>
-        <li>Rope throws — throwing the entire rope in the air and catching it</li>
-        <li>Body wrapping — wrapping the rope around the body and legs</li>
-        <li>Folded rope jumps — folding the rope double and jumping at double speed</li>
-      </ul>
-    </div>
-    <div class="difficulty-bar">
-      <div class="diff-label">⭐ Difficulty to Master</div>
-      <div class="diff-track"><div class="diff-fill" style="width:80%;background:linear-gradient(90deg,#FF8C42,#FFD700);"></div></div>
-    </div>
-  </div>
-</div>
-```
-
-  </div>
-
-  <footer>
-    <h3>✨ Rhythmic Gymnastics World ✨</h3>
-    <p>Grace · Rhythm · Beauty · Power · Art</p>
-    <p style="margin-top:8px;font-size:0.85rem;opacity:0.5;">Made with 💖 by Laila</p>
-    <div class="footer-emojis">🎀⭐🤸‍♀️🌟🎵</div>
-  </footer>
-</div>
-
-<!-- ══════════════════════════════════════
-     VIDEOS PAGE
-══════════════════════════════════════ -->
-
-<div id="page-videos" class="page">
-
-  <div class="vid-hero">
-    <h1>🎬 Watch & Be Amazed!</h1>
-    <p>Watch the world's best gymnasts perform incredible routines. Click an athlete below to see their videos!</p>
-  </div>
-
-  <!-- Athlete Tabs -->
-
-  <div class="athlete-tabs">
-    <button class="tab-btn active" onclick="showAthlete('sofia',this)">🇮🇹 Sofia Raffaeli</button>
-    <button class="tab-btn" onclick="showAthlete('stiliana',this)">🇧🇬 Stiliana Nikolova</button>
-    <button class="tab-btn" onclick="showAthlete('all',this)">🌟 All Apparatus</button>
-  </div>
-
-  <!-- ── SOFIA ── -->
-
-  <div id="athlete-sofia" class="athlete-section active">
-    <div class="athlete-profile">
-      <div class="profile-card">
-        <div class="profile-avatar" style="background:linear-gradient(135deg,#FFE0CC,#FF8C42);">🇮🇹</div>
-        <div class="profile-info">
-          <h2>Sofia Raffaeli</h2>
-          <span class="p-country" style="background:linear-gradient(135deg,#FF6BB5,#FF8C42);">🇮🇹 Italy</span>
-          <p>Born in 2004 in Fabriano, Italy, Sofia Raffaeli is one of the most exciting young stars in rhythmic gymnastics today! She is famous for her extraordinary flexibility, powerful jumps, and incredibly artistic style. Sofia became a multiple World Champion and won Olympic medals, inspiring millions of young girls around the world. Her routines feel like watching a beautiful dream — full of grace, power and emotion!</p>
+      <div class="champions-grid">
+        <div class="champ-card">
+          <span class="champ-emoji">🇮🇹</span>
+          <h3>Sofia Raffaeli</h3>
+          <span class="champ-country">Italy</span>
+          <p>Known for elegant lines, strong artistry, and high-level routines that combine emotion and difficult body elements.</p>
           <div class="profile-achievements">
-            <span class="ach-badge">🥇 Multiple World Champion</span>
-            <span class="ach-badge">🥈 Olympic Silver 2024</span>
-            <span class="ach-badge">🌟 World Cup Winner</span>
-            <span class="ach-badge">⭐ Born: 2004</span>
+            <span class="ach-badge">World Champion</span>
+            <span class="ach-badge">Olympic Medalist</span>
+          </div>
+        </div>
+
+        <div class="champ-card">
+          <span class="champ-emoji">🇧🇬</span>
+          <h3>Stiliana Nikolova</h3>
+          <span class="champ-country">Bulgaria</span>
+          <p>Recognized for dynamic expression, powerful technique, and strong presence in world-level rhythmic competitions.</p>
+          <div class="profile-achievements">
+            <span class="ach-badge">World Medalist</span>
+            <span class="ach-badge">World Cup Star</span>
+          </div>
+        </div>
+
+        <div class="champ-card">
+          <span class="champ-emoji">🇷🇺</span>
+          <h3>Alina Kabaeva</h3>
+          <span class="champ-country">Russia</span>
+          <p>One of the most iconic names in the history of rhythmic gymnastics, remembered for style, precision, and stage presence.</p>
+          <div class="profile-achievements">
+            <span class="ach-badge">Olympic Champion</span>
+            <span class="ach-badge">Legend</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <h3>Rhythmic Gymnastics World</h3>
+      <p>Grace · Rhythm · Beauty · Power · Art</p>
+      <p style="margin-top:8px;font-size:0.85rem;opacity:0.7;">Made with love by Laila</p>
+      <div class="footer-emojis">🎀 🔵 🥢 ⭕ 🪢</div>
+    </footer>
+  </div>
+
+  <!-- APPARATUS -->
+  <div id="page-apparatus" class="page">
+    <div class="app-hero">
+      <h1>The 5 Apparatus</h1>
+      <p>Every apparatus has its own movement language, personality, and visual style.</p>
+    </div>
+
+    <div class="apparatus-section">
+
+      <div class="apparatus-item reveal">
+        <div class="app-visual av-ribbon">
+          <span class="app-emoji-big">🎀</span>
+        </div>
+        <div class="app-content">
+          <span class="app-subtitle" style="color:var(--pink);">Apparatus No. 1</span>
+          <h2>Ribbon</h2>
+          <p class="app-desc">The ribbon creates spirals, waves, circles, and flowing shapes. It must stay alive in the air and needs excellent wrist control and body coordination.</p>
+          <div class="app-specs">
+            <span class="spec-pill">Length: 6 meters</span>
+            <span class="spec-pill">Weight: 35g min</span>
+            <span class="spec-pill">Material: Satin</span>
+          </div>
+          <div class="app-moves">
+            <h4>Famous moves</h4>
+            <ul class="moves-list">
+              <li>Snakes</li>
+              <li>Spirals</li>
+              <li>Circles</li>
+              <li>Figure-8s</li>
+              <li>Throws and catches</li>
+            </ul>
+          </div>
+          <div class="difficulty-bar">
+            <div class="diff-label">Difficulty</div>
+            <div class="diff-track"><div class="diff-fill" style="width:92%;background:linear-gradient(90deg,#FF6BB5,#FF8C42);"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="apparatus-item reverse reveal">
+        <div class="app-visual av-ball">
+          <span class="app-emoji-big">🔵</span>
+        </div>
+        <div class="app-content">
+          <span class="app-subtitle" style="color:var(--purple);">Apparatus No. 2</span>
+          <h2>Ball</h2>
+          <p class="app-desc">The ball is all about softness, flow, rolling, and continuous connection with the gymnast’s body. It should never look forced.</p>
+          <div class="app-specs">
+            <span class="spec-pill">Diameter: 18–20 cm</span>
+            <span class="spec-pill">Weight: 400g min</span>
+            <span class="spec-pill">Material: Rubber</span>
+          </div>
+          <div class="app-moves">
+            <h4>Famous moves</h4>
+            <ul class="moves-list">
+              <li>Body rolls</li>
+              <li>Bounces</li>
+              <li>High throws</li>
+              <li>Balancing</li>
+              <li>Floor rolls</li>
+            </ul>
+          </div>
+          <div class="difficulty-bar">
+            <div class="diff-label">Difficulty</div>
+            <div class="diff-track"><div class="diff-fill" style="width:85%;background:linear-gradient(90deg,#A855F7,#4FC3F7);"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="apparatus-item reveal">
+        <div class="app-visual av-clubs">
+          <span class="app-emoji-big">🥢</span>
+        </div>
+        <div class="app-content">
+          <span class="app-subtitle" style="color:var(--teal);">Apparatus No. 3</span>
+          <h2>Clubs</h2>
+          <p class="app-desc">Clubs are one of the most technical apparatus because both hands work separately while the gymnast performs jumps, balances, and turns.</p>
+          <div class="app-specs">
+            <span class="spec-pill">Length: 40–50 cm</span>
+            <span class="spec-pill">Weight: 150g min each</span>
+            <span class="spec-pill">Quantity: 2 clubs</span>
+          </div>
+          <div class="app-moves">
+            <h4>Famous moves</h4>
+            <ul class="moves-list">
+              <li>Mills</li>
+              <li>Asymmetric throws</li>
+              <li>Juggling catches</li>
+              <li>Body contact</li>
+              <li>Simultaneous throws</li>
+            </ul>
+          </div>
+          <div class="difficulty-bar">
+            <div class="diff-label">Difficulty</div>
+            <div class="diff-track"><div class="diff-fill" style="width:97%;background:linear-gradient(90deg,#00D4C8,#A8E063);"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="apparatus-item reverse reveal">
+        <div class="app-visual av-hoop">
+          <span class="app-emoji-big">⭕</span>
+        </div>
+        <div class="app-content">
+          <span class="app-subtitle" style="color:var(--yellow);">Apparatus No. 4</span>
+          <h2>Hoop</h2>
+          <p class="app-desc">The hoop adds strong circular geometry to routines and can be rolled, spun, jumped through, or thrown very high.</p>
+          <div class="app-specs">
+            <span class="spec-pill">Diameter: 80–90 cm</span>
+            <span class="spec-pill">Weight: 300g min</span>
+            <span class="spec-pill">Material: Plastic</span>
+          </div>
+          <div class="app-moves">
+            <h4>Famous moves</h4>
+            <ul class="moves-list">
+              <li>Spinning</li>
+              <li>Jumping through</li>
+              <li>Rolling</li>
+              <li>High throws</li>
+              <li>Pirouette catches</li>
+            </ul>
+          </div>
+          <div class="difficulty-bar">
+            <div class="diff-label">Difficulty</div>
+            <div class="diff-track"><div class="diff-fill" style="width:88%;background:linear-gradient(90deg,#FFD700,#FF8C42);"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="apparatus-item reveal">
+        <div class="app-visual av-rope">
+          <span class="app-emoji-big">🪢</span>
+        </div>
+        <div class="app-content">
+          <span class="app-subtitle" style="color:var(--orange);">Apparatus No. 5</span>
+          <h2>Rope</h2>
+          <p class="app-desc">The rope gives routines speed, jump rhythm, and lively energy. It often creates some of the fastest-looking moments in rhythmic gymnastics.</p>
+          <div class="app-specs">
+            <span class="spec-pill">Length: Proportional to gymnast</span>
+            <span class="spec-pill">No handles</span>
+            <span class="spec-pill">Fast movement</span>
+          </div>
+          <div class="app-moves">
+            <h4>Famous moves</h4>
+            <ul class="moves-list">
+              <li>Skipping patterns</li>
+              <li>Big swings</li>
+              <li>Rope throws</li>
+              <li>Body wrapping</li>
+              <li>Folded rope jumps</li>
+            </ul>
+          </div>
+          <div class="difficulty-bar">
+            <div class="diff-label">Difficulty</div>
+            <div class="diff-track"><div class="diff-fill" style="width:80%;background:linear-gradient(90deg,#FF8C42,#FFD700);"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <h3>Rhythmic Gymnastics World</h3>
+      <p>Grace · Rhythm · Beauty · Power · Art</p>
+      <p style="margin-top:8px;font-size:0.85rem;opacity:0.7;">Made with love by Laila</p>
+      <div class="footer-emojis">🎀 🔵 🥢 ⭕ 🪢</div>
+    </footer>
+  </div>
+
+  <!-- VIDEOS -->
+  <div id="page-videos" class="page">
+    <div class="vid-hero">
+      <h1>Watch & Be Amazed</h1>
+      <p>Explore routines from top rhythmic gymnasts and enjoy different apparatus styles.</p>
+    </div>
+
+    <div class="athlete-tabs">
+      <button class="tab-btn active" onclick="showAthlete('sofia', this)">Sofia Raffaeli</button>
+      <button class="tab-btn" onclick="showAthlete('stiliana', this)">Stiliana Nikolova</button>
+      <button class="tab-btn" onclick="showAthlete('all', this)">All Apparatus</button>
+    </div>
+
+    <div id="athlete-sofia" class="athlete-section active">
+      <div class="athlete-profile">
+        <div class="profile-card">
+          <div class="profile-avatar" style="background:linear-gradient(135deg,#FFE0CC,#FF8C42);">🇮🇹</div>
+          <div class="profile-info">
+            <h2>Sofia Raffaeli</h2>
+            <span class="p-country" style="background:linear-gradient(135deg,#FF6BB5,#FF8C42);">Italy</span>
+            <p>Sofia Raffaeli is known for expressive artistry, flexibility, and refined control. Her performances often combine elegance, sharp technique, and powerful apparatus work.</p>
+            <div class="profile-achievements">
+              <span class="ach-badge">World Champion</span>
+              <span class="ach-badge">Olympic Medalist</span>
+              <span class="ach-badge">World Cup Winner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="videos-section">
+        <div class="vid-category-title" style="color:var(--pink);">🎀 Sofia — Ribbon</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=5UlWXIuHbBs')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/5UlWXIuHbBs?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Sofia Raffaeli — Ribbon 2023 World Championships</h4>
+              <div class="vid-meta">World Championships</div>
+              <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=y0d2oXJvRNQ')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/y0d2oXJvRNQ?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Sofia Raffaeli — Ribbon World Cup 2022</h4>
+              <div class="vid-meta">World Cup Series</div>
+              <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=lrx5bTFmzqk')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/lrx5bTFmzqk?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Sofia Raffaeli — Ribbon Compilation</h4>
+              <div class="vid-meta">Best moments</div>
+              <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vid-category-title" style="color:var(--purple);">🔵 Sofia — Ball</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=4RzKn10OjnE')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/4RzKn10OjnE?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Sofia Raffaeli — Ball World Championships</h4>
+              <div class="vid-meta">World Championships</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=U_cFKEbJcMc')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/U_cFKEbJcMc?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Sofia Raffaeli — Ball 2024 Olympic Games</h4>
+              <div class="vid-meta">Olympic Games</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=JgQ7asMrp_k')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/JgQ7asMrp_k?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Sofia Raffaeli — Ball Grand Prix Final</h4>
+              <div class="vid-meta">Grand Prix</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vid-category-title" style="color:var(--teal);">🥢 Sofia — Clubs & Hoop</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=oHqiY5rOo0Y')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/oHqiY5rOo0Y?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Sofia Raffaeli — Clubs World Championships</h4>
+              <div class="vid-meta">World Championships</div>
+              <span class="vid-apparatus-tag" style="background:var(--teal);">🥢 Clubs</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=mB2xKR-dMSI')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/mB2xKR-dMSI?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Sofia Raffaeli — Hoop European Championship</h4>
+              <div class="vid-meta">European Championship</div>
+              <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=Y_IFuaXJGzE')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/Y_IFuaXJGzE?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Sofia Raffaeli — Olympic All-Around 2024</h4>
+              <div class="vid-meta">All-around</div>
+              <span class="vid-apparatus-tag" style="background:var(--orange);">All-around</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-```
-<div class="videos-section">
-  <div class="vid-category-title" style="color:var(--pink);">🎀 Sofia — Ribbon Routines</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=5UlWXIuHbBs')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/5UlWXIuHbBs?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
+    <div id="athlete-stiliana" class="athlete-section">
+      <div class="athlete-profile">
+        <div class="profile-card">
+          <div class="profile-avatar" style="background:linear-gradient(135deg,#CCE8FF,#4FC3F7);">🇧🇬</div>
+          <div class="profile-info">
+            <h2>Stiliana Nikolova</h2>
+            <span class="p-country" style="background:linear-gradient(135deg,#A855F7,#4FC3F7);">Bulgaria</span>
+            <p>Stiliana Nikolova is known for strong emotion, dynamic execution, and impressive body work. Her routines feel intense, elegant, and technically rich.</p>
+            <div class="profile-achievements">
+              <span class="ach-badge">World Cup Medals</span>
+              <span class="ach-badge">European Medalist</span>
+              <span class="ach-badge">Bulgarian Champion</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="vid-info">
-        <h4>Sofia Raffaeli — Ribbon 2023 World Championships</h4>
-        <div class="vid-meta">🏆 World Championships 2023</div>
-        <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=y0d2oXJvRNQ')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/y0d2oXJvRNQ?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Sofia Raffaeli — Ribbon World Cup 2022</h4>
-        <div class="vid-meta">🌍 World Cup Series</div>
-        <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=lrx5bTFmzqk')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/lrx5bTFmzqk?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Sofia Raffaeli — Beautiful Ribbon Compilation</h4>
-        <div class="vid-meta">🌟 Best Moments</div>
-        <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
-      </div>
-    </div>
-  </div>
 
-  <div class="vid-category-title" style="color:var(--purple);">⚾ Sofia — Ball Routines</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=4RzKn10OjnE')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/4RzKn10OjnE?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Sofia Raffaeli — Ball World Championships 2022</h4>
-        <div class="vid-meta">🏆 World Championships 2022</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">⚾ Ball</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=U_cFKEbJcMc')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/U_cFKEbJcMc?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Sofia Raffaeli — Ball 2024 Olympic Games</h4>
-        <div class="vid-meta">🏅 Paris Olympics 2024</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">⚾ Ball</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=JgQ7asMrp_k')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/JgQ7asMrp_k?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Sofia Raffaeli — Ball Grand Prix Final</h4>
-        <div class="vid-meta">🌍 Grand Prix</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">⚾ Ball</span>
-      </div>
-    </div>
-  </div>
+      <div class="videos-section">
+        <div class="vid-category-title" style="color:var(--purple);">🔵 Stiliana — Ball</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=LhBvmvqSSsw')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/LhBvmvqSSsw?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stiliana Nikolova — Ball World Championships</h4>
+              <div class="vid-meta">World Championships</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
+            </div>
+          </div>
 
-  <div class="vid-category-title" style="color:var(--teal);">🏸 Sofia — Clubs & Hoop</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=oHqiY5rOo0Y')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/oHqiY5rOo0Y?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Sofia Raffaeli — Clubs World Championships</h4>
-        <div class="vid-meta">🏆 World Championships</div>
-        <span class="vid-apparatus-tag" style="background:var(--teal);">🏸 Clubs</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=mB2xKR-dMSI')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/mB2xKR-dMSI?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Sofia Raffaeli — Hoop 2023 European Championship</h4>
-        <div class="vid-meta">🌍 European Championship 2023</div>
-        <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=Y_IFuaXJGzE')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/Y_IFuaXJGzE?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Sofia Raffaeli — Olympic All-Around 2024</h4>
-        <div class="vid-meta">🏅 Paris Olympics 2024</div>
-        <span class="vid-apparatus-tag" style="background:var(--orange);">🌟 All-Around</span>
-      </div>
-    </div>
-  </div>
-</div>
-```
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=7Vf0B_w4mBU')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/7Vf0B_w4mBU?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stiliana Nikolova — Ball World Cup</h4>
+              <div class="vid-meta">World Cup</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
+            </div>
+          </div>
 
-  </div>
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=B5bGnvYVGBw')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/B5bGnvYVGBw?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stiliana Nikolova — Ball Grand Prix</h4>
+              <div class="vid-meta">Grand Prix Final</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
+            </div>
+          </div>
+        </div>
 
-  <!-- ── STILIANA ── -->
+        <div class="vid-category-title" style="color:var(--pink);">🎀 Stiliana — Ribbon & Hoop</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=LGHcHSL7mog')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/LGHcHSL7mog?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stiliana Nikolova — Ribbon World Championships</h4>
+              <div class="vid-meta">World Championships</div>
+              <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
+            </div>
+          </div>
 
-  <div id="athlete-stiliana" class="athlete-section">
-    <div class="athlete-profile">
-      <div class="profile-card">
-        <div class="profile-avatar" style="background:linear-gradient(135deg,#CCE8FF,#4FC3F7);">🇧🇬</div>
-        <div class="profile-info">
-          <h2>Stiliana Nikolova</h2>
-          <span class="p-country" style="background:linear-gradient(135deg,#A855F7,#4FC3F7);">🇧🇬 Bulgaria</span>
-          <p>Stiliana Nikolova, also known as "Stili," is one of the most expressive and powerful gymnasts competing today. Born in Bulgaria in 2004, she represents the long tradition of Bulgarian excellence in rhythmic gymnastics. Stiliana is famous for her intense artistry, incredible body work, and technical difficulty. Every routine she performs is deeply emotional and leaves audiences completely mesmerized. She has won numerous World Cup medals and is a top contender at every major competition!</p>
-          <div class="profile-achievements">
-            <span class="ach-badge">🏅 World Cup Medals</span>
-            <span class="ach-badge">⭐ European Medalist</span>
-            <span class="ach-badge">🇧🇬 Bulgarian Champion</span>
-            <span class="ach-badge">🌟 Born: 2004</span>
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=3nMXbdBaT9s')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/3nMXbdBaT9s?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stiliana Nikolova — Hoop Championship</h4>
+              <div class="vid-meta">European Championship</div>
+              <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=4sMJqGakbkc')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/4sMJqGakbkc?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stiliana Nikolova — Clubs World Cup</h4>
+              <div class="vid-meta">World Cup</div>
+              <span class="vid-apparatus-tag" style="background:var(--teal);">🥢 Clubs</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-```
-<div class="videos-section">
-  <div class="vid-category-title" style="color:var(--purple);">⚾ Stiliana — Ball Routines</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=LhBvmvqSSsw')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/LhBvmvqSSsw?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Stiliana Nikolova — Ball World Championships 2022</h4>
-        <div class="vid-meta">🏆 World Championships 2022</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">⚾ Ball</span>
+    <div id="athlete-all" class="athlete-section">
+      <div class="videos-section">
+        <div class="vid-category-title" style="color:var(--pink);">🎀 Best Ribbon Routines</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=GHRSFb9duU0')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/GHRSFb9duU0?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Top Ribbon Routines</h4>
+              <div class="vid-meta">Olympic compilation</div>
+              <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=6-3ViYk3kLw')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/6-3ViYk3kLw?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Beautiful Ribbon Collection</h4>
+              <div class="vid-meta">Best ever</div>
+              <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vid-category-title" style="color:var(--purple);">🔵 Best Ball Routines</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=Fq7b2oTa0JE')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/Fq7b2oTa0JE?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Graceful Ball Routines</h4>
+              <div class="vid-meta">All-time favorites</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=3sOV3bwgXE8')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/3sOV3bwgXE8?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Ball World Cup Highlights</h4>
+              <div class="vid-meta">World Cup</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vid-category-title" style="color:var(--teal);">🥢 Best Clubs Routines</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=x0PNCQ3BNDY')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/x0PNCQ3BNDY?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Incredible Clubs Throws & Catches</h4>
+              <div class="vid-meta">Compilation</div>
+              <span class="vid-apparatus-tag" style="background:var(--teal);">🥢 Clubs</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=0FtHoJ8BQMA')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/0FtHoJ8BQMA?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Clubs World Championship Highlights</h4>
+              <div class="vid-meta">World Championships</div>
+              <span class="vid-apparatus-tag" style="background:var(--teal);">🥢 Clubs</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vid-category-title" style="color:var(--yellow);">⭕ Best Hoop Routines</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=dU0KNGm0Bkk')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/dU0KNGm0Bkk?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Hoop Championship Routines</h4>
+              <div class="vid-meta">World Championships</div>
+              <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=C6WMfn_KLSM')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/C6WMfn_KLSM?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stunning Hoop Olympic Routines</h4>
+              <div class="vid-meta">Olympic Games</div>
+              <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=7Vf0B_w4mBU')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/7Vf0B_w4mBU?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Stiliana Nikolova — Ball 2023 World Cup</h4>
-        <div class="vid-meta">🌍 World Cup 2023</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">⚾ Ball</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=B5bGnvYVGBw')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/B5bGnvYVGBw?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Stiliana Nikolova — Ball Grand Prix</h4>
-        <div class="vid-meta">🌍 Grand Prix Final</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">⚾ Ball</span>
-      </div>
-    </div>
+
+    <footer>
+      <h3>Rhythmic Gymnastics World</h3>
+      <p>Grace · Rhythm · Beauty · Power · Art</p>
+      <p style="margin-top:8px;font-size:0.85rem;opacity:0.7;">Made with love by Laila</p>
+      <div class="footer-emojis">🎀 🔵 🥢 ⭕ 🪢</div>
+    </footer>
   </div>
 
-  <div class="vid-category-title" style="color:var(--pink);">🎀 Stiliana — Ribbon & Hoop</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=LGHcHSL7mog')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/LGHcHSL7mog?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Stiliana Nikolova — Ribbon World Championships 2023</h4>
-        <div class="vid-meta">🏆 World Championships 2023</div>
-        <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=3nMXbdBaT9s')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/3nMXbdBaT9s?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Stiliana Nikolova — Hoop European Championships</h4>
-        <div class="vid-meta">🌍 European Championship</div>
-        <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=4sMJqGakbkc')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/4sMJqGakbkc?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Stiliana Nikolova — Clubs World Cup</h4>
-        <div class="vid-meta">🌍 World Cup</div>
-        <span class="vid-apparatus-tag" style="background:var(--teal);">🏸 Clubs</span>
-      </div>
-    </div>
-  </div>
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    if (window.innerWidth > 768) {
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+    }
 
-  <div class="vid-category-title" style="color:var(--blue);">🌟 Stiliana — Olympic & Best Moments</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=QBK_w2pv0NQ')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/QBK_w2pv0NQ?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Stiliana Nikolova — Paris Olympics 2024</h4>
-        <div class="vid-meta">🏅 Olympic Games Paris 2024</div>
-        <span class="vid-apparatus-tag" style="background:var(--blue);">🏅 Olympics</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=eVyINqHm0U8')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/eVyINqHm0U8?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Stiliana Nikolova — Best Moments Compilation</h4>
-        <div class="vid-meta">🌟 Greatest Moments</div>
-        <span class="vid-apparatus-tag" style="background:var(--orange);">⭐ Best Of</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=B6fPqmRE_Uk')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/B6fPqmRE_Uk?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Stiliana Nikolova — All-Around 2023</h4>
-        <div class="vid-meta">🏆 All-Around Competition</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">🌟 All-Around</span>
-      </div>
-    </div>
-  </div>
-</div>
-```
+    // Floating ribbons
+    const ribbonColors = ['#FF6BB5','#A855F7','#FFD700','#00D4C8','#FF8C42','#4FC3F7','#A8E063'];
+    const ribbonContainer = document.getElementById('ribbons');
 
-  </div>
+    for (let i = 0; i < 22; i++) {
+      const r = document.createElement('div');
+      r.classList.add('ribbon');
+      r.style.left = Math.random() * 100 + 'vw';
+      r.style.height = (60 + Math.random() * 130) + 'px';
+      r.style.background = ribbonColors[Math.floor(Math.random() * ribbonColors.length)];
+      r.style.animationDuration = (9 + Math.random() * 13) + 's';
+      r.style.animationDelay = (Math.random() * 12) + 's';
+      r.style.width = (2.5 + Math.random() * 3) + 'px';
+      ribbonContainer.appendChild(r);
+    }
 
-  <!-- ── ALL APPARATUS ── -->
+    // Page navigation
+    function showPage(id, link) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
 
-  <div id="athlete-all" class="athlete-section">
-    <div class="videos-section">
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      if (link) link.classList.add('active');
 
-```
-  <div class="vid-category-title" style="color:var(--pink);">🎀 Best Ribbon Routines Ever</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=GHRSFb9duU0')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/GHRSFb9duU0?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Top Ribbon Routines — Olympic Champions</h4>
-        <div class="vid-meta">🏅 Olympic Compilation</div>
-        <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=6-3ViYk3kLw')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/6-3ViYk3kLw?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Most Beautiful Ribbon Routines Collection</h4>
-        <div class="vid-meta">🌟 Best Ever Collection</div>
-        <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=RZdZC6cH_lA')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/RZdZC6cH_lA?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Ribbon — World Championships Highlights</h4>
-        <div class="vid-meta">🏆 World Championship Best</div>
-        <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
-      </div>
-    </div>
-  </div>
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      triggerReveal();
+      closeMobileMenu();
+    }
 
-  <div class="vid-category-title" style="color:var(--purple);">⚾ Best Ball Routines Ever</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=Fq7b2oTa0JE')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/Fq7b2oTa0JE?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Ball — Most Graceful Routines Ever</h4>
-        <div class="vid-meta">🌟 All-Time Favorites</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">⚾ Ball</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=3sOV3bwgXE8')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/3sOV3bwgXE8?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Ball — World Cup Top Moments</h4>
-        <div class="vid-meta">🌍 World Cup Highlights</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">⚾ Ball</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=Y9kKFG9bFzM')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/Y9kKFG9bFzM?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Ball — Olympic Games Amazing Routines</h4>
-        <div class="vid-meta">🏅 Olympic Games</div>
-        <span class="vid-apparatus-tag" style="background:var(--purple);">⚾ Ball</span>
-      </div>
-    </div>
-  </div>
+    // Athlete tabs
+    function showAthlete(id, btn) {
+      document.querySelectorAll('.athlete-section').forEach(section => section.classList.remove('active'));
+      document.getElementById('athlete-' + id).classList.add('active');
 
-  <div class="vid-category-title" style="color:var(--teal);">🏸 Best Clubs Routines Ever</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=x0PNCQ3BNDY')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/x0PNCQ3BNDY?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Clubs — Most Incredible Throws & Catches</h4>
-        <div class="vid-meta">🌟 Incredible Compilation</div>
-        <span class="vid-apparatus-tag" style="background:var(--teal);">🏸 Clubs</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=0FtHoJ8BQMA')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/0FtHoJ8BQMA?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Clubs — World Championships Best Routines</h4>
-        <div class="vid-meta">🏆 World Championships</div>
-        <span class="vid-apparatus-tag" style="background:var(--teal);">🏸 Clubs</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=JHt5OIUO9ac')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/JHt5OIUO9ac?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Clubs — Olympic Final Highlights</h4>
-        <div class="vid-meta">🏅 Olympic Games</div>
-        <span class="vid-apparatus-tag" style="background:var(--teal);">🏸 Clubs</span>
-      </div>
-    </div>
-  </div>
+      document.querySelectorAll('.tab-btn').forEach(button => button.classList.remove('active'));
+      btn.classList.add('active');
 
-  <div class="vid-category-title" style="color:var(--yellow);text-shadow:0 1px 3px rgba(0,0,0,0.1);">⭕ Best Hoop Routines Ever</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=GHRSFb9duU0')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/GHRSFb9duU0?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Hoop — Flying Through The Air Amazing Moments</h4>
-        <div class="vid-meta">🌟 Best Hoop Highlights</div>
-        <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=dU0KNGm0Bkk')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/dU0KNGm0Bkk?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Hoop — World Championships Top Routines</h4>
-        <div class="vid-meta">🏆 World Championships</div>
-        <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=C6WMfn_KLSM')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/C6WMfn_KLSM?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Hoop — Olympic Games Most Stunning Routines</h4>
-        <div class="vid-meta">🏅 Olympic Games</div>
-        <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
-      </div>
-    </div>
-  </div>
+      window.scrollTo({ top: 260, behavior: 'smooth' });
+    }
 
-  <div class="vid-category-title" style="color:var(--orange);">🪢 Best Rope Routines Ever</div>
-  <div class="vid-grid">
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=fsFjWQp7sFM')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/fsFjWQp7sFM?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Rope — Fastest & Most Exciting Routines</h4>
-        <div class="vid-meta">🌟 Rope Highlights</div>
-        <span class="vid-apparatus-tag" style="background:var(--orange);">🪢 Rope</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=YX_4EGS0FTg')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/YX_4EGS0FTg?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Rope — World Championships Amazing Jumps</h4>
-        <div class="vid-meta">🏆 World Championships</div>
-        <span class="vid-apparatus-tag" style="background:var(--orange);">🪢 Rope</span>
-      </div>
-    </div>
-    <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=9HXkpFneSc0')">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/9HXkpFneSc0?autoplay=0&mute=1" allowfullscreen loading="lazy"></iframe>
-        <div class="play-overlay"><div class="play-btn">▶</div></div>
-      </div>
-      <div class="vid-info">
-        <h4>Rope — Best Throws & Catches Olympics</h4>
-        <div class="vid-meta">🏅 Olympic Rope Finals</div>
-        <span class="vid-apparatus-tag" style="background:var(--orange);">🪢 Rope</span>
-      </div>
-    </div>
-  </div>
+    // Open video
+    function openVideo(url) {
+      window.open(url, '_blank');
+    }
 
-</div>
-```
+    // Reveal
+    let observer;
+    function triggerReveal() {
+      const reveals = document.querySelectorAll('.reveal');
 
-  </div>
+      if (observer) observer.disconnect();
 
-  <footer>
-    <h3>✨ Rhythmic Gymnastics World ✨</h3>
-    <p>Grace · Rhythm · Beauty · Power · Art</p>
-    <p style="margin-top:8px;font-size:0.85rem;opacity:0.5;">Made with 💖 by Laila</p>
-    <div class="footer-emojis">🎀⭐🤸‍♀️🌟🎵</div>
-  </footer>
-</div>
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
 
-<script>
-// ── Custom cursor ──
-const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
+      reveals.forEach(el => {
+        if (!el.classList.contains('visible')) {
+          observer.observe(el);
+        }
+      });
+    }
 
-// ── Floating ribbons ──
-const ribbonColors = ['#FF6BB5','#A855F7','#FFD700','#00D4C8','#FF8C42','#4FC3F7','#A8E063'];
-const container = document.getElementById('ribbons');
-for (let i = 0; i < 22; i++) {
-  const r = document.createElement('div');
-  r.classList.add('ribbon');
-  r.style.left = Math.random() * 100 + 'vw';
-  r.style.height = (60 + Math.random() * 130) + 'px';
-  r.style.background = ribbonColors[Math.floor(Math.random() * ribbonColors.length)];
-  r.style.animationDuration = (9 + Math.random() * 13) + 's';
-  r.style.animationDelay = (Math.random() * 12) + 's';
-  r.style.width = (2.5 + Math.random() * 3) + 'px';
-  container.appendChild(r);
-}
+    triggerReveal();
 
-// ── Page navigation ──
-function showPage(id, link) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  link.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  triggerReveal();
-}
+    // Theme toggle
+    const htmlEl = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
 
-// ── Athlete tabs ──
-function showAthlete(id, btn) {
-  document.querySelectorAll('.athlete-section').forEach(s => s.classList.remove('active'));
-  document.getElementById('athlete-' + id).classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  window.scrollTo({ top: 300, behavior: 'smooth' });
-}
+    function updateThemeButton() {
+      const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+      themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    }
 
-// ── Open video ──
-function openVideo(url) {
-  window.open(url, '_blank');
-}
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = htmlEl.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', newTheme);
+      localStorage.setItem('rg-theme', newTheme);
+      updateThemeButton();
+    });
 
-// ── Scroll reveal ──
-function triggerReveal() {
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
+    const savedTheme = localStorage.getItem('rg-theme');
+    if (savedTheme) {
+      htmlEl.setAttribute('data-theme', savedTheme);
+    }
+    updateThemeButton();
+
+    // Mobile menu
+    const navbar = document.getElementById('navbar');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+    function closeMobileMenu() {
+      navbar.classList.remove('open');
+      mobileMenuBtn.textContent = '☰';
+    }
+
+    mobileMenuBtn.addEventListener('click', () => {
+      navbar.classList.toggle('open');
+      mobileMenuBtn.textContent = navbar.classList.contains('open') ? '✕' : '☰';
+    });
+
+    // Close menu on resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        closeMobileMenu();
       }
     });
-  }, { threshold: 0.08 });
-  reveals.forEach(r => {
-    r.classList.remove('visible');
-    observer.observe(r);
-  });
-}
-
-triggerReveal();
-document.addEventListener('scroll', triggerReveal, { passive:true });
-</script>
-
+  </script>
 </body>
 </html>
