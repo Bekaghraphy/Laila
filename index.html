@@ -68,7 +68,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Cursor */
     .cursor {
       width: 20px;
       height: 20px;
@@ -87,7 +86,6 @@
       opacity: 0.8;
     }
 
-    /* Floating background */
     .bg-ribbons {
       position: fixed;
       inset: 0;
@@ -121,7 +119,6 @@
       }
     }
 
-    /* Navbar */
     nav {
       position: fixed;
       top: 0;
@@ -136,7 +133,7 @@
       justify-content: space-between;
       gap: 20px;
       padding: 0 24px;
-      height: 72px;
+      min-height: 72px;
     }
 
     .nav-logo {
@@ -154,6 +151,8 @@
       display: flex;
       align-items: center;
       gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .nav-links {
@@ -161,6 +160,8 @@
       align-items: center;
       gap: 8px;
       list-style: none;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .nav-links li a {
@@ -197,22 +198,14 @@
       cursor: pointer;
       transition: 0.3s ease;
       box-shadow: 0 8px 18px rgba(79, 195, 247, 0.22);
+      white-space: nowrap;
+      font-family: 'Montserrat', sans-serif;
     }
 
     .toggle-btn:hover {
       transform: translateY(-2px);
     }
 
-    .mobile-menu-btn {
-      display: none;
-      background: transparent;
-      border: none;
-      color: var(--text);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    /* Pages */
     .page {
       display: none;
       padding-top: 72px;
@@ -224,7 +217,6 @@
       display: block;
     }
 
-    /* Reveal */
     .reveal {
       opacity: 0;
       transform: translateY(32px);
@@ -236,7 +228,6 @@
       transform: translateY(0);
     }
 
-    /* Hero */
     .hero {
       min-height: calc(100vh - 72px);
       display: flex;
@@ -332,7 +323,6 @@
       50% { opacity: 1; transform: scale(1.25) rotate(25deg); }
     }
 
-    /* Shared sections */
     .info-section,
     .apparatus-section,
     .videos-section {
@@ -394,7 +384,6 @@
       font-weight: 600;
     }
 
-    /* Timeline */
     .history-wrap {
       width: min(1000px, calc(100% - 32px));
       margin: 0 auto;
@@ -458,7 +447,6 @@
       font-size: 0.94rem;
     }
 
-    /* Stats */
     .stats-strip {
       position: relative;
       z-index: 1;
@@ -496,7 +484,6 @@
       line-height: 1.6;
     }
 
-    /* Champions */
     .champions-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -579,7 +566,6 @@
       border: 1px solid var(--border);
     }
 
-    /* Apparatus page */
     .app-hero,
     .vid-hero {
       position: relative;
@@ -795,7 +781,6 @@
       from { width: 0; }
     }
 
-    /* Videos */
     .athlete-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -1004,7 +989,6 @@
       display: block;
     }
 
-    /* Footer */
     footer {
       position: relative;
       z-index: 1;
@@ -1038,7 +1022,6 @@
       margin-top: 16px;
     }
 
-    /* Mobile */
     @media (max-width: 900px) {
       .apparatus-item {
         grid-template-columns: 1fr;
@@ -1061,19 +1044,20 @@
       }
 
       nav {
-        padding: 0 14px;
-        height: 64px;
-        gap: 10px;
-        flex-wrap: wrap;
-        align-items: center;
+        padding: 12px 14px;
+        min-height: auto;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
       }
 
       .page {
-        padding-top: 64px;
+        padding-top: 120px;
       }
 
-      .mobile-menu-btn {
-        display: block;
+      .nav-logo {
+        font-size: 1.08rem;
+        text-align: center;
       }
 
       .nav-center {
@@ -1081,36 +1065,26 @@
         flex-direction: column;
         align-items: stretch;
         gap: 10px;
-        display: none;
-        padding-bottom: 14px;
-      }
-
-      nav.open .nav-center {
-        display: flex;
       }
 
       .nav-links {
         width: 100%;
-        flex-direction: column;
+        justify-content: center;
         gap: 8px;
       }
 
-      .nav-links li,
-      .nav-links li a {
-        width: 100%;
+      .nav-links li {
+        flex: 1 1 auto;
       }
 
       .nav-links li a {
-        justify-content: center;
-        padding: 12px 16px;
+        width: 100%;
+        padding: 11px 10px;
+        font-size: 0.88rem;
       }
 
       .toggle-btn {
         width: 100%;
-      }
-
-      .nav-logo {
-        font-size: 1.08rem;
       }
 
       .hero {
@@ -1169,13 +1143,11 @@
   <nav id="navbar">
     <div class="nav-logo">RhythmWorld</div>
 
-    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">☰</button>
-
     <div class="nav-center" id="navCenter">
       <ul class="nav-links">
-        <li><a href="#" class="active" onclick="showPage('home', this)">Home</a></li>
-        <li><a href="#" onclick="showPage('apparatus', this)">Apparatus</a></li>
-        <li><a href="#" onclick="showPage('videos', this)">Videos</a></li>
+        <li><a href="#" class="active" onclick="showPage('home', this); return false;">Home</a></li>
+        <li><a href="#" onclick="showPage('apparatus', this); return false;">Apparatus</a></li>
+        <li><a href="#" onclick="showPage('videos', this); return false;">Videos</a></li>
       </ul>
 
       <button class="toggle-btn" id="themeToggle" type="button">🌙 Dark Mode</button>
@@ -1578,7 +1550,7 @@
         <div class="vid-grid">
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=5UlWXIuHbBs')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/5UlWXIuHbBs?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/5UlWXIuHbBs?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1590,7 +1562,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=y0d2oXJvRNQ')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/y0d2oXJvRNQ?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/y0d2oXJvRNQ?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1602,7 +1574,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=lrx5bTFmzqk')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/lrx5bTFmzqk?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/lrx5bTFmzqk?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1617,7 +1589,7 @@
         <div class="vid-grid">
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=4RzKn10OjnE')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/4RzKn10OjnE?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/4RzKn10OjnE?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1629,7 +1601,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=U_cFKEbJcMc')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/U_cFKEbJcMc?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/U_cFKEbJcMc?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1641,7 +1613,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=JgQ7asMrp_k')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/JgQ7asMrp_k?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/JgQ7asMrp_k?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1656,7 +1628,7 @@
         <div class="vid-grid">
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=oHqiY5rOo0Y')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/oHqiY5rOo0Y?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/oHqiY5rOo0Y?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1668,7 +1640,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=mB2xKR-dMSI')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/mB2xKR-dMSI?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/mB2xKR-dMSI?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1680,7 +1652,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=Y_IFuaXJGzE')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/Y_IFuaXJGzE?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/Y_IFuaXJGzE?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1715,7 +1687,7 @@
         <div class="vid-grid">
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=LhBvmvqSSsw')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/LhBvmvqSSsw?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/LhBvmvqSSsw?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1727,7 +1699,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=7Vf0B_w4mBU')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/7Vf0B_w4mBU?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/7Vf0B_w4mBU?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1739,7 +1711,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=B5bGnvYVGBw')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/B5bGnvYVGBw?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/B5bGnvYVGBw?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1754,7 +1726,7 @@
         <div class="vid-grid">
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=LGHcHSL7mog')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/LGHcHSL7mog?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/LGHcHSL7mog?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1766,7 +1738,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=3nMXbdBaT9s')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/3nMXbdBaT9s?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/3nMXbdBaT9s?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1778,13 +1750,52 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=4sMJqGakbkc')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/4sMJqGakbkc?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/4sMJqGakbkc?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
               <h4>Stiliana Nikolova — Clubs World Cup</h4>
               <div class="vid-meta">World Cup</div>
               <span class="vid-apparatus-tag" style="background:var(--teal);">🥢 Clubs</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vid-category-title" style="color:var(--blue);">🌟 Stiliana — Olympic & Best Moments</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=QBK_w2pv0NQ')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/QBK_w2pv0NQ?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stiliana Nikolova — Paris Olympics 2024</h4>
+              <div class="vid-meta">Olympic Games</div>
+              <span class="vid-apparatus-tag" style="background:var(--blue);">Olympics</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=eVyINqHm0U8')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/eVyINqHm0U8?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stiliana Nikolova — Best Moments Compilation</h4>
+              <div class="vid-meta">Greatest moments</div>
+              <span class="vid-apparatus-tag" style="background:var(--orange);">Best Of</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=B6fPqmRE_Uk')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/B6fPqmRE_Uk?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Stiliana Nikolova — All-Around 2023</h4>
+              <div class="vid-meta">All-around competition</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">All-around</span>
             </div>
           </div>
         </div>
@@ -1797,7 +1808,7 @@
         <div class="vid-grid">
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=GHRSFb9duU0')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/GHRSFb9duU0?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/GHRSFb9duU0?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1809,12 +1820,24 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=6-3ViYk3kLw')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/6-3ViYk3kLw?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/6-3ViYk3kLw?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
               <h4>Beautiful Ribbon Collection</h4>
               <div class="vid-meta">Best ever</div>
+              <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=RZdZC6cH_lA')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/RZdZC6cH_lA?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Ribbon World Championship Highlights</h4>
+              <div class="vid-meta">Highlights</div>
               <span class="vid-apparatus-tag" style="background:var(--pink);">🎀 Ribbon</span>
             </div>
           </div>
@@ -1824,7 +1847,7 @@
         <div class="vid-grid">
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=Fq7b2oTa0JE')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/Fq7b2oTa0JE?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/Fq7b2oTa0JE?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1836,12 +1859,24 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=3sOV3bwgXE8')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/3sOV3bwgXE8?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/3sOV3bwgXE8?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
               <h4>Ball World Cup Highlights</h4>
               <div class="vid-meta">World Cup</div>
+              <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=Y9kKFG9bFzM')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/Y9kKFG9bFzM?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Ball Olympic Amazing Routines</h4>
+              <div class="vid-meta">Olympic Games</div>
               <span class="vid-apparatus-tag" style="background:var(--purple);">🔵 Ball</span>
             </div>
           </div>
@@ -1851,7 +1886,7 @@
         <div class="vid-grid">
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=x0PNCQ3BNDY')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/x0PNCQ3BNDY?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/x0PNCQ3BNDY?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1863,7 +1898,7 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=0FtHoJ8BQMA')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/0FtHoJ8BQMA?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/0FtHoJ8BQMA?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1872,13 +1907,37 @@
               <span class="vid-apparatus-tag" style="background:var(--teal);">🥢 Clubs</span>
             </div>
           </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=JHt5OIUO9ac')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/JHt5OIUO9ac?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Clubs Olympic Final Highlights</h4>
+              <div class="vid-meta">Olympics</div>
+              <span class="vid-apparatus-tag" style="background:var(--teal);">🥢 Clubs</span>
+            </div>
+          </div>
         </div>
 
         <div class="vid-category-title" style="color:var(--yellow);">⭕ Best Hoop Routines</div>
         <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=GHRSFb9duU0')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/GHRSFb9duU0?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Hoop Amazing Moments</h4>
+              <div class="vid-meta">Best highlights</div>
+              <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
+            </div>
+          </div>
+
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=dU0KNGm0Bkk')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/dU0KNGm0Bkk?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/dU0KNGm0Bkk?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
@@ -1890,13 +1949,52 @@
 
           <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=C6WMfn_KLSM')">
             <div class="vid-thumb">
-              <iframe src="https://www.youtube.com/embed/C6WMfn_KLSM?autoplay=0&mute=1" loading="lazy" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/C6WMfn_KLSM?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               <div class="play-overlay"><div class="play-btn">▶</div></div>
             </div>
             <div class="vid-info">
               <h4>Stunning Hoop Olympic Routines</h4>
               <div class="vid-meta">Olympic Games</div>
               <span class="vid-apparatus-tag" style="background:var(--yellow);color:#333;">⭕ Hoop</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vid-category-title" style="color:var(--orange);">🪢 Best Rope Routines</div>
+        <div class="vid-grid">
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=fsFjWQp7sFM')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/fsFjWQp7sFM?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Fastest Rope Routines</h4>
+              <div class="vid-meta">Rope highlights</div>
+              <span class="vid-apparatus-tag" style="background:var(--orange);">🪢 Rope</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=YX_4EGS0FTg')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/YX_4EGS0FTg?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Rope Championship Amazing Jumps</h4>
+              <div class="vid-meta">World Championships</div>
+              <span class="vid-apparatus-tag" style="background:var(--orange);">🪢 Rope</span>
+            </div>
+          </div>
+
+          <div class="vid-card" onclick="openVideo('https://www.youtube.com/watch?v=9HXkpFneSc0')">
+            <div class="vid-thumb">
+              <iframe src="https://www.youtube.com/embed/9HXkpFneSc0?rel=0&modestbranding=1&autoplay=0&mute=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="play-overlay"><div class="play-btn">▶</div></div>
+            </div>
+            <div class="vid-info">
+              <h4>Rope Olympic Finals</h4>
+              <div class="vid-meta">Olympics</div>
+              <span class="vid-apparatus-tag" style="background:var(--orange);">🪢 Rope</span>
             </div>
           </div>
         </div>
@@ -1912,7 +2010,6 @@
   </div>
 
   <script>
-    // Cursor
     const cursor = document.getElementById('cursor');
     if (window.innerWidth > 768) {
       document.addEventListener('mousemove', (e) => {
@@ -1921,7 +2018,6 @@
       });
     }
 
-    // Floating ribbons
     const ribbonColors = ['#FF6BB5','#A855F7','#FFD700','#00D4C8','#FF8C42','#4FC3F7','#A8E063'];
     const ribbonContainer = document.getElementById('ribbons');
 
@@ -1937,7 +2033,6 @@
       ribbonContainer.appendChild(r);
     }
 
-    // Page navigation
     function showPage(id, link) {
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
       document.getElementById('page-' + id).classList.add('active');
@@ -1947,10 +2042,8 @@
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
       triggerReveal();
-      closeMobileMenu();
     }
 
-    // Athlete tabs
     function showAthlete(id, btn) {
       document.querySelectorAll('.athlete-section').forEach(section => section.classList.remove('active'));
       document.getElementById('athlete-' + id).classList.add('active');
@@ -1961,12 +2054,14 @@
       window.scrollTo({ top: 260, behavior: 'smooth' });
     }
 
-    // Open video
     function openVideo(url) {
-      window.open(url, '_blank');
+      if (window.innerWidth <= 768) {
+        window.location.href = url;
+      } else {
+        window.open(url, '_blank', 'noopener');
+      }
     }
 
-    // Reveal
     let observer;
     function triggerReveal() {
       const reveals = document.querySelectorAll('.reveal');
@@ -1991,7 +2086,6 @@
 
     triggerReveal();
 
-    // Theme toggle
     const htmlEl = document.documentElement;
     const themeToggle = document.getElementById('themeToggle');
 
@@ -2012,28 +2106,8 @@
     if (savedTheme) {
       htmlEl.setAttribute('data-theme', savedTheme);
     }
+
     updateThemeButton();
-
-    // Mobile menu
-    const navbar = document.getElementById('navbar');
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-
-    function closeMobileMenu() {
-      navbar.classList.remove('open');
-      mobileMenuBtn.textContent = '☰';
-    }
-
-    mobileMenuBtn.addEventListener('click', () => {
-      navbar.classList.toggle('open');
-      mobileMenuBtn.textContent = navbar.classList.contains('open') ? '✕' : '☰';
-    });
-
-    // Close menu on resize
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        closeMobileMenu();
-      }
-    });
   </script>
 </body>
 </html>
